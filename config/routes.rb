@@ -1,41 +1,37 @@
 Rails.application.routes.draw do
+  #管理者
+  namespace :admin do
+    get '/' => "homes#top"
 
-  namespace :admin do
-    get 'comments/index'
+    resources :comments, only: [:index, :destroy]
+
+    resources :users, only: [:show, :edit, :update]
+
+    resources :recipes, only: [:index, :show, :edit, :update, :destroy]
   end
-  namespace :admin do
-    get 'users/show'
-    get 'users/edit'
-  end
-  namespace :admin do
-    get 'recipes/index'
-    get 'recipes/show'
-    get 'recipes/edit'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-  namespace :public do
+
+  #会員
+  scope module: :public do
+    #最初にコメント一覧はないが念の為
     get 'post_comments/index'
-  end
-  namespace :public do
-    get 'favorites/index'
-  end
-  namespace :public do
-    get 'recipes/new'
-    get 'recipes/index'
-    get 'recipes/show'
-    get 'recipes/edit'
-    get 'recipes/draft_index'
-  end
-  namespace :public do
-    get 'users/mypage'
-    get 'users/show'
-    get 'users/edit'
-    get 'users/confirm_withdraw'
-  end
-  namespace :public do
-    get 'homes/top'
+
+    resources :favorites, only: [:index]
+
+    get 'recipes/draft_index' => 'recipes#draft_index'
+    resources :recipes, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+      resources :favorites, only: [:create, :destroy]
+      resources :post_comments, only: [:create, :destroy]
+    end
+
+    get 'mypage' => 'users#mypage'
+    get 'users/information/edit' => 'users#edit'
+    patch 'users/information' => 'users#update'
+    get 'users/confirm_withdraw' => 'users#confirm_withdraw'
+    patch 'users/withdraw' => 'users#withdraw'
+
+    resources :users, only: [:show]
+
+    root to: 'homes#top'
     get 'homes/about'
   end
   # 顧客用
