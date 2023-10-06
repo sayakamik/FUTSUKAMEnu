@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
 
+  namespace :admin do
+    get 'comments/index'
+  end
+  namespace :admin do
+    get 'users/show'
+    get 'users/edit'
+  end
+  namespace :admin do
+    get 'recipes/index'
+    get 'recipes/show'
+    get 'recipes/edit'
+  end
+  namespace :admin do
+    get 'homes/top'
+  end
   namespace :public do
     get 'post_comments/index'
   end
