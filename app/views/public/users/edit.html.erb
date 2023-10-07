@@ -1,2 +1,60 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <h3><strong>会員情報編集</strong></h3>
+      </div>
+      <div class="row">
+        <span><%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %></span>
+        <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
+
+          <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
+          <%= render "public/shared/error_messages", resource: @user %>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <%= f.label :profile_image, "プロフィール画像" %>
+              </div>
+              <div class="col-md-9">
+                <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <%= f.label :name, "登録名" %>
+              </div>
+              <div class="col-md-9">
+                <%= f.text_field :name, class: "form-control name" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-3">
+                <%= f.label :email, "メールアドレス" %>
+              </div>
+              <div class="col-md-9">
+                <%= f.email_field :email, class: "form-control email", id: "email" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col mt-2 mr-1">
+              <%= f.submit "変更を保存する", class: 'btn btn-light' %>
+            </div>
+
+            <div class="col mt-2 mr-1">
+              <%= link_to '退会する', users_confirm_withdraw_path, class: 'btn btn-light' %>
+            </div>
+          </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

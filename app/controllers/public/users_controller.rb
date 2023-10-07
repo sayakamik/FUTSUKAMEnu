@@ -14,7 +14,13 @@ class Public::UsersController < ApplicationController
   end
 
   def update
-
+    @user = current_user
+    if @user.update(user_params)
+      flash[:notice] = "変更を保存しました。"
+      redirect_to mypage_path
+    else
+      render :edit
+    end
   end
 
   def confirm_withdraw
@@ -34,7 +40,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :is_deleted, :encrypted_password, :image)
+    params.require(:user).permit(:name, :email, :is_deleted, :encrypted_password, :profile_image)
   end
 
 end

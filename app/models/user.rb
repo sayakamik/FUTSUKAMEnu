@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
-  has_one_attached :image
+  has_one_attached :profile_image
 
   #ゲストユーザーログイン用
   def self.guest
@@ -17,12 +17,12 @@ class User < ApplicationRecord
     end
   end
 
-  def get_image(width, height)
-    unless image.attached?
+  def get_profile_image(width, height)
+    unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'no-image.jpg', content_type: 'image/jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'no-image.jpg', content_type: 'image/jpg')
     end
-    image.variant(resize_to_limit: [width, height]).processed
+    profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
   #会員が退会する時のステータス処理
