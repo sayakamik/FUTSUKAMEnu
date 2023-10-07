@@ -16,6 +16,79 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <div class="row">
+            <p>明日のメニュー決まったよ♪</p>
+          </div>
+          <div class="row mx-3">
+              <a class="navbar-brand m-3" href="/"><span>Logo</span></a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto">
+
+                  <% if admin_signed_in? %>
+                      <% if request.fullpath.include? "/admin" %> <!--admin側のheader-->
+                        <li class="nav-item"><%= link_to "会員一覧", admin_path, class: "btn-light" %></li>&nbsp;
+                        <li class="nav-item"><%= link_to "投稿一覧", admin_recipes_path, class: "btn-light"  %></li>&nbsp;
+                        <li class="nav-item"><%= link_to "コメント一覧", admin_comments_path, class: "btn-light"  %></li>&nbsp;
+                        <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn-light"  %></li>
+                      <% else %> <!--user側のheader-->
+                      <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn-light"%></li>&nbsp;
+                      <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-light" %></li>
+                      <% end %>
+                    <% elsif user_signed_in? %>
+                      <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn-light"%></li>&nbsp;
+                      <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn-light" %></li>
+                    <% else %>
+                      <li class="nav-item"><%= link_to "About", homes_about_path, class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "新規会員登録", new_user_registration_path, class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post ,class: "btn-light" %></li>&nbsp;
+                      <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: "btn-light" %></li>
+                    <% end %>
+
+                </ul>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-5 ">
+              <% if user_signed_in? %>
+                <p class="m-1">ようこそ、<%= current_user.name %> 様</p>
+              <% end %>
+            </div>
+
+            <div class="col-7 text-right">
+              <%= render "layouts/search" %>
+            </div>
+          </div>
+
+        </div>
+      </nav>
+    </header>
+    <main>
+      <ul>
+        <% flash.each do |message_type, message| %>
+          <div class="flash-message <%= message_type %>"><%= message %></div>
+        <% end %>
+      </ul>
+      <%= yield %>
+    </main>
+    <footer>
+      <div class='container mt-5'>
+         <div class='row'>
+        	<div class='mx-auto'>
+        		<p>FUTSUKAMEnu</p>
+        	</div>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
