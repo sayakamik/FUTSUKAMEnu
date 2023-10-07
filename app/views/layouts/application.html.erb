@@ -22,8 +22,12 @@
           <div class="row">
             <p>明日のメニュー決まったよ♪</p>
           </div>
-          <div class="row mx-3">
+          <div class="row">
               <a class="navbar-brand m-3" href="/"><span>Logo</span></a>
+
+                <% if user_signed_in? %>
+                  <p class= "m-5">ようこそ、<%= current_user.name %> 様</p>
+                <% end %>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -59,12 +63,6 @@
           </div>
 
           <div class="row">
-            <div class="col-5 ">
-              <% if user_signed_in? %>
-                <p class="m-1">ようこそ、<%= current_user.name %> 様</p>
-              <% end %>
-            </div>
-
             <div class="col-7 text-right">
               <%= render "layouts/search" %>
             </div>
