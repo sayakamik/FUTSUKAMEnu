@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_one_attached :image
 
+  #ゲストユーザーログイン用
   def self.guest
     find_or_create_by!(email: 'guest@example.com', name: 'guest') do |user|
       user.password = SecureRandom.urlsafe_base64
@@ -15,4 +16,22 @@ class User < ApplicationRecord
       # 例えば name を入力必須としているならば， user.name = "ゲスト" なども必要
     end
   end
+
+  def get_image(width, height)
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      image.attach(io: File.open(file_path), filename: 'no-image.jpg', content_type: 'image/jpg')
+    end
+    image.variant(resize_to_limit: [width, height]).processed
+  end
+
+  #会員が退会する時のステータス処理
+  def is_deleted_text
+    if self.is_deleted == false
+      '有効'
+    else
+      '退会'
+    end
+  end
+
 end
