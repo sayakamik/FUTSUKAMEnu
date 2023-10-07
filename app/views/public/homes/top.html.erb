@@ -1,4 +1,46 @@
-<div class="container">
-  
-  
+<div class="container p-2">
+  <div class= "row">
+  <div class= "col-md-3 mt-5">
+    <!--1日目メニュー一覧renderを記載する-->
+    <%= render 'public/recipes/original_menu_list', original_menus: @original_menus %>
+  </div>
+
+  <div class="col-md-8 offset-md-1">
+    <div class="border p-4 image-container mx-auto mt-5 mb-5 justify-content-center ">
+      <div class="main-text">
+        <div class="text-content text-center">
+          <h4>ようこそ、FUTSUKAMEnu へ！</h4>
+          <p>FUTSUKAMEnu は、</p>
+          <p>既存メニュー（1日目メニュー）の</p>
+          <p>リメイクレシピ専用レシピサイトです。</p>
+          <br>
+          <p>ゲストログインでは閲覧のみ可能で</p>
+          <p>レシピ投稿やお気に入り機能は会員登録が必要です。</p>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h3 class="border-bottom"><strong>新着レシピ</strong></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mr-1">
+        <!--新着商品。recipe controllerにstrong parameter記載されていれば動くはず-->
+        <div class="new_items_container">
+         <% @recipes.each do |recipe| %>
+          <div class="new_items">
+            <div class="hover">
+              <span><%= link_to recipe_path(recipe) do %><%= image_tag recipe.get_image(150,150) %><% end %></span><br>
+              <span><%= link_to recipe.name, recipe_path(recipe), class:"link" %></span><br>
+            </div>
+          </div>
+         <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
