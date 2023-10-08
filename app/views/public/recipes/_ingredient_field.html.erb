@@ -1,0 +1,31 @@
+<div class="ingredient-fields row align-items-center">
+  <!--編集の際データベースからも削除できるように-->
+    <%= f.hidden_field :_destroy %>
+  <div class="col">
+    <div class="form-group">
+      <%= f.text_field :content, placeholder: "材料名(必須)", class: 'form-control light-placeholder' %>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <%= f.text_field :quantity, placeholder: "分量(必須)", class: "form-control light-placeholder" %>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button type="button" class="btn btn-light remove-ingredient mb-3">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+      // 削除ボタンがクリックされたときの処理
+    $(document).on('click', '.remove-ingredient', function(){
+     // クリックされた.削除ボタンに最も近い.ingredient-fieldsを削除する
+      $(this).closest('.ingredient-fields').find("input[name$='[_destroy]']").val('true');
+     // そして、そのフィールドを隠す
+      $(this).closest('.ingredient-fields').hide();
+    });
+  });
+</script>

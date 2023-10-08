@@ -1,15 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-11">
       <!-- マイページの上部（タイトル） -->
       <div class="row">
         <h3><strong>マイページ</strong></h3>
       </div>
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <span><%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %></span>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
           <table class="table table-bordered">
             <tr><th>登録名</th><td><%= @user.name %></td></tr>
             <tr><th>メールアドレス</th><td><%= @user.email %></td></tr>
@@ -21,15 +21,15 @@
 
 
   <div class="row">
-     <%= link_to "会員情報編集", users_information_edit_path, class: 'btn-light' %>
+     <%= link_to "会員情報編集", users_information_edit_path, class: 'btn btn-light' %>
   </div>
 
   <div class="row">
-     <%= link_to "投稿一覧", user_path(current_user.id), class: 'btn-light' %>
+     <%= link_to "投稿一覧", user_path(current_user.id), class: 'btn btn-light' %>
   </div>
 
   <div class="row">
-     <%= link_to "下書き一覧", recipes_draft_index_path, class: 'btn-light' %>
+     <%= link_to "下書き一覧", recipes_draft_index_path, class: 'btn btn-light' %>
   </div>
 
 </div>

@@ -1,0 +1,28 @@
+<div class="direction-field form-group">
+  <%= f.hidden_field :_destroy %>
+  <div class="form-group">
+    <%= f.label :direction, raw("ステップ" + content_tag(:span, "（必須）", class: "required-label")) %>
+    <div class="input-group">
+      <%= f.text_area :direction, class: "form-control", rows: "2" %>
+      <%= f.file_field :image, accept: 'image/*', size: 30 %>
+      <div class="input-group-append">
+        <button type="button" class="btn btn-light remove-direction">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function(){
+    // 削除ボタンがクリックされたときの処理
+    $(document).on('click', '.remove-direction', function(){
+      // クリックされた削除ボタンに最も近い.direction-fieldにある_destroyフィールドをtrueに設定
+      $(this).closest('.direction-field').find("input[name$='[_destroy]']").val('true');
+      // そして、そのフィールドを隠す（removeでは削除、hideでは要素を隠す）
+      $(this).closest('.direction-field').hide();
+    });
+  });
+</script>
