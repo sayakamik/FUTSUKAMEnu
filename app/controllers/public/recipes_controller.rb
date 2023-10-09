@@ -100,6 +100,15 @@ class Public::RecipesController < ApplicationController
   end
 
   def draft_index
+    #1日目メニュー一覧表示
+    @original_menus = OriginalMenu.joins(:recipes)
+       .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
+       .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
+       .limit(10)                          # 上位10件を取得
+    # 下書き(is_draft: true)レシピ一覧表示
+    @recipes = current_user.recipes.where(is_draft: true)
+    @recipes_count = @recipes.all
+    @recipes = @recipes.all.page(params[:page]).per(10)
   end
 
   private
