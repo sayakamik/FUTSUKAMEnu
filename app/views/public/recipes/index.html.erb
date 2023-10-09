@@ -1,2 +1,46 @@
-<h1>Public::Recipes#index</h1>
-<p>Find me in app/views/public/recipes/index.html.erb</p>
+<div class="container p-2">
+  <div class= "row">
+    <!--1日目メニュー一覧（1日目メニュー検索機能-->
+    <div class= "col-md-3 mt-5">
+      <%= render "public/original_menus/list", original_menus: @original_menus %>
+    </div>
+    <!--おしまい-->
+
+
+
+    <div class="col-md-8 offset-md-1 ">
+      <!--レシピ一覧タイトル-->
+      <table>
+        <tr>
+          <th><h3>レシピ一覧</h3></th>
+          <td>(全<%= @recipes_count.count %>件)</td>
+        </tr>
+      </table>
+      <br>
+      <br>
+      <!--おしまい-->
+
+      <!--レシピ一覧-->
+      <% @recipes.each do |recipe| %>
+        <div class="row">
+          <div class="col">
+            <table>
+              <tr>
+                <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
+                <td>
+                  <%= link_to recipe_path(recipe.id) do %><%= recipe.name %><% end %><br>
+                  <%= recipe.original_menu.name %>のアレンジレシピ
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      <% end %>
+      <!--おしまい-->
+
+    <!--レシピページネーション-->
+      <p><%= paginate @recipes %></p>
+    <!--おしまい-->
+    </div>
+  </div>
+</div>

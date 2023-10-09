@@ -34,21 +34,33 @@ class Public::RecipesController < ApplicationController
 
   def index
     #1日目メニュー一覧表示
-    @original_menus= OriginalMenu.all
-    #レシピ一覧表示
+    @original_menus = OriginalMenu.joins(:recipes)
+       .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
+       .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
+       .limit(10)                          # 上位10件を取得
+    # 下書きでないレシピ一覧表示
+    @recipes = Recipe.where(is_draft: false)
+
     #クエリパラメータ(original_menu_id)をとりだす
     if @original_menu_id = params[:original_menu_id]
       #original_menu_idが同じものを全てとりだす
-      @recipes = Recipe.where(original_menu_id: @original_menu_id).page(params[:page]).per(10)
+      @recipes_count = @recipes.where(original_menu_id: @original_menu_id)
+      @recipes = @recipes.where(original_menu_id: @original_menu_id).page(params[:page]).per(10)
     #なければ全てとりだす
     elsif recipe_name = params[:recipe_name]
-      @recipes = Recipe.where("name LIKE ?","%"+ recipe_name + "%").page(params[:page]).per(10)
+      @recipes_count = @recipes.where("name LIKE ?","%"+ recipe_name + "%")
+      @recipes = @recipes.where("name LIKE ?","%"+ recipe_name + "%").page(params[:page]).per(10)
     else
-      @recipes = Recipe.all.page(params[:page]).per(10)
+      @recipes_count = @recipes.all
+      @recipes = @recipes.all.page(params[:page]).per(10)
     end
   end
 
   def show
+    #1日目メニュー一覧表示
+    @original_menus= OriginalMenu.all
+    #レシピ詳細表示
+    @recipe = Recipe.find(params[:id])
   end
 
   def edit
@@ -96,7 +108,7 @@ class Public::RecipesController < ApplicationController
     params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
       procedures_attributes: [:id, :direction, :_destroy] ,
-      original_menu_attributes: [:name] 
+      original_menu_attributes: [:name]
       ) # original_menu パラメータを許可
   end
 
