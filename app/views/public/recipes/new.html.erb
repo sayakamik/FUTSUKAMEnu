@@ -23,6 +23,9 @@
             <div class="cooking-title">レシピについて</div>
               <%= f.text_field :name, autofocus: true, placeholder: "メニュー名(50文字以内)" , class: "form-control" %>
               <%= f.text_area :description, placeholder: "サブタイトル(100字以内)", class: "form-control" %>
+
+
+
             <div class="cooking-title">アレンジ前1日目レシピ</div>
               <%= f.text_field :original_menu_name, autofocus: true, placeholder: "1日目メニュー(15文字以内)",
                   id: "originalMenuField",
@@ -32,6 +35,8 @@
                   } %>
             <div id="originalMenuList"></div>
             <%= f.hidden_field :original_menu_id, id: "originalMenuId", value: @recipe.original_menu_id %>
+
+
             <div class="cooking-title">材料</div>
               <section class="ingredient">
                 <!-- 材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
@@ -124,28 +129,30 @@
     </div>
   </div>
 </div>
-
+ <!--本当はJS本体に記載して、編集画面とかに効かせたほうが良い。-->
 <script>
-  $("#originalMenuField").on("keyup", (e) => {
-    const data = JSON.parse(e.target.dataset.json)
-    const target = e.target.value
-    const result = data.filter((o) =>
-      o.name.includes(target) && target.length > 0
-    )
-    const originalMenuList = $("#originalMenuList")
-    originalMenuList.empty()
-    result.forEach((o) => {
-      const appendData = originalMenuList.append(`
-       <div class="badge badge-secondary" data-id=${o.id}>${o.name}</div>
-      `)
-      appendData.off();
-      appendData.on("click", (e) => {
-        const name = e.target.innerHTML
-        const id = e.target.dataset.id
-        $("#originalMenuField").val(name)
-        $("#originalMenuId").val(id)
-        originalMenuList.empty()
+  document.addEventListener("DOMContentLoaded", function() {
+    $("#originalMenuField").on("keyup", (e) => {
+      const data = JSON.parse(e.target.dataset.json)
+      const target = e.target.value
+      const result = data.filter((o) =>
+        o.name.includes(target) && target.length > 0
+      )
+      const originalMenuList = $("#originalMenuList")
+      originalMenuList.empty()
+      result.forEach((o) => {
+        const appendData = originalMenuList.append(`
+         <div class="badge badge-secondary" data-id=${o.id}>${o.name}</div>
+        `)
+        appendData.off();
+        appendData.on("click", (e) => {
+          const name = e.target.innerHTML
+          const id = e.target.dataset.id
+          $("#originalMenuField").val(name)
+          $("#originalMenuId").val(id)
+          originalMenuList.empty()
+        })
       })
     })
-  })
+  });
 </script>

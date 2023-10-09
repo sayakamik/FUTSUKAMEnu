@@ -2,7 +2,7 @@
   <div class= "row">
   <div class= "col-md-3 mt-5">
     <!--1日目メニュー一覧renderを記載する-->
-    <%= render 'public/recipes/original_menu_list', original_menus: @original_menus %>
+    <%= render 'public/original_menus/list', original_menus: @original_menus %>
   </div>
 
   <div class="col-md-8 offset-md-1">
@@ -33,7 +33,7 @@
          <% @recipes.each do |recipe| %>
           <div class="new_items">
             <div class="hover">
-              <span><%= link_to recipe_path(recipe) do %><%= image_tag recipe.get_image(150,150) %><% end %></span><br>
+              <span><%= link_to recipe_path(recipe) do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></span><br>
               <span><%= link_to recipe.name, recipe_path(recipe), class:"link" %></span><br>
             </div>
           </div>

@@ -14,7 +14,7 @@ class Recipe < ApplicationRecord
 
   belongs_to :original_menu
   attribute :original_menu_name
-  
+
   before_validation :original_menu_create_check
 
   has_one_attached :menu_image
@@ -47,13 +47,15 @@ class Recipe < ApplicationRecord
       '下書き'
     end
   end
-  
+
   private
-  
+
+  #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認するため。
   def original_menu_create_check
     if original_menu_id.blank? && original_menu_name.present?
       original_menu = OriginalMenu.find_or_create_by(name: original_menu_name)
       self.original_menu_id = original_menu.id
     end
   end
+
 end

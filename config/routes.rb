@@ -11,12 +11,12 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] , controllers: {
     sessions: "admin/sessions"
   }
-  
+
     #ゲストログイン用
   devise_scope :user do
     post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
-   
+
 
   #管理者
   namespace :admin do
@@ -36,12 +36,14 @@ Rails.application.routes.draw do
 
     resources :favorites, only: [:index]
 
+    resources :original_menus, only: [:index]
+
     get 'recipes/draft_index' => 'recipes#draft_index'
     resources :recipes, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resources :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
-   
+
     get 'mypage' => 'users#mypage'
     get 'users/information/edit' => 'users#edit'
     patch 'users/information' => 'users#update'

@@ -40,12 +40,14 @@
                       <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn btn-light" %></li>&nbsp;
                       <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn btn-light" %></li>&nbsp;
                       <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn btn-light"%></li>&nbsp;
+                      <li class="nav-item"><%= link_to "1日目メニュー一覧", original_menus_path, class: "btn btn-light"%></li>&nbsp;
                       <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-light" %></li>
                       <% end %>
                     <% elsif user_signed_in? %>
                       <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn btn-light" %></li>&nbsp;
                       <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn btn-light" %></li>&nbsp;
                       <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn btn-light"%></li>&nbsp;
+                      <li class="nav-item"><%= link_to "1日目メニュー一覧", original_menus_path, class: "btn btn-light"%></li>&nbsp;
                       <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-light" %></li>
                     <% else %>
                       <li class="nav-item"><%= link_to "About", homes_about_path, class: "btn btn-light" %></li>&nbsp;

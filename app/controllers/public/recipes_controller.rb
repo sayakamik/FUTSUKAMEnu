@@ -96,7 +96,8 @@ class Public::RecipesController < ApplicationController
     params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
       procedures_attributes: [:id, :direction, :_destroy] ,
-      original_menu_attributes: [:name] ) # original_menu パラメータを許可
+      original_menu_attributes: [:name] 
+      ) # original_menu パラメータを許可
   end
 
 end
