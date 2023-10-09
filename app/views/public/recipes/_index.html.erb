@@ -1,0 +1,21 @@
+<!--レシピ一覧-->
+<% recipes.each do |recipe| %>
+  <div class="row">
+    <div class="col">
+      <table>
+        <tr>
+          <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
+          <td>
+            <%= link_to recipe_path(recipe.id) do %><%= recipe.name %><% end %><br>
+            <%= recipe.original_menu.name %>のアレンジレシピ
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<% end %>
+<!--おしまい-->
+
+<!--レシピページネーション-->
+<p><%= paginate recipes %></p>
+  <!--おしまい-->

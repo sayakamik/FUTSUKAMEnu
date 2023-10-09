@@ -6,7 +6,17 @@ class Public::UsersController < ApplicationController
   end
 
   def show
+    #1日目メニュー一覧表示
+    @original_menus = OriginalMenu.joins(:recipes)
+       .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
+       .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
+       .limit(10)                          # 上位10件を取得
+
     @user = User.find(params[:id])
+    # 下書きでないレシピ一覧表示
+    @recipes = @user.recipes.where(is_draft: false)
+    @recipes_count = @recipes.all
+    @recipes = @recipes.all.page(params[:page]).per(10)
   end
 
   def edit

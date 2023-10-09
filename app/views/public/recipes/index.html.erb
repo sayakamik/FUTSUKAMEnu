@@ -6,8 +6,6 @@
     </div>
     <!--おしまい-->
 
-
-
     <div class="col-md-8 offset-md-1 ">
       <!--レシピ一覧タイトル-->
       <table>
@@ -16,31 +14,11 @@
           <td>(全<%= @recipes_count.count %>件)</td>
         </tr>
       </table>
-      <br>
-      <br>
       <!--おしまい-->
 
-      <!--レシピ一覧-->
-      <% @recipes.each do |recipe| %>
-        <div class="row">
-          <div class="col">
-            <table>
-              <tr>
-                <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
-                <td>
-                  <%= link_to recipe_path(recipe.id) do %><%= recipe.name %><% end %><br>
-                  <%= recipe.original_menu.name %>のアレンジレシピ
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      <% end %>
+      <!--レシピ一覧テンプレート-->
+      <%= render "public/recipes/index", recipes: @recipes %>
       <!--おしまい-->
-
-    <!--レシピページネーション-->
-      <p><%= paginate @recipes %></p>
-    <!--おしまい-->
     </div>
   </div>
 </div>

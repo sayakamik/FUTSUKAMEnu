@@ -1,2 +1,22 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<div class="container p-2">
+  <div class= "row">
+    <!--1日目メニュー一覧（1日目メニュー検索機能-->
+    <div class= "col-md-3 mt-5">
+      <%= render "public/original_menus/list", original_menus: @original_menus %>
+    </div>
+    <!--おしまい-->
+
+    <div class="col-md-8 offset-md-1 ">
+      <!--レシピ一覧タイトル-->
+        <tr>
+          <th><h3 class>★<%= @user.name %>'s kitchen★</h3></th>
+          <td>(全<%= @recipes_count.count %>件)</td>
+        </tr>
+      <!--おしまい-->
+
+      <!--レシピ一覧テンプレート-->
+      <%= render "public/recipes/index", recipes: @recipes %>
+      <!--おしまい-->
+    </div>
+  </div>
+</div>
