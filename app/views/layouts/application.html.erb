@@ -22,7 +22,8 @@
 
                 <% if user_signed_in? %>
                   <p class= "m-5">ようこそ、<%= current_user.name %> 様</p>
-                  <%= link_to "レシピを書く", new_recipe_path , class: "btn btn-light" %>
+                  <!--レシピ記入時にフォーム追加でターボリンクス邪魔するので, 動かせないようにする'data-turbolinks': "false"-->
+                  <%= link_to "レシピを書く", new_recipe_path , class: "btn btn-light", 'data-turbolinks': "false" %>
                 <% end %>
 
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

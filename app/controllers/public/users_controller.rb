@@ -11,6 +11,7 @@ class Public::UsersController < ApplicationController
        .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
        .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
        .limit(10)                          # 上位10件を取得
+       .page(params[:page]).per(10)
 
     @user = User.find(params[:id])
     # 下書きでないレシピ一覧表示

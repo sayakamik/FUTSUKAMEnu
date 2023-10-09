@@ -64,6 +64,9 @@ class Public::RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = Recipe.find(params[:id])
+    @original_menus = OriginalMenu.all
+    @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
   end
 
   def update
@@ -85,14 +88,14 @@ class Public::RecipesController < ApplicationController
     elsif params[:update_post]
       @recipe.attributes = recipe_params
       if @recipe.save(context: :publicize)
-        redirect_to recipe_path(@ecipe.id), notice: "レシピを更新しました。"
+        redirect_to recipe_path(@recipe.id), notice: "レシピを更新しました。"
       else
         render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
       end
     # ③下書きレシピの更新（非公開）の場合
     else
       if @recipe.update(recipe_params)
-        redirect_to recipe_path(@recipe.id), notice: "下書きレシピを更新しました。"
+        redirect_to recipes_draft_index_path, notice: "下書きレシピを更新しました。"
       else
         render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
       end
@@ -109,6 +112,12 @@ class Public::RecipesController < ApplicationController
     @recipes = current_user.recipes.where(is_draft: true)
     @recipes_count = @recipes.all
     @recipes = @recipes.all.page(params[:page]).per(10)
+  end
+
+  def destroy
+    @recipe = Recipe.find(params[:id])  # データ（レコード）を1件取得
+    @recipe.destroy  # データ（レコード）を削除
+    redirect_to user_path(current_user.id)  # ユーザー投稿一覧画面へリダイレクト
   end
 
   private

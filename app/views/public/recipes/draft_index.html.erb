@@ -18,9 +18,10 @@
           <div class="col">
             <table>
               <tr>
-                <td><%= link_to edit_recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
+                <!--編集画面でのエラー（フォーム追加）エラーをなくすために'data-turbolinks': "false"を記載-->
+                <td><%= link_to edit_recipe_path(recipe.id), 'data-turbolinks': "false" do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
                 <td>
-                  <%= link_to edit_recipe_path(recipe.id) do %><%= recipe.name %><% end %><br>
+                  <%= link_to edit_recipe_path(recipe.id), 'data-turbolinks': "false" do %><%= recipe.name %><% end %><br>
                   <%= recipe.original_menu.name %>のアレンジレシピ
                 </td>
               </tr>

@@ -3,6 +3,9 @@
     <div class="col-md-11">
       <div class="row">
         <h3><strong>★<%= @recipe.name %>のレシピ★</strong></h3>
+        <% if @recipe.user == current_user %>
+          <%= link_to edit_recipe_path(@recipe.id), class: "btn btn-light",'data-turbolinks': "false" do %>編集する<% end %>
+        <% end %>
       </div>
       <div class="row">
 

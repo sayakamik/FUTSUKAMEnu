@@ -25,7 +25,6 @@
             <div class="cooking-title">レシピについて</div>
               <%= f.text_field :name, autofocus: true, placeholder: "メニュー名(50文字以内)" , class: "form-control" %>
               <%= f.text_area :description, placeholder: "サブタイトル(100字以内)", class: "form-control" %>
-            <!-- おしまい-->
 
             <!--1日目レシピ入力、投稿（Javascript、一部modelに記載)-->
             <div class="cooking-title">アレンジ前1日目レシピ</div>
@@ -37,7 +36,6 @@
                   } %>
             <div id="originalMenuList"></div>
             <%= f.hidden_field :original_menu_id, id: "originalMenuId", value: @recipe.original_menu_id %>
-            <!-- おしまい-->
 
             <!--材料フォーム（Javascript)-->
             <div class="cooking-title">材料</div>
@@ -93,7 +91,7 @@
         <!--材料、手順のJavascript-->
         <script>
              // DOMContentLoaded文書のロード、DOMが完全に読み込まれた後に以下のコードが実行される
-            document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener('turbolinks:load', function() {
               // "add-ingredient" IDを持つHTML要素（ボタン）を取得、「材料を追加」ボタンにクリックイベントを追加
               document.getElementById("add-ingredient").addEventListener("click", function() {
                 // "ingredient-fields-template"というIDを持つdiv要素の内部HTML（隠しテンプレート）を取得
@@ -106,7 +104,7 @@
               });
             });
               // 作り方フォーム追加
-              document.addEventListener('DOMContentLoaded', () => {
+              document.addEventListener('turbolinks:load', () => {
                 document.querySelector('#add-procedure').addEventListener('click', () => {
                   let content = document.getElementById('procedure-fields-template').innerHTML;
                   let uniqueId = new Date().getTime();
@@ -139,7 +137,7 @@
 
 <!--1日目レシピ本当はJS本体に記載して、編集画面とかに効かせたほうが良い。-->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener('turbolinks:load', function() {
     $("#originalMenuField").on("keyup", (e) => {
       const data = JSON.parse(e.target.dataset.json)
       const target = e.target.value

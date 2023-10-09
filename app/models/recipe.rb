@@ -11,7 +11,7 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :procedures, reject_if: :all_blank, allow_destroy: true
 
   has_many :recipe_tag_relations, dependent: :destroy
-  has_many :tags, dependent: :destroy
+  has_many :tags, through: :recipe_tag_relations
 
   belongs_to :original_menu
   attribute :original_menu_name

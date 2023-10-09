@@ -1,1 +1,24 @@
-1日目メニューリスト一覧！
+<div class="container p-2">
+  <div class= "row">
+    <div class="col-md-10 offset-md-1 ">
+      <div class="row">
+        <h3><strong>1日目メニュー一覧</strong></h3>
+      </div>
+      <div class="row">
+        <% @original_menus.each_slice(25) do |original_menus_batch| %>
+          <div class="col original-menu-list">
+            <% original_menus_batch.each do |original_menu| %>
+              <div>
+                <!--クエリパラメータで1日目メニューidを指定-->
+                <%= link_to recipes_path(original_menu_id: (original_menu.id)), class:"link" do %>
+                  <%= original_menu.name %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <p><%= paginate @original_menus %></p>
+      </div>
+    </div>
+  </div>
+</div>
