@@ -1,16 +1,15 @@
 <div class="direction-field form-group">
   <%= f.hidden_field :_destroy %>
   <div class="form-group">
-    <%= f.label :direction, raw("ステップ" + content_tag(:span, "（必須）", class: "required-label")) %>
-    <div class="input-group">
-      <%= f.text_area :direction, class: "form-control", rows: "2" %>
+    <!--<div class="input-group">-->
+      <%= f.text_area :direction, placeholder: "作り方手順（必須）", class: "form-control", rows: "2" %>
       <%= f.file_field :image, accept: 'image/*', size: 30 %>
       <div class="input-group-append">
         <button type="button" class="btn btn-light remove-direction">
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
-    </div>
+    <!--</div>-->
   </div>
 </div>
 

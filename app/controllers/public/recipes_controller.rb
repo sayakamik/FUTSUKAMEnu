@@ -59,8 +59,8 @@ class Public::RecipesController < ApplicationController
   def show
     #1日目メニュー一覧表示
     @original_menus= OriginalMenu.all
-    #レシピ詳細表示
-    @recipe = Recipe.find(params[:id])
+    #レシピ詳細表示（下書き以外)
+    @recipe = Recipe.where(is_draft: false).find(params[:id])
   end
 
   def edit

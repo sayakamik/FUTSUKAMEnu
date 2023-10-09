@@ -1,2 +1,54 @@
-<h1>Public::Recipes#show</h1>
-<p>Find me in app/views/public/recipes/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11">
+      <div class="row">
+        <h3><strong>★<%= @recipe.name %>のレシピ★</strong></h3>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <%= image_tag @recipe.get_menu_image(600, 400), class: "img-fluid" %>
+        </div>
+
+          <div class="col-md-6 col-sm-12">
+            <div class="cooking-title">説明</div>
+              <section class="recipe-info">
+                <table class="recipe-info__datas">
+                  <tr>
+                    <th>メッセージ</th><td>&emsp;<%= @recipe.description %></td>
+                  </tr>
+                  <tr>
+                    <th>made by</th>
+                    <td>&emsp;<%= link_to user_path(@recipe.user.id) do %>
+                      <%= @recipe.user.name %>
+                    <% end %></td>
+                  </tr>
+                  <tr>
+                    <th>アレンジ前1日目レシピ</th><td>&emsp;<%= @recipe.original_menu.name %></td>
+                  </tr>
+                </table>
+              </section>
+            <div class="cooking-title">材料</div>
+              <section class="ingredient">
+                <% @recipe.ingredients.each do |ingredient| %>
+                  <div class="ingredient__list">
+                    <div><%= ingredient.content %></div>
+                    <div><%= ingredient.quantity %></div>
+                  </div>
+                <% end %>
+              </section>
+          </div>
+          <div class="col-md-12 col-sm-12">
+            <div class="cooking-title">作り方</div>
+              <section class="procedure">
+                <% @recipe.procedures.each do |procedure| %>
+                  <ol class="procedure__list">
+                    <li><%= procedure.direction %></li>
+                  </ol>
+                <% end %>
+          　　  </section>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

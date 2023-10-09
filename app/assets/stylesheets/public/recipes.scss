@@ -1,3 +1,42 @@
 // Place all the styles related to the public/recipes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+.cooking-title {
+   width: 100%;
+   background-color: #fffff0;
+   color:#696969;
+   margin: 20px 0px;
+}
+
+.recipe-info {
+  padding: 20px 10px;
+  border: 1px solid #ccc;
+  margin: 5px 0px;
+  &__datas {
+    display: flex;
+    justify-content: space-between;
+    color:#696969;
+  }
+}
+
+.ingredient {
+  &__list {
+    display: flex;
+    justify-content: space-between;
+    color: #696969;
+    border-bottom: 1px solid #d3d3d3;
+    padding: 6px;
+  }
+}
+
+.procedure {
+
+  &__list {
+    color: #696969;
+    padding: 6px;
+    border: 1px solid #ccc;
+    list-style-position: inside;//リストを枠内に表示
+    }
+  }
