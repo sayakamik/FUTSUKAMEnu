@@ -48,7 +48,11 @@ class Recipe < ApplicationRecord
       '下書き'
     end
   end
-
+  
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
+  
   private
 
   #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認するため。

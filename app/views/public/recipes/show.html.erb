@@ -3,8 +3,24 @@
     <div class="col-md-11">
       <div class="row">
         <h3><strong>★<%= @recipe.name %>のレシピ★</strong></h3>
+        <!--自分のレシピの場合は編集ボタンを表示-->
         <% if @recipe.user == current_user %>
           <%= link_to edit_recipe_path(@recipe.id), class: "btn btn-light",'data-turbolinks': "false" do %>編集する<% end %>
+        <% end %>
+        &emsp;
+        <!--お気に入り機能-->
+        <% if @recipe.favorited_by?(current_user) %>
+          <p>
+            <%= link_to recipe_favorite_path(@recipe), method: :delete, class: "btn btn-light" do %>
+              お気に入り♥<%= @recipe.favorites.count %>
+            <% end %>
+          </p>
+          <% else %>
+          <p>
+            <%= link_to recipe_favorites_path(@recipe), method: :post, class: "btn btn-light" do %>
+              お気に入り♡<%= @recipe.favorites.count %>
+            <% end %>
+          </p>
         <% end %>
       </div>
       <div class="row">
