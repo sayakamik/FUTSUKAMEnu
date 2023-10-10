@@ -5,6 +5,7 @@ class Public::HomesController < ApplicationController
        .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
        .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
        .limit(10)                          # 上位10件を取得
+       .uniq
   end
 
   def about

@@ -38,6 +38,7 @@ class Public::RecipesController < ApplicationController
        .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
        .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
        .limit(10)                          # 上位10件を取得
+       .uniq                              #重複削除
     # 下書きでないレシピ一覧表示
     @recipes = Recipe.where(is_draft: false)
 
@@ -108,6 +109,7 @@ class Public::RecipesController < ApplicationController
        .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
        .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
        .limit(10)                          # 上位10件を取得
+       .uniq                               #重複削除
     # 下書き(is_draft: true)レシピ一覧表示
     @recipes = current_user.recipes.where(is_draft: true)
     @recipes_count = @recipes.all
