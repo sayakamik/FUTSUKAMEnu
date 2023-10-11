@@ -1,0 +1,18 @@
+<div>
+  <%= form_with model: [recipe, post_comment], local: false do |f| %>
+  <div style="display: flex; align-items: center;">
+    <%= f.text_area :comment, rows: '1', placeholder: "コメントをここに" ,style: "width: 80%; border: 1px solid #ccc;"%>
+    <%= f.submit "送信", style: "margin-left: 10px;" %>
+  <% end %>
+</div>
+
+<div class ="post_comment__list">
+  <% recipe.post_comments.each do |post_comment| %>
+    <%= link_to user_path(post_comment.user.id) do %><%= post_comment.user.name %><% end %>さん
+    <%= post_comment.created_at.strftime('%Y/%m/%d') %>&emsp;<%= post_comment.comment %>
+    <% if post_comment.user == current_user %>
+      <%= link_to "削除", recipe_post_comment_path(post_comment.recipe, post_comment), method: :delete %>
+    <% end %>
+    <br>
+  <% end %>
+</div>

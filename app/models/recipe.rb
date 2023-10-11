@@ -2,6 +2,7 @@ class Recipe < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
+  has_many :replies, class_name: Comment, foreign_key: :reply_comment, dependent: :destroy
   has_many :ingredients, dependent: :destroy
   # accepts_nested_attributes_forで子カラムを一緒に保存できるようになる。
   # reject_if: :all_blankは、不要な空レコードの生成を防ぐ
@@ -48,11 +49,11 @@ class Recipe < ApplicationRecord
       '下書き'
     end
   end
-  
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
-  
+
   private
 
   #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認するため。

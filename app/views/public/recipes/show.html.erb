@@ -9,19 +9,11 @@
         <% end %>
         &emsp;
         <!--お気に入り機能-->
-        <% if @recipe.favorited_by?(current_user) %>
-          <p>
-            <%= link_to recipe_favorite_path(@recipe), method: :delete, class: "btn btn-light" do %>
-              お気に入り♥<%= @recipe.favorites.count %>
-            <% end %>
-          </p>
-          <% else %>
-          <p>
-            <%= link_to recipe_favorites_path(@recipe), method: :post, class: "btn btn-light" do %>
-              お気に入り♡<%= @recipe.favorites.count %>
-            <% end %>
-          </p>
-        <% end %>
+          <!--<= render 'favorite_form', recipe: @recipe %>-->
+          <td class="favorite-btn">
+            <%= render 'favorite_form', recipe: @recipe %>
+          <td>
+        <!--お気に入り終了-->
       </div>
       <div class="row">
 
@@ -68,6 +60,16 @@
           　　  </section>
           </div>
       </div>
+      <!--コメント機能-->
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="cooking-title">コメント　(全：<%= @recipe.post_comments.count %>件)</div>
+            <div class="post_comment">
+              <%= render 'public/post_comments/comment_form', recipe: @recipe, post_comment: @post_comment %>
+            </div>
+        </div>
+      </div>
+      <!--コメント終了-->
     </div>
   </div>
 </div>

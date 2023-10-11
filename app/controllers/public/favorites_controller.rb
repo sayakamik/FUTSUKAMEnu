@@ -1,4 +1,6 @@
 class Public::FavoritesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
@@ -16,16 +18,16 @@ class Public::FavoritesController < ApplicationController
   end
 
   def create
-    recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.favorites.new(recipe_id: recipe.id)
+    @recipe = Recipe.find(params[:recipe_id])
+    favorite = @recipe.favorites.new(user_id: current_user.id)
     favorite.save
-    redirect_to recipe_path(recipe)
+    # app/views/public/favorites/create.js.erbを参照する
   end
 
   def destroy
-    recipe = Recipe.find(params[:recipe_id])
-    favorite = current_user.favorites.find_by(recipe_id: recipe.id)
+    @recipe = Recipe.find(params[:recipe_id])
+    favorite = @recipe.favorites.find_by(user_id: current_user.id)
     favorite.destroy
-    redirect_to recipe_path(recipe)
+    # app/views/public/favorites/destroy.js.erbを参照する
   end
 end

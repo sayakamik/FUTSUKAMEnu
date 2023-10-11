@@ -5,7 +5,6 @@ class Public::RecipesController < ApplicationController
     @recipe = Recipe.new
     @recipe.ingredients.build # 画面で使うための空の食材オブジェクト
     @recipe.procedures.build # 画面で使うための空のレシピ手順オブジェクト
-    #@recipe.build_original_menu
     @original_menus = OriginalMenu.all
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
   end
@@ -14,7 +13,7 @@ class Public::RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
     #if params[:post]で公開/非公開（下書き）の分岐を記述。[:post]はname属性の値（任意でOK）
-    # 投稿ボタンを押下した場合
+    #投稿ボタンを押下した場合
     if params[:post]
       #(context: :publicize)「バリデーションをある状況では実行して、ある状況では実行しない」
       if @recipe.save(context: :publicize)
@@ -35,9 +34,9 @@ class Public::RecipesController < ApplicationController
   def index
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
-       .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
-       .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
-       .limit(10)                          # 上位10件を取得
+       .where(recipes: { is_draft: false })
+       .order("recipes.created_at DESC")
+       .limit(10)
        .uniq                              #重複削除
     # 下書きでないレシピ一覧表示
     @recipes = Recipe.where(is_draft: false)
@@ -58,10 +57,9 @@ class Public::RecipesController < ApplicationController
   end
 
   def show
-    #1日目メニュー一覧表示
     @original_menus= OriginalMenu.all
-    #レシピ詳細表示（下書き以外)
     @recipe = Recipe.where(is_draft: false).find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
@@ -106,9 +104,9 @@ class Public::RecipesController < ApplicationController
   def draft_index
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
-       .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
-       .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
-       .limit(10)                          # 上位10件を取得
+       .where(recipes: { is_draft: false })
+       .order("recipes.created_at DESC")
+       .limit(10)
        .uniq                               #重複削除
     # 下書き(is_draft: true)レシピ一覧表示
     @recipes = current_user.recipes.where(is_draft: true)
@@ -117,9 +115,9 @@ class Public::RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])  # データ（レコード）を1件取得
-    @recipe.destroy  # データ（レコード）を削除
-    redirect_to user_path(current_user.id)  # ユーザー投稿一覧画面へリダイレクト
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    redirect_to user_path(current_user.id)
   end
 
   private
