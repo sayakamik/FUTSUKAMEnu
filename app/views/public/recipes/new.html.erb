@@ -41,7 +41,7 @@
             <div class="form-group">
               <div class="cooking-title">関連タグ</div>
                 <section class="tag">
-                  <%= f.text_field :tag_name, placeholder: "タグ(,で複数個登録できます)", class: 'form-control book_tag_name' %>
+                  <%= f.text_field :tag_name, placeholder: "タグ(カンマ『,』で複数個登録できます)", class: 'form-control book_tag_name' %>
                 </section>
             </div>
 
@@ -56,29 +56,25 @@
                   <% end %>
                 </div>
                 <!--隠し要素テンプレート終わり-->
-
                 <!--すでにデータベースに保存されているか、または新しくユーザーが追加した「材料」に関する情報を表示するためのフォーム-->
                 <%= f.fields_for :ingredients do |ingredient_field| %>
                   <%= render 'ingredient_field', f: ingredient_field %>
                 <% end %>
                 <div id="ingredients"></div>
-                <!--材料、分量フォームを追-->
             　　<div>
                   <button type="button" id="add-ingredient" class="btn"  style="background-color: #ffe4e1;">材料を追加</button>
                 </div>
           　　  </section>
           </div>
         </div>
-    　   <!-- おしまい-->
 
         <!--手順フォーム（Javascript)-->
-        <div class="form-group row">
-          <div class="col-md-12 col-sm-12">
-            <div class="cooking-title">作り方（必須）</div>
+        <div class="cooking-title">作り方（必須）</div>
+          <section class="ingredient">
             　<!--作り方フォームの隠し要素テンプレート-->
               <div id="procedure-fields-template" style="display: none;">
                 <!--新しいRecipeStepオブジェクトを作成-->
-                <%= f.fields_for :procedure, Procedure.new, child_index: "new_procedure" do |procedure_field| %>
+                <%= f.fields_for :procedures, Procedure.new, child_index: "new_procedure" do |procedure_field| %>
                   <%= render 'procedure_field', f: procedure_field %>
                 <% end %>
               </div>
@@ -88,13 +84,10 @@
                 <%= render 'procedure_field', f: procedure_field %>
               <% end %>
               <div id="procedures"></div>
-             <!--作り方手順フォームを追加-->
               <div>
                  <button type="button" id="add-procedure" class="btn"  style="background-color: #ffe4e1;">作り方を追加</button>
               </div>
-          </div>
-        </div>
-        <!-- おしまい-->
+          </section>
 
         <!--材料、手順のJavascript-->
         <script>
@@ -121,24 +114,14 @@
                 });
               });
         </script>
-        <!-- おしまい-->
 
       <div class="row mt-4 pb-5">
         <div class="form-inline mx-auto">
-          <!--編集ページで-->
-          <!--< if @recipe.is_draft == true %>-->
             <%= f.submit 'レシピを公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
             <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
-          <!--< else %>-->
-          <!--  <= f.submit "レシピを更新", :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>-->
-          <!--< end %>-->
         </div>
       </div>
-      <!--編集ページで-->
-      <!--<div class="mt-4 pb-3 text-center">-->
-      <!--  <u><= link_to "レシピを削除", "/users/#{current_user.id}", method: :delete, data: {confirm: "このレシピを削除しますか？"}, class:'text-danger' %></u>-->
-      <!--</div>-->
-        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

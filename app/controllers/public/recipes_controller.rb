@@ -38,9 +38,9 @@ class Public::RecipesController < ApplicationController
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false })
+       .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
-       .uniq                              #重複削除
     # 下書きでないレシピ一覧表示
     @recipes = Recipe.where(is_draft: false)
 
@@ -92,7 +92,7 @@ class Public::RecipesController < ApplicationController
     # ②公開済みレシピの更新の場合
     elsif params[:update_post]
       @recipe.attributes = recipe_params
-      if @recipe.update(context: :publicize) #saveだった
+      if @recipe.save(context: :publicize)
         @recipe.save_tags(tag_list)
         redirect_to recipe_path(@recipe.id), notice: "レシピを更新しました。"
       else
@@ -113,9 +113,9 @@ class Public::RecipesController < ApplicationController
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false })
+       .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
-       .uniq                               #重複削除
     # 下書き(is_draft: true)レシピ一覧表示
     @recipes = current_user.recipes.where(is_draft: true)
     @recipes_count = @recipes.all

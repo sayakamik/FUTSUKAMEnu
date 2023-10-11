@@ -27,7 +27,7 @@ class Recipe < ApplicationRecord
     validates :menu_image
     validates :name
     validates :description
-    #validates :original_menuったん。まだ入れてないため
+    validates :original_menu
   end
   validates :name, length: { maximum: 50 }, on: :publicize
   validates :description, length: { maximum: 100 }, on: :publicize
@@ -59,14 +59,11 @@ class Recipe < ApplicationRecord
     new_tags = tags - current_tags # 送信されてきたタグから、現在存在するタグを除く
     # 古いタグを消す
     old_tags.each do |old_name|
-     self.tags.delete Tag.find_by(name: old_name)
-     puts "Tag #{old_name} が削除されました."
+     Tag.find_by(name: old_name).destroy
     end
     # 新しいタグを保存する
     new_tags.each do |new_name|
-     tag = Tag.find_or_create_by(name: new_name)
-     self.tags << tag
-     puts "Tag #{new_name} が作成されました."
+     tag = Tag.create(name: new_name)
     end
   end
 

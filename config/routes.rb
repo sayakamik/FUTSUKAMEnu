@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
     get 'recipes/draft_index' => 'recipes#draft_index'
     resources :recipes, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
-      resources :favorites, only: [:create, :destroy]
+      resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
 

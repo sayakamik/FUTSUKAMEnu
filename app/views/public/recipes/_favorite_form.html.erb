@@ -6,7 +6,7 @@
   </p>
   <% else %>
   <p>
-    <%= link_to recipe_favorites_path(recipe.id), method: :post, class: "btn btn-light", remote: true do %>
+    <%= link_to recipe_favorite_path(recipe.id), method: :post, class: "btn btn-light", remote: true do %>
       お気に入り♡<%= recipe.favorites.count %>
     <% end %>
   </p>

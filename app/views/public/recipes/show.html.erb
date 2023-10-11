@@ -10,9 +10,10 @@
         &emsp;
         <!--お気に入り機能-->
           <!--<= render 'favorite_form', recipe: @recipe %>-->
-          <td class="favorite-btn">
+          <p>aaaa</p>
+          <div class="favorite_form">
             <%= render 'favorite_form', recipe: @recipe %>
-          <td>
+          </div>
         <!--お気に入り終了-->
       </div>
       <div class="row">
@@ -41,9 +42,7 @@
                     <th>関連タグ</th>
                     <td>&emsp;
                       <% @recipe.tags.each do |tag| %>
-                          <div class="tag__list">
-                            <div><%= tag.name %></div>
-                          </div>
+                         <div><%= tag.name %></div>
                       <% end %>
                     </td>
                   </tr>
