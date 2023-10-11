@@ -2,7 +2,6 @@ class Recipe < ApplicationRecord
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
-  has_many :replies, class_name: Comment, foreign_key: :reply_comment, dependent: :destroy
   has_many :ingredients, dependent: :destroy
   # accepts_nested_attributes_forで子カラムを一緒に保存できるようになる。
   # reject_if: :all_blankは、不要な空レコードの生成を防ぐ
@@ -52,6 +51,23 @@ class Recipe < ApplicationRecord
 
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
+  end
+
+  def save_tags(tags)
+    current_tags = self.tags.pluck(:name) unless self.tags.nil? # タグが存在していれば、タグの名前を配列として全て取得
+    old_tags = current_tags - tags # 現在取得したタグから、送られてきたタグを除く
+    new_tags = tags - current_tags # 送信されてきたタグから、現在存在するタグを除く
+    # 古いタグを消す
+    old_tags.each do |old_name|
+     self.tags.delete Tag.find_by(name: old_name)
+     puts "Tag #{old_name} が削除されました."
+    end
+    # 新しいタグを保存する
+    new_tags.each do |new_name|
+     tag = Tag.find_or_create_by(name: new_name)
+     self.tags << tag
+     puts "Tag #{new_name} が作成されました."
+    end
   end
 
   private

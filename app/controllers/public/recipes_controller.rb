@@ -12,11 +12,13 @@ class Public::RecipesController < ApplicationController
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
+    tag_list = params[:recipe][:tag_name].split(',')
     #if params[:post]で公開/非公開（下書き）の分岐を記述。[:post]はname属性の値（任意でOK）
     #投稿ボタンを押下した場合
     if params[:post]
       #(context: :publicize)「バリデーションをある状況では実行して、ある状況では実行しない」
       if @recipe.save(context: :publicize)
+        @recipe.save_tags(tag_list)
         redirect_to recipe_path(@recipe), notice: "レシピを投稿しました。"
       else
         render :new, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください"
@@ -24,6 +26,7 @@ class Public::RecipesController < ApplicationController
     # 下書きボタンを押下した場合
     else
       if @recipe.update(is_draft: true)
+        @recipe.save_tags(tag_list)
         redirect_to recipes_draft_index_path, notice: "レシピを下書き保存しました。"
       else
         render :new, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください"
@@ -70,6 +73,8 @@ class Public::RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
+    tag_list = params[:recipe][:tag_name].split(',')
+    # @recipe.update_tags(input_tags) # udpate_tagsはtopic.rbに記述している
     # ①下書きレシピの更新（公開）の場合
     if params[:publicize_draft]
       # レシピ公開時にバリデーションを実施、下書きはバリデーション必要なく
@@ -78,6 +83,7 @@ class Public::RecipesController < ApplicationController
       #attributesメソッドは、モデルの属性にアクセスし、それらの属性を一括で設定できる
       #mergeメソッドは、2つのハッシュを結合するためのメソッド(この場合recipe_paramsとis_draft: false)
       if @recipe.save(context: :publicize)
+        @recipe.save_tags(tag_list)
         redirect_to recipe_path(@recipe.id), notice: "下書きのレシピを公開しました。"
       else
         @recipe.is_draft = true
@@ -86,7 +92,8 @@ class Public::RecipesController < ApplicationController
     # ②公開済みレシピの更新の場合
     elsif params[:update_post]
       @recipe.attributes = recipe_params
-      if @recipe.save(context: :publicize)
+      if @recipe.update(context: :publicize) #saveだった
+        @recipe.save_tags(tag_list)
         redirect_to recipe_path(@recipe.id), notice: "レシピを更新しました。"
       else
         render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
@@ -94,6 +101,7 @@ class Public::RecipesController < ApplicationController
     # ③下書きレシピの更新（非公開）の場合
     else
       if @recipe.update(recipe_params)
+        @recipe.save_tags(tag_list)
         redirect_to recipes_draft_index_path, notice: "下書きレシピを更新しました。"
       else
         render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
@@ -129,5 +137,9 @@ class Public::RecipesController < ApplicationController
       original_menu_attributes: [:name]
       ) # original_menu パラメータを許可
   end
+
+  def tag_params # tagに関するストロングパラメータ
+      params.require(:recipe).permit(:name)
+    end
 
 end

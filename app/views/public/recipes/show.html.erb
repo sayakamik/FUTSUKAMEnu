@@ -37,6 +37,16 @@
                   <tr>
                     <th>アレンジ前1日目レシピ</th><td>&emsp;<%= @recipe.original_menu.name %></td>
                   </tr>
+                  <tr>
+                    <th>関連タグ</th>
+                    <td>&emsp;
+                      <% @recipe.tags.each do |tag| %>
+                          <div class="tag__list">
+                            <div><%= tag.name %></div>
+                          </div>
+                      <% end %>
+                    </td>
+                  </tr>
                 </table>
               </section>
             <div class="cooking-title">材料</div>

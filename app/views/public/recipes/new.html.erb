@@ -37,6 +37,14 @@
             <div id="originalMenuList"></div>
             <%= f.hidden_field :original_menu_id, id: "originalMenuId", value: @recipe.original_menu_id %>
 
+            <!--タグ-->
+            <div class="form-group">
+              <div class="cooking-title">関連タグ</div>
+                <section class="tag">
+                  <%= f.text_field :tag_name, placeholder: "タグ(,で複数個登録できます)", class: 'form-control book_tag_name' %>
+                </section>
+            </div>
+
             <!--材料フォーム（Javascript)-->
             <div class="cooking-title">材料</div>
               <section class="ingredient">
@@ -56,7 +64,7 @@
                 <div id="ingredients"></div>
                 <!--材料、分量フォームを追-->
             　　<div>
-                  <button type="button" id="add-ingredient" class="btn mb-4"  style="background-color: #ffe4e1;">材料を追加</button>
+                  <button type="button" id="add-ingredient" class="btn"  style="background-color: #ffe4e1;">材料を追加</button>
                 </div>
           　　  </section>
           </div>
