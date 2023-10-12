@@ -10,5 +10,39 @@ class Admin::RecipesController < ApplicationController
   end
 
   def edit
+    @recipe = Recipe.where(is_draft: false).find(params[:id])
   end
+
+  def update
+    @recipe = Recipe.where(is_draft: false).find(params[:id])
+    tag_list = params[:recipe][:tag_name].split(',')
+      @recipe.attributes = recipe_params
+      if @recipe.save
+        @recipe.save_tags(tag_list)
+        redirect_to admin_recipe_path(@recipe.id), notice: "レシピを更新しました。"
+      else
+        render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
+      end
+  end
+
+  def destroy
+    @recipe = Recipe.find(params[:id])
+    @recipe.destroy
+    redirect_to admin_recipes_path, notice: "レシピを削除しました。"
+  end
+
+  private
+
+  def recipe_params
+    params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
+      ingredients_attributes: [:id, :content, :quantity, :_destroy],
+      procedures_attributes: [:id, :direction, :_destroy] ,
+      original_menu_attributes: [:name]
+      )
+  end
+
+  def tag_params
+      params.require(:recipe).permit(:name)
+  end
+
 end
