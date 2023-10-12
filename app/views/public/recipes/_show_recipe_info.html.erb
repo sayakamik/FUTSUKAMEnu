@@ -1,0 +1,31 @@
+<section class="recipe-info">
+  <table class="recipe-info__datas">
+    <tr>
+      <th>メッセージ</th><td>&emsp;<%= recipe.description %></td>
+    </tr>
+    <tr>
+      <th>made by</th>
+      <!--管理側でのリンクとuser側でのリンクを分ける-->
+      <% if admin_signed_in? %>
+        <td>&emsp;<%= link_to admin_user_path(recipe.user.id) do %>
+          <%= recipe.user.name %>
+        <% end %></td>
+      <% else %>
+        <td>&emsp;<%= link_to user_path(recipe.user.id) do %>
+          <%= recipe.user.name %>
+        <% end %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>アレンジ前1日目レシピ</th><td>&emsp;<%= recipe.original_menu.name %></td>
+    </tr>
+    <tr>
+      <th>関連タグ</th>
+      <td>&emsp;
+        <% recipe.tags.each do |tag| %>
+           <div><%= tag.name %></div>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</section>

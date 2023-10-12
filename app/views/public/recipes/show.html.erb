@@ -9,8 +9,6 @@
         <% end %>
         &emsp;
         <!--お気に入り機能-->
-          <!--<= render 'favorite_form', recipe: @recipe %>-->
-          <p>aaaa</p>
           <div class="favorite_form">
             <%= render 'favorite_form', recipe: @recipe %>
           </div>
@@ -24,49 +22,15 @@
 
           <div class="col-md-6 col-sm-12">
             <div class="cooking-title">説明</div>
-              <section class="recipe-info">
-                <table class="recipe-info__datas">
-                  <tr>
-                    <th>メッセージ</th><td>&emsp;<%= @recipe.description %></td>
-                  </tr>
-                  <tr>
-                    <th>made by</th>
-                    <td>&emsp;<%= link_to user_path(@recipe.user.id) do %>
-                      <%= @recipe.user.name %>
-                    <% end %></td>
-                  </tr>
-                  <tr>
-                    <th>アレンジ前1日目レシピ</th><td>&emsp;<%= @recipe.original_menu.name %></td>
-                  </tr>
-                  <tr>
-                    <th>関連タグ</th>
-                    <td>&emsp;
-                      <% @recipe.tags.each do |tag| %>
-                         <div><%= tag.name %></div>
-                      <% end %>
-                    </td>
-                  </tr>
-                </table>
-              </section>
+              <%= render 'public/recipes/show_recipe_info', recipe: @recipe %>
+
             <div class="cooking-title">材料</div>
-              <section class="ingredient">
-                <% @recipe.ingredients.each do |ingredient| %>
-                  <div class="ingredient__list">
-                    <div><%= ingredient.content %></div>
-                    <div><%= ingredient.quantity %></div>
-                  </div>
-                <% end %>
-              </section>
+              <%= render 'public/recipes/show_ingredients', recipe: @recipe %>
           </div>
+
           <div class="col-md-12 col-sm-12">
             <div class="cooking-title">作り方</div>
-              <section class="procedure">
-                <% @recipe.procedures.each do |procedure| %>
-                  <ol class="procedure__list">
-                    <li><%= procedure.direction %></li>
-                  </ol>
-                <% end %>
-          　　  </section>
+              <%= render 'public/recipes/show_procedure', recipe: @recipe %>
           </div>
       </div>
       <!--コメント機能-->

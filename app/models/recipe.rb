@@ -50,7 +50,7 @@ class Recipe < ApplicationRecord
   end
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    user.present? && favorites.exists?(user_id: user.id)
   end
 
   def save_tags(tags)

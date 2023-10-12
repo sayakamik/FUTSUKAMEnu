@@ -139,6 +139,6 @@ class Public::RecipesController < ApplicationController
 
   def tag_params # tagに関するストロングパラメータ
       params.require(:recipe).permit(:name)
-    end
+  end
 
 end

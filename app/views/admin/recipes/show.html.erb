@@ -1,2 +1,45 @@
-<h1>Admin::Recipes#show</h1>
-<p>Find me in app/views/admin/recipes/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11">
+      <div class="row">
+        <h3><strong>★<%= @recipe.name %>のレシピ★</strong></h3>
+          <%= link_to edit_admin_recipe_path(@recipe.id), class: "btn btn-light",'data-turbolinks': "false" do %>編集する<% end %>
+        &emsp;
+        <!--お気に入り機能-->
+          <div class="favorite_form">
+            <p class>お気に入り♥<%= @recipe.favorites.count %></p>
+          </div>
+        <!--お気に入り終了-->
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <%= image_tag @recipe.get_menu_image(600, 400), class: "img-fluid" %>
+        </div>
+
+          <div class="col-md-6 col-sm-12">
+            <div class="cooking-title">説明</div>
+              <%= render 'public/recipes/show_recipe_info', recipe: @recipe %>
+
+            <div class="cooking-title">材料</div>
+              <%= render 'public/recipes/show_ingredients', recipe: @recipe %>
+
+          </div>
+          <div class="col-md-12 col-sm-12">
+            <div class="cooking-title">作り方</div>
+              <%= render 'public/recipes/show_procedure', recipe: @recipe %>
+          </div>
+      </div>
+      <!--コメント機能-->
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <div class="cooking-title">コメント　(全：<%= @recipe.post_comments.count %>件)</div>
+            <div class="post_comment">
+              <%= render 'public/post_comments/comment_form', recipe: @recipe, post_comment: @post_comment %>
+            </div>
+        </div>
+      </div>
+      <!--コメント終了-->
+    </div>
+  </div>
+</div>

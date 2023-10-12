@@ -5,7 +5,8 @@ class Admin::RecipesController < ApplicationController
   end
 
   def show
-    
+    @recipe = Recipe.where(is_draft: false).find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def edit
