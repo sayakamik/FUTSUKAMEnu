@@ -20,11 +20,8 @@ Rails.application.routes.draw do
   #管理者
   namespace :admin do
     get '/' => "homes#top"
-
     resources :comments, only: [:index, :destroy]
-
     resources :users, only: [:show, :edit, :update]
-
     resources :recipes, only: [:index, :show, :edit, :update, :destroy]
   end
 

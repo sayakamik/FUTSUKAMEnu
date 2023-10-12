@@ -1,2 +1,14 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<div class="container p-2">
+  <div class= "row">
+    <div class="col-md-10 offset-md-1 ">
+      <!--会員一覧タイトル-->
+          <th><h3>会員一覧</h3></th>
+          <td>(全<%= @users_count.count %>名)</td>
+      <!--おしまい-->
+
+      <!--会員一覧テンプレート-->
+      <%= render "admin/users/index", users: @users %>
+      <!--おしまい-->
+    </div>
+  </div>
+</div>

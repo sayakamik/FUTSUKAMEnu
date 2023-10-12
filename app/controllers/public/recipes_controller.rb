@@ -43,7 +43,6 @@ class Public::RecipesController < ApplicationController
        .limit(10)
     # 下書きでないレシピ一覧表示
     @recipes = Recipe.where(is_draft: false)
-
     #クエリパラメータ(original_menu_id)をとりだす
     if @original_menu_id = params[:original_menu_id]
       #original_menu_idが同じものを全てとりだす
