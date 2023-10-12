@@ -1,2 +1,22 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container p-2">
+  <div class= "row">
+    <!--会員情報-->
+    <div class= "col-md-3 mt-5">
+        <h2><b>会員情報</b></h2>
+        <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle", style: "width: 100px; height: 100px;" %>
+        <table class="table" >
+          <tr><th>登録名</th><td><%= @user.name %></td></tr>
+          <tr><th>メールアドレス</th><td><%= @user.email %></td></tr>
+        </table>
+
+        <p><%= link_to "会員情報編集", edit_admin_user_path(@user.id), class:"btn btn-light" %></p>
+    </div>
+
+    <div class="col-md-8 offset-md-1 ">
+      <!--レシピ一覧-->
+          <th><h3><b>投稿一覧</b></h3></th>
+          <td>(全<%= @recipes_count.count %>件)</td>
+      <%= render "admin/recipes/index", recipes: @recipes, user: @user %>
+    </div>
+  </div>
+</div>
