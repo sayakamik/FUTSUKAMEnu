@@ -1,2 +1,46 @@
-<h1>Admin::Recipes#index</h1>
-<p>Find me in app/views/admin/recipes/index.html.erb</p>
+<div class="container p-2">
+  <div class= "row">
+    <div class="col-md-10 offset-md-1 ">
+          <th><h3><b>投稿一覧</b></h3></th>
+          <td>(全<%= @recipes_count.count %>名)</td>
+      <!--おしまい-->
+
+      <!--レシピ一覧テンプレート-->
+      <div class="row">
+        <div class="col">
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>投稿日時</th>
+                  <th>レシピid</th>
+                  <th>メイン写真</th>
+                  <th>レシピ名</th>
+                  <th>会員名</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead>
+              <% @recipes.each do |recipe| %>
+              <tbody>
+                <tr>
+                  <td><span><%= recipe.created_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') %></span></td>
+                  <td><span><%= recipe.id %></span></td>
+                  <td><span><%= link_to admin_recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(80,80) %><% end %></span></td>
+                  <td><span><%= link_to admin_recipe_path(recipe.id) do %><%= recipe.name %><% end %></span></td>
+                  <td><span><%= link_to admin_user_path(recipe.user.id) do %><%= recipe.user.name %><% end %></span></td>
+                  <td colspan="3"></td>
+                </tr>
+              </tbody>
+              <% end %>
+          </table>
+        </div>
+      </div>
+
+          <div class="outer">
+            <div class="inner">
+              <%= paginate @recipes %>
+            </div>
+          </div>
+      <!--おしまい-->
+    </div>
+  </div>
+</div>
