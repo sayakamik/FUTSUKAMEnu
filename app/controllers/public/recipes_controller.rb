@@ -7,7 +7,6 @@ class Public::RecipesController < ApplicationController
     @recipe.procedures.build # 画面で使うための空のレシピ手順オブジェクト
     @original_menus = OriginalMenu.all
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
-    tag_list = params[:recipe][:tag_name].split(',')
   end
 
   def create
@@ -133,12 +132,19 @@ class Public::RecipesController < ApplicationController
   end
 
   def search_tag
+    #1日目メニュー一覧表示
+    @original_menus = OriginalMenu.joins(:recipes)
+       .where(recipes: { is_draft: false })
+       .select('DISTINCT original_menus.*')
+       .order("recipes.created_at DESC")
+       .limit(10)
     #検索結果画面でもタグ一覧表示
     @tag_list = Tag.all
-    　#検索されたタグを受け取る
+    #検索されたタグを受け取る
     @tag = Tag.find(params[:tag_id])
-    　#検索されたタグに紐づく投稿を表示
-    @recipes = @tag.recipes
+    #検索されたタグに紐づく投稿を表示
+    @recipes = @tag.recipes.page(params[:page]).per(10)
+    @recipes_count = @recipes.all
   end
 
   private

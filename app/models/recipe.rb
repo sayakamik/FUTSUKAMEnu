@@ -63,7 +63,8 @@ class Recipe < ApplicationRecord
     end
     # 新しいタグを保存する
     new_tags.each do |new_name|
-     tag = Tag.create(tag_name: new_name)
+     tag = Tag.find_or_create_by(tag_name: new_name)
+     self.tags << tag
     end
   end
 

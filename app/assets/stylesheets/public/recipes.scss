@@ -24,9 +24,9 @@
   &__list {
     display: flex;
     justify-content: space-between;
+    padding: 0 100px;
     color: #696969;
     border-bottom: 1px solid #d3d3d3;
-    padding: 6px;
   }
 }
 
@@ -41,9 +41,15 @@
 
 .post_comment {
   color: #696969;
-  
+
   &__list {
     color: #696969;
     margin: 10px 20px;
     }
 }
+
+.tag_index {
+  color: #696969;
+  margin: 10px 10px;
+}
+
