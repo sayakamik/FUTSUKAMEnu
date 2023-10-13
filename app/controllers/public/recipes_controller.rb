@@ -7,6 +7,7 @@ class Public::RecipesController < ApplicationController
     @recipe.procedures.build # 画面で使うための空のレシピ手順オブジェクト
     @original_menus = OriginalMenu.all
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
+    tag_list = params[:recipe][:tag_name].split(',')
   end
 
   def create
@@ -62,12 +63,15 @@ class Public::RecipesController < ApplicationController
     @original_menus= OriginalMenu.all
     @recipe = Recipe.where(is_draft: false).find(params[:id])
     @post_comment = PostComment.new
+    @tag_list = @recipe.tags.pluck(:tag_name).join(',')
+    @recipe_tag_relations = @recipe.tags
   end
 
   def edit
     @recipe = Recipe.find(params[:id])
     @original_menus = OriginalMenu.all
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
+    @tag_list = @recipe.tags.pluck(:tag_name).join(',')
   end
 
   def update
@@ -119,12 +123,22 @@ class Public::RecipesController < ApplicationController
     @recipes = current_user.recipes.where(is_draft: true)
     @recipes_count = @recipes.all
     @recipes = @recipes.all.page(params[:page]).per(10)
+
   end
 
   def destroy
     @recipe = Recipe.find(params[:id])
     @recipe.destroy
     redirect_to user_path(current_user.id), notice: "レシピを削除しました。"
+  end
+
+  def search_tag
+    #検索結果画面でもタグ一覧表示
+    @tag_list = Tag.all
+    　#検索されたタグを受け取る
+    @tag = Tag.find(params[:tag_id])
+    　#検索されたタグに紐づく投稿を表示
+    @recipes = @tag.recipes
   end
 
   private
@@ -138,7 +152,7 @@ class Public::RecipesController < ApplicationController
   end
 
   def tag_params # tagに関するストロングパラメータ
-      params.require(:recipe).permit(:name)
+      params.require(:recipe).permit(:tag_name)
   end
 
 end

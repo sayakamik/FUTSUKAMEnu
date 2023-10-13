@@ -1,7 +1,7 @@
 <section class="procedure">
   <% recipe.procedures.each do |procedure| %>
     <ol class="procedure__list">
-      <li><%= procedure.direction %></li>
+      <li><%= procedure.direction %>&emsp;<%= image_tag procedure.get_image(150, 150), class: "img-fluid" %></li>
     </ol>
   <% end %>
 </section>

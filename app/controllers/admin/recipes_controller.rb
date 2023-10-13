@@ -7,22 +7,29 @@ class Admin::RecipesController < ApplicationController
   def show
     @recipe = Recipe.where(is_draft: false).find(params[:id])
     @post_comment = PostComment.new
+    @tag_list = @recipe.tags.pluck(:tag_name).join(',')
+    @recipe_tag_relations = @recipe.tags
   end
 
   def edit
     @recipe = Recipe.where(is_draft: false).find(params[:id])
+    @original_menus = OriginalMenu.all
+    @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
+    @tag_list = @recipe.tags.pluck(:tag_name).join(',')
   end
 
   def update
     @recipe = Recipe.where(is_draft: false).find(params[:id])
     tag_list = params[:recipe][:tag_name].split(',')
+     if params[:update_post]
       @recipe.attributes = recipe_params
-      if @recipe.save
-        @recipe.save_tags(tag_list)
-        redirect_to admin_recipe_path(@recipe.id), notice: "レシピを更新しました。"
-      else
-        render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
-      end
+        if @recipe.save(context: :publicize)
+          @recipe.save_tags(tag_list)
+          redirect_to admin_recipe_path(@recipe.id), notice: "レシピを更新しました。"
+        else
+          render :edit, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください。"
+        end
+     end
   end
 
   def destroy
@@ -34,7 +41,7 @@ class Admin::RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
+    params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id, :tag_name,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
       procedures_attributes: [:id, :direction, :_destroy] ,
       original_menu_attributes: [:name]
@@ -42,7 +49,7 @@ class Admin::RecipesController < ApplicationController
   end
 
   def tag_params
-      params.require(:recipe).permit(:name)
+      params.require(:recipe).permit(:tag_name)
   end
 
 end

@@ -22,7 +22,7 @@
 
           <div class="col-md-6 col-sm-12">
             <div class="cooking-title">説明</div>
-              <%= render 'public/recipes/show_recipe_info', recipe: @recipe %>
+              <%= render 'public/recipes/show_recipe_info', recipe: @recipe, recipe_tag_relations: @recipe_tag_relations %>
 
             <div class="cooking-title">材料</div>
               <%= render 'public/recipes/show_ingredients', recipe: @recipe %>

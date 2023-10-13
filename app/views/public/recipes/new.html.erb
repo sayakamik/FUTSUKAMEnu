@@ -39,9 +39,9 @@
 
             <!--タグ-->
             <div class="form-group">
-              <div class="cooking-title">関連タグ</div>
+              <div class="cooking-title">関連タグ(カンマ『,』で複数個登録できます)</div>
                 <section class="tag">
-                  <%= f.text_field :tag_name, placeholder: "タグ(カンマ『,』で複数個登録できます)", class: 'form-control book_tag_name' %>
+                  <%= f.text_field :tag_name, value: @tag_list, placeholder: "タグ", class: 'form-control book_tag_name' %>
                 </section>
             </div>
 

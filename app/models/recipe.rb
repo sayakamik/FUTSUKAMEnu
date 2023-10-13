@@ -54,16 +54,16 @@ class Recipe < ApplicationRecord
   end
 
   def save_tags(tags)
-    current_tags = self.tags.pluck(:name) unless self.tags.nil? # タグが存在していれば、タグの名前を配列として全て取得
+    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil? # タグが存在していれば、タグの名前を配列として全て取得
     old_tags = current_tags - tags # 現在取得したタグから、送られてきたタグを除く
     new_tags = tags - current_tags # 送信されてきたタグから、現在存在するタグを除く
     # 古いタグを消す
     old_tags.each do |old_name|
-     Tag.find_by(name: old_name).destroy
+     Tag.find_by(tag_name: old_name).destroy
     end
     # 新しいタグを保存する
     new_tags.each do |new_name|
-     tag = Tag.create(name: new_name)
+     tag = Tag.create(tag_name: new_name)
     end
   end
 

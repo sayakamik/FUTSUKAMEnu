@@ -22,8 +22,8 @@
     <tr>
       <th>関連タグ</th>
       <td>&emsp;
-        <% recipe.tags.each do |tag| %>
-           <div><%= tag.name %></div>
+        <% recipe_tag_relations.each do |tag| %>
+           <div><i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id) %></div>
         <% end %>
       </td>
     </tr>
