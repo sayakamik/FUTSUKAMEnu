@@ -1,5 +1,6 @@
 class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_normal_user, only: [:create]
 
   def index
   end
@@ -22,6 +23,13 @@ class Public::PostCommentsController < ApplicationController
     # app/views/post_comments/destroy.js.erbを参照する
     redirect_to recipe_path(params[:recipe_id])
 
+  end
+
+  def ensure_normal_user
+    @user = current_user
+    if @user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーのコメント投稿はできません。'
+    end
   end
 
   private

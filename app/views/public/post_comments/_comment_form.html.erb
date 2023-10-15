@@ -17,7 +17,9 @@
 
     <%= post_comment.created_at.strftime('%Y/%m/%d') %>&emsp;<%= post_comment.comment %>
     <!--もし自分のコメントの場合、もしくは自分のレシピへのコメントの場合、もしくは管理人の場合のみコメント削除ができるように設定-->
-    <% if post_comment.user == current_user || post_comment.recipe.user == current_user || admin_signed_in? %>
+    <% if admin_signed_in? %>
+      <%= link_to "削除",admin_recipe_comment_path(post_comment.recipe, post_comment), method: :delete %>
+    <% elsif post_comment.user == current_user || post_comment.recipe.user == current_user %>
       <%= link_to "削除", recipe_post_comment_path(post_comment.recipe, post_comment), method: :delete %>
     <% end %>
     <br>

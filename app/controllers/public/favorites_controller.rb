@@ -1,5 +1,6 @@
 class Public::FavoritesController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_normal_user, only: [:create]
 
   def index
     #1日目メニュー一覧表示
@@ -30,4 +31,12 @@ class Public::FavoritesController < ApplicationController
     favorite.destroy
     # app/views/public/favorites/destroy.js.erbを参照する
   end
+
+  def ensure_normal_user
+    @user = current_user
+    if @user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーのお気に入り登録はできません。'
+    end
+  end
+
 end

@@ -13,7 +13,7 @@
         <h3><strong>レシピ編集</strong></h3>
       </div>
 
-      <%= form_with model: @recipe, local:true do |f| %>
+      <%= form_with model: @recipe,url:admin_recipe_path(@recipe), local:true do |f| %>
         <div class="form-group row">
           <div class="col-md-3">
          　　<%= image_tag @recipe.get_menu_image(600, 400), class: "img-fluid" %>
@@ -31,6 +31,7 @@
               <%= f.text_field :original_menu_name, autofocus: true, placeholder: "1日目メニュー(15文字以内)",
                   id: "originalMenuField",
                   class: "form-control",
+                  value: OriginalMenu.find(@recipe.original_menu_id).name,
                   data: {
                     json: @original_menus_json
                   } %>
@@ -44,29 +45,29 @@
                     <%= f.text_field :tag_name, value: @tag_list, placeholder: "タグ(カンマ『,』で複数個登録できます)", class: 'form-control book_tag_name' %>
                 </section>
             </div>
-
-            <!--材料フォーム（Javascript)-->
-            <div class="cooking-title">材料</div>
-              <section class="ingredient">
-                <!-- 材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
-                <div id="ingredient-fields-template" style="display: none;">
-                  <!-- 新しいIngredientオブジェクトを作成, 新たに追加されるフォームに一意なインデックスを付与 -->
-                  <%= f.fields_for :ingredients, Ingredient.new, child_index: "new_ingredient" do |ingredient_field| %>
-                    <%= render 'public/recipes/ingredient_field', f: ingredient_field %>
-                  <% end %>
-                </div>
-                <!--隠し要素テンプレート終わり-->
-                <!--すでにデータベースに保存されているか、または新しくユーザーが追加した「材料」に関する情報を表示するためのフォーム-->
-                <%= f.fields_for :ingredients do |ingredient_field| %>
-                  <%= render 'public/recipes/ingredient_field', f: ingredient_field %>
-                <% end %>
-                <div id="ingredients"></div>
-            　　<div>
-                  <button type="button" id="add-ingredient" class="btn mb-4"  style="background-color: #ffe4e1;">材料を追加</button>
-                </div>
-          　　  </section>
           </div>
         </div>
+
+        <!--材料フォーム（Javascript)-->
+        <div class="cooking-title">材料</div>
+          <section class="ingredient">
+            <!-- 材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
+            <div id="ingredient-fields-template" style="display: none;">
+              <!-- 新しいIngredientオブジェクトを作成, 新たに追加されるフォームに一意なインデックスを付与 -->
+              <%= f.fields_for :ingredients, Ingredient.new, child_index: "new_ingredient" do |ingredient_field| %>
+                <%= render 'public/recipes/ingredient_field', f: ingredient_field %>
+              <% end %>
+            </div>
+            <!--隠し要素テンプレート終わり-->
+            <!--すでにデータベースに保存されているか、または新しくユーザーが追加した「材料」に関する情報を表示するためのフォーム-->
+            <%= f.fields_for :ingredients do |ingredient_field| %>
+              <%= render 'public/recipes/ingredient_field', f: ingredient_field %>
+            <% end %>
+            <div id="ingredients"></div>
+        　　<div>
+              <button type="button" id="add-ingredient" class="btn mb-4"  style="background-color: #ffe4e1;">材料を追加</button>
+            </div>
+      　　  </section>
 
         <!--手順フォーム（Javascript)-->
         <div class="cooking-title">作り方（必須）</div>
@@ -117,7 +118,7 @@
 
       <div class="row mt-4 pb-5">
         <div class="form-inline mx-auto">
-            <%= link_to "レシピを更新", admin_recipe_path(@recipe.id), method: :patch, :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>
+          <%= f.submit "レシピを更新", :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>
         </div>
       </div>
       <div class="mt-4 pb-3 text-center">
@@ -135,7 +136,7 @@
       const data = JSON.parse(e.target.dataset.json)
       const target = e.target.value
       const result = data.filter((o) =>
-        o.name.includes(target) && target.length > 0
+       target.length > 0 && o.name.includes(target)
       )
       const originalMenuList = $("#originalMenuList")
       originalMenuList.empty()

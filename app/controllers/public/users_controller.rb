@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
    before_action :authenticate_user!
+   before_action :ensure_normal_user, only: [:confirm_withdraw, :withdraw, :edit, :update]
 
   def mypage
     @user = current_user
@@ -36,6 +37,7 @@ class Public::UsersController < ApplicationController
   end
 
   def confirm_withdraw
+    @user = current_user
   end
 
   def withdraw
@@ -47,6 +49,13 @@ class Public::UsersController < ApplicationController
     flash[:notice] = "退会処理を実行いたしました"
     #退会後トップ画面に遷移
     redirect_to root_path
+  end
+
+  def ensure_normal_user
+    @user = current_user
+    if @user.email == 'guest@example.com'
+      redirect_to mypage_path, alert: 'ゲストユーザーの編集、削除はできません。'
+    end
   end
 
   private

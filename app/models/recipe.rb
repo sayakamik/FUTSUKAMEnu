@@ -28,6 +28,8 @@ class Recipe < ApplicationRecord
     validates :name
     validates :description
     validates :original_menu
+    validates :ingredients
+    validates :procedures
   end
   validates :name, length: { maximum: 50 }, on: :publicize
   validates :description, length: { maximum: 100 }, on: :publicize
@@ -37,7 +39,7 @@ class Recipe < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       menu_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpg')
     end
-    menu_image.variant(resize_to_limit: [width, height]).processed
+      menu_image.variant(resize_to_limit: [width, height]).processed
   end
 
   #レシピ公開・下書き時のステータス処理

@@ -23,7 +23,11 @@
       <th>関連タグ</th>
       <td>&emsp;
         <% recipe_tag_relations.each do |tag| %>
+          <% if admin_signed_in? %>
+           <div><i class="fa-sharp fa-solid fa-tag"></i><%= tag.tag_name %></div>
+          <% else %>
            <div><i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id) %></div>
+          <% end %>
         <% end %>
       </td>
     </tr>

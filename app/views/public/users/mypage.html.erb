@@ -21,7 +21,11 @@
 
 
   <div class="row">
+    <% if @user.email == 'guest@example.com'%>
+      <p>ゲストユーザーはユーザー情報の編集ができません。</p>
+    <% else %>
      <%= link_to "会員情報編集", users_information_edit_path, class: 'btn btn-light' %>
+    <% end %>
   </div>
 
   <div class="row">

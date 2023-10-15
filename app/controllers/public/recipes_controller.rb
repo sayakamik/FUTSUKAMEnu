@@ -1,5 +1,6 @@
 class Public::RecipesController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_normal_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @recipe = Recipe.new
@@ -41,8 +42,8 @@ class Public::RecipesController < ApplicationController
        .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
-    # 下書きでないレシピ一覧表示
-    @recipes = Recipe.where(is_draft: false)
+    # 下書きでないレシピ一覧を最新から表示
+    @recipes = Recipe.where(is_draft: false).order("recipes.created_at DESC")
     #クエリパラメータ(original_menu_id)をとりだす
     if @original_menu_id = params[:original_menu_id]
       #original_menu_idが同じものを全てとりだす
@@ -119,7 +120,7 @@ class Public::RecipesController < ApplicationController
        .order("recipes.created_at DESC")
        .limit(10)
     # 下書き(is_draft: true)レシピ一覧表示
-    @recipes = current_user.recipes.where(is_draft: true)
+    @recipes = current_user.recipes.where(is_draft: true).order("recipes.created_at DESC")
     @recipes_count = @recipes.all
     @recipes = @recipes.all.page(params[:page]).per(10)
 
@@ -143,8 +144,15 @@ class Public::RecipesController < ApplicationController
     #検索されたタグを受け取る
     @tag = Tag.find(params[:tag_id])
     #検索されたタグに紐づく投稿を表示
-    @recipes = @tag.recipes.page(params[:page]).per(10)
+    @recipes = @tag.recipes.page(params[:page]).per(10).order("recipes.created_at DESC")
     @recipes_count = @recipes.all
+  end
+
+  def ensure_normal_user
+    @user = current_user
+    if @user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーの新規投稿はできません。'
+    end
   end
 
   private
