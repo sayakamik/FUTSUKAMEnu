@@ -1,0 +1,25 @@
+ja:
+ activerecord:
+   models:
+     recipe: レシピ名
+     user: 会員
+   attributes:
+     recipe:
+       name: メニュー名
+       description: メニュー説明
+       original_menu: 1日目メニュー
+       genre: ジャンル名
+       ingredients: 材料
+       procedures: 手順
+       menu_image: メニューの写真
+     original_menu:
+       name: 1日目メニュー
+     ingredient:
+       content: 材料名
+       quantity: 分量
+     procedure:
+       direction: 作り方手順
+     user:
+       name: 登録名
+       email: メールアドレス
+       encrypted_password: パスワード
