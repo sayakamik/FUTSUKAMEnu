@@ -5,7 +5,7 @@
         <h3><strong>会員情報編集</strong></h3>
       </div>
       <div class="row">
-        <span><%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %></span>
+        <span><%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle", style: "width: 100px; height: 100px;" %></span>
         <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
 
           <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>

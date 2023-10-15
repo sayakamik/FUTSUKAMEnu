@@ -1,6 +1,7 @@
 class Public::RecipesController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_normal_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :is_matching_login_customer, only: [:edit, :update, :destroy]
 
   def new
     @recipe = Recipe.new
@@ -157,6 +158,13 @@ class Public::RecipesController < ApplicationController
 
   private
 
+  def is_matching_login_customer
+    @recipe = Recipe.find(params[:id])
+    unless recipe.user.id == current_user.id
+      redirect_to root_path
+    end
+  end
+
   def recipe_params
     params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
@@ -168,5 +176,7 @@ class Public::RecipesController < ApplicationController
   def tag_params # tagに関するストロングパラメータ
       params.require(:recipe).permit(:tag_name)
   end
+
+
 
 end
