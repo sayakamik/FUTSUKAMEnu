@@ -1,6 +1,6 @@
 class Public::OriginalMenusController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @original_menus = OriginalMenu.joins(:recipes)
       .where(recipes: { is_draft: false })

@@ -22,25 +22,17 @@
           <div class="col-md-9 col-sm-12">
 
             <!--レシピ名、説明文-->
-            <div class="cooking-title">レシピについて</div>
+            <div class="cooking-title"><b>レシピについて</b></div>
               <%= f.text_field :name, autofocus: true, placeholder: "メニュー名(50文字以内)" , class: "form-control" %>
               <%= f.text_area :description, placeholder: "サブタイトル(100字以内)", class: "form-control" %>
 
-            <!--1日目レシピ入力、投稿（Javascript、一部modelに記載)-->
-            <div class="cooking-title">アレンジ前1日目レシピ</div>
-              <%= f.text_field :original_menu_name, autofocus: true, placeholder: "1日目メニュー(15文字以内)",
-                  id: "originalMenuField",
-                  class: "form-control",
-                  value: OriginalMenu.find(@recipe.original_menu_id).name,
-                  data: {
-                    json: @original_menus_json
-                  } %>
-            <div id="originalMenuList"></div>
-            <%= f.hidden_field :original_menu_id, id: "originalMenuId", value: @recipe.original_menu_id %>
+            <!--1日目レシピ-->
+            <div class="cooking-title"><b>アレンジ前1日目レシピ</b></div>
+              <%= @recipe.original_menu.name %>
 
             <!--タグ-->
             <div class="form-group">
-              <div class="cooking-title">関連タグ</div>
+              <div class="cooking-title"><b>関連タグ</b></div>
                 <section class="tag">
                     <%= f.text_field :tag_name, value: @tag_list, placeholder: "タグ(カンマ『,』で複数個登録できます)", class: 'form-control book_tag_name' %>
                 </section>
@@ -49,7 +41,7 @@
         </div>
 
         <!--材料フォーム（Javascript)-->
-        <div class="cooking-title">材料</div>
+        <div class="cooking-title"><b>材料</b></div>
           <section class="ingredient">
             <!-- 材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
             <div id="ingredient-fields-template" style="display: none;">
@@ -70,7 +62,7 @@
       　　  </section>
 
         <!--手順フォーム（Javascript)-->
-        <div class="cooking-title">作り方（必須）</div>
+        <div class="cooking-title"><b>作り方（必須）</b></div>
           <section class="procedure">
             　<!--作り方フォームの隠し要素テンプレート-->
               <div id="procedure-fields-template" style="display: none;">
@@ -128,31 +120,3 @@
     </div>
   </div>
 </div>
-
-<!--1日目レシピ本当はJS本体に記載して、編集画面とかに効かせたほうが良い。-->
-<script>
-  document.addEventListener('turbolinks:load', function() {
-    $("#originalMenuField").on("keyup", (e) => {
-      const data = JSON.parse(e.target.dataset.json)
-      const target = e.target.value
-      const result = data.filter((o) =>
-       target.length > 0 && o.name.includes(target)
-      )
-      const originalMenuList = $("#originalMenuList")
-      originalMenuList.empty()
-      result.forEach((o) => {
-        const appendData = originalMenuList.append(`
-         <div class="badge badge-secondary" data-id=${o.id}>${o.name}</div>
-        `)
-        appendData.off();
-        appendData.on("click", (e) => {
-          const name = e.target.innerHTML
-          const id = e.target.dataset.id
-          $("#originalMenuField").val(name)
-          $("#originalMenuId").val(id)
-          originalMenuList.empty()
-        })
-      })
-    })
-  });
-</script>
