@@ -2,7 +2,7 @@
   <% if admin_signed_in? %>
     <!-- 何も表示しない -->
   <% else %>
-    <%= form_with model: [recipe, post_comment],url: recipe_post_comments_path, method: :post, local: false do |f| %>
+    <%= form_with model: [recipe, post_comment],url: recipe_post_comments_path(recipe), method: :post, local: false do |f| %>
     <div style="display: flex; align-items: center;">
       <%= f.text_area :comment, rows: '1', placeholder: "コメントをここに" ,style: "width: 80%; border: 1px solid #ccc;"%>
       <%= f.submit "送信", style: "margin-left: 10px;" %>
