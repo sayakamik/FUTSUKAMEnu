@@ -22,3 +22,14 @@
 header, main, footer {
    font-family:"Lexend Deca",Arial,sans-serif;
  }
+.nav-item {
+  font-family: 'Murecho', sans-serif;
+  color:#696969;
+}
+.btn {
+  font-family: 'Murecho', sans-serif;
+}
+.title {
+  font-family: 'Murecho', sans-serif;
+  color:#696969;
+}
