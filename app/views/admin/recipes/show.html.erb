@@ -35,7 +35,11 @@
       <!--コメント機能-->
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <div class="cooking-title">コメント　(全：<%= @recipe.post_comments.count %>件)</div>
+          <div class="cooking-title">
+            <div class="post_comment_count">
+              <%= render 'public/post_comments/comment_count', recipe: @recipe %>
+            </div>
+          </div>
             <div class="post_comment">
               <%= render 'public/post_comments/comment_form', recipe: @recipe, post_comment: @post_comment %>
             </div>

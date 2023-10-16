@@ -1,0 +1,2 @@
+$('.post_comment_count').html("<%= j(render 'public/post_comments/comment_count', recipe: @recipe) %>");
+$('.post_comment').html("<%= j(render 'public/post_comments/comment_form', recipe: @recipe, post_comment: @post_comment) %>");

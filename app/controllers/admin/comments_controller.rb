@@ -12,7 +12,6 @@ class Admin::CommentsController < ApplicationController
     post_comment = @recipe.post_comments.find(params[:id])
     post_comment.destroy
     # app/views/post_comments/destroy.js.erbを参照する
-    redirect_to admin_recipe_path(@recipe.id)
   end
 
   private

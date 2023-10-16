@@ -5,7 +5,7 @@ class Public::UsersController < ApplicationController
   def mypage
     @user = current_user
   end
-  
+
   def show
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)

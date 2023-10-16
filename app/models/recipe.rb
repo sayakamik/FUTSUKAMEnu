@@ -13,7 +13,7 @@ class Recipe < ApplicationRecord
   has_many :recipe_tag_relations, dependent: :destroy
   has_many :tags, through: :recipe_tag_relations
 
-  belongs_to :original_menu
+  belongs_to :original_menu #belongs_to で自動的にバリデーション。optional:trueでバリデーションなしも可能。
   attribute :original_menu_name
 
   before_validation :original_menu_create_check
@@ -27,7 +27,6 @@ class Recipe < ApplicationRecord
     validates :menu_image
     validates :name
     validates :description
-    validates :original_menu
     validates :ingredients
     validates :procedures
   end

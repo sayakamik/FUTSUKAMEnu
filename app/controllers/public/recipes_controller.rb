@@ -160,7 +160,7 @@ class Public::RecipesController < ApplicationController
 
   def is_matching_login_customer
     @recipe = Recipe.find(params[:id])
-    unless recipe.user.id == current_user.id
+    unless @recipe.user.id == current_user.id
       redirect_to root_path
     end
   end

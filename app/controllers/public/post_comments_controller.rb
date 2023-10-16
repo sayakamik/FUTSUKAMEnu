@@ -12,7 +12,7 @@ class Public::PostCommentsController < ApplicationController
     @post_comment.user_id = current_user.id
     @post_comment.save
     # app/views/post_comments/create.js.erbを参照する
-    redirect_to recipe_path(params[:recipe_id])
+    # redirect_to recipe_path(params[:recipe_id])
   end
 
   def destroy
@@ -21,7 +21,6 @@ class Public::PostCommentsController < ApplicationController
     post_comment = @recipe.post_comments.find(params[:id])
     post_comment.destroy
     # app/views/post_comments/destroy.js.erbを参照する
-    redirect_to recipe_path(params[:recipe_id])
 
   end
 
