@@ -1,14 +1,33 @@
+<style>
+  .table-hover tbody tr:hover {
+    background-color: #f5f5dc;
+  }
+  .table {
+    color: #3A5734;
+    border-color: #3A5734;
+  }
+  .table-admin-comment td:nth-child(1),
+  .table-admin-comment td:nth-child(3),
+  .table-admin-comment td:nth-child(4),
+  .table-admin-comment td:nth-child(5) {
+    width: 22%;
+  }
+  .table-admin-comment td:nth-child(2) {
+    width: 12%;
+  }
+</style>
+
 <div class="container p-2">
   <div class= "row">
     <div class="col-md-10 offset-md-1 ">
-          <h2 class="title"><b>コメント一覧</b></h2>
+          <h2 class="title mb-4"><b>コメント一覧</b></h2>
           <p>(全<%= @comments_count.count %>コメント)</p>
       <!--おしまい-->
 
       <!--レシピ一覧テンプレート-->
       <div class="row">
         <div class="col">
-          <table class="table table-hover">
+          <table class="table table-hover table-inverse table-admin-comment">
               <thead>
                 <tr>
                   <th>投稿日時</th>
@@ -24,9 +43,9 @@
                 <tr>
                   <td><span><%= comment.created_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') %></span></td>
                   <td><span><%= comment.id %></span></td>
-                  <td><span><%= link_to admin_recipe_path(comment.recipe.id) do %><%= comment.comment %><% end %></span></td>
+                  <td><span><%= link_to admin_recipe_path(comment.recipe.id), class:"link" do %><b><%= comment.comment %><% end %></b></span></td>
                   <td><span><%= comment.recipe.name %></span></td>
-                  <td><span><%= link_to admin_user_path(comment.user.id) do %><%= comment.user.name %><% end %></span></td>
+                  <td><span><%= link_to admin_user_path(comment.user.id), class:"link" do %><b><%= comment.user.name %><% end %></b></span></td>
                   <td colspan="3"></td>
                 </tr>
               </tbody>
