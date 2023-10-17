@@ -1,7 +1,27 @@
+<style>
+  .table-hover tbody tr:hover {
+    background-color: #f5f5dc;
+  }
+  .table {
+    color: #3A5734;
+    border-color: #3A5734;
+  }
+  .table-admin td:nth-child(1) {
+  width: 15%;
+  }
+  /* 2番目から4番目のtd要素に30%の幅を設定 */
+  .table-admin td:nth-child(2),
+  .table-admin td:nth-child(3),
+  .table-admin td:nth-child(4) {
+    width: 28%;
+  }
+</style>
+
+
 <!--会員一覧-->
   <div class="row">
     <div class="col">
-      <table class="table table-hover table-inverse">
+      <table class="table table-hover table-inverse table-admin">
         <thead>
           <tr>
             <th>会員ID</th>
@@ -14,7 +34,7 @@
             <% users.each do |user| %>
           <tr>
             <td><%= user.id %></td>
-            <td><%= link_to admin_user_path(user.id), class:"link" do %><%= user.name %><% end %></td>
+            <td><%= link_to admin_user_path(user.id), class:"link" do %><b><%= user.name %></b><% end %></td>
             <td><%= user.email %></td>
             <td><% if user.is_deleted? %>
                 <p class="text-danger font-weight-bold"><%= user.is_deleted_text %></p>
