@@ -2,18 +2,20 @@
   <div class= "row">
     <div class="col-md-10 offset-md-1 ">
       <div class="row">
-        <h2 class="title"><strong>1日目メニュー一覧</strong></h2>
+        <h2 class="title mb-3"><strong>1日目メニュー一覧</strong></h2>
       </div>
       <div class="row">
         <% @original_menus.each_slice(25) do |original_menus_batch| %>
           <div class="col original-menu-list">
             <% original_menus_batch.each do |original_menu| %>
-              <div>
+              <ul>
                 <!--クエリパラメータで1日目メニューidを指定-->
-                <%= link_to recipes_path(original_menu_id: (original_menu.id)), class:"link" do %>
-                  <%= original_menu.name %>
-                <% end %>
-              </div>
+                <li>
+                  <%= link_to recipes_path(original_menu_id: (original_menu.id)), class:"link" do %>
+                    <%= original_menu.name %>
+                  <% end %>
+                </li>
+              </ul>
             <% end %>
           </div>
         <% end %>

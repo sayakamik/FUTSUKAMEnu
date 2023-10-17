@@ -2,31 +2,31 @@
   <div class="row">
     <div class="col-md-11">
       <div class="row">
-        <h2 class="title"><strong>会員情報編集</strong></h2>
+        <h2 class="title mb-3"><strong>会員情報編集</strong></h2>
       </div>
       <div class="row">
-        <span><%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle", style: "width: 100px; height: 100px;" %></span>
+        <span><%= image_tag @user.get_profile_image(150, 150), class: "rounded-circle my-auto", style: "width: 150px; height: 150px;" %></span>
         <div class="col-sm-12 col-md-8 col-lg-6 mx-auto">
 
           <%= form_with model: @user, url: users_information_path, method: :patch do |f| %>
           <%= render "public/shared/error_messages", resource: @user %>
 
           <div class="form-group">
-            <div class="row">
-              <div class="col-md-3">
+            <div class="row mt-3">
+              <div class="col-md-4">
                 <%= f.label :profile_image, "プロフィール画像" %>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-8">
                 <%= f.file_field :profile_image, class: "form-control-file user_image", accept: 'image/*' %>
               </div>
             </div>
           </div>
           <div class="form-group">
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <%= f.label :name, "登録名" %>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-8">
                 <%= f.text_field :name, class: "form-control name" %>
               </div>
             </div>
@@ -34,10 +34,10 @@
 
           <div class="form-group">
             <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <%= f.label :email, "メールアドレス" %>
               </div>
-              <div class="col-md-9">
+              <div class="col-md-8">
                 <%= f.email_field :email, class: "form-control email", id: "email" %>
               </div>
             </div>
@@ -45,11 +45,11 @@
 
           <div class="row mb-4">
             <div class="col mt-2 mr-1">
-              <%= f.submit "変更を保存する", class: 'btn btn-light' %>
+              <%= f.submit "変更を保存する", class: "btn btn-light custom-light" %>
             </div>
 
             <div class="col mt-2 mr-1">
-              <%= link_to '退会する', users_confirm_withdraw_path, class: 'btn btn-light' %>
+              <%= link_to '退会する', users_confirm_withdraw_path, class: "btn btn-light custom-light" %>
             </div>
           </div>
         <% end %>

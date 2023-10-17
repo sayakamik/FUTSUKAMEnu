@@ -15,12 +15,12 @@
       <!--お気に入りレシピ一覧-->
       <% @recipes.each do |recipe| %>
         <div class="row">
-          <div class="col">
-            <table>
+          <div class="col py-1">
+            <table class="table table-hover">
               <tr>
-                <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
+                <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150), class: "rounded"%><% end %></td>
                 <td>
-                  <%= link_to recipe_path(recipe.id) do %><%= recipe.name %><% end %><br>
+                  <b><%= link_to recipe_path(recipe.id), class:"link" do %><i class="fa-solid fa-heart"></i><%= recipe.name %><% end %></b><br>
                   <%= recipe.original_menu.name %>のアレンジレシピ
                 </td>
               </tr>

@@ -1,28 +1,24 @@
 <div class="container">
   <div class="row m-5 justify-content-center">
     <div class="col text-center">
-      <h3><strong>本当に退会しますか？</strong></h3>
+      <h2 class="confirmation"><strong>本当に退会しますか？</strong></h2>
     </div>
   </div>
   <div class="row justify-content-center">
     <div class="col text-center">
-      <p>
+      <h4><b>
         退会すると、会員登録情報や<br>
         レシピの閲覧、投稿等ができなくなります。<br>
         退会する場合は、「退会する」をクリックしてください。
-      </p>
+      </b></h4>
     </div>
   </div>
   <div class="row m-3 justify-content-center">
-    <div class="col-4 text-center">
-      <br>
-      <br>
-      <%= link_to '退会しない', mypage_path, class: 'btn btn-light' %>
-      <%= link_to '退会する', users_withdraw_path, method: :patch, class: 'btn btn-light', data: { confirm: "本当に退会しますか？" } %>
-      <br>
-      <br>
-      <br>
-      <br>
+    <div class="col-4 m-4 text-center">
+      <%= link_to '退会しない', mypage_path, class: "btn btn-light custom-light" %>
+    </div>
+    <div class="col-4 m-4 text-center">
+      <%= link_to '退会する', users_withdraw_path, method: :patch, class: "btn btn-light custom-light-important", data: { confirm: "本当に退会しますか？" } %>
     </div>
   </div>
 </div>

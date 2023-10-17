@@ -8,13 +8,14 @@
 
     <div class="col-md-8 offset-md-1 ">
       <!--レシピ一覧タイトル-->
-          <th><h2 class>★<%= @user.name %>'s kitchen★</h2></th>
-          <td>(全<%= @recipes_count.count %>件)</td>
+          <h2 class ="my-2"><i class="fa-solid fa-utensils"></i>&ensp;<%= @user.name %>'s kitchen&ensp;<i class="fa-solid fa-utensils"></i></h2>
+          <p>(全<%= @recipes_count.count %>件)</p>
+
       <!--おしまい-->
 
       <!--レシピ一覧テンプレート-->
       <%= render "public/recipes/index", recipes: @recipes %>
       <!--おしまい-->
-    </div>
+    </div>s
   </div>
 </div>

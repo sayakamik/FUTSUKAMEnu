@@ -1,3 +1,25 @@
 // Place all the styles related to the public/users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.mypage-table th, .mypage-table td {
+  color: #3A5734;
+}
+
+.mypage-table {
+  border: 1px solid #f5f5dc;
+}
+
+.confirmation {
+  color: #ff6347;
+}
+
+.btn-light.custom-light-important {
+  color: #ff6347;
+  font-family: 'Murecho', sans-serif;
+}
+
+.btn-light.custom-light-important:hover {
+  background-color: #ffe4e1;
+  border-color:#ffe4e1;
+  color: #ff6347;
+}
