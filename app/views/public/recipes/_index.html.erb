@@ -6,7 +6,7 @@
         <tr>
           <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150), class: "rounded" %><% end %></td>
           <td>
-            <b><%= link_to recipe_path(recipe.id),class:"link" do %><%= recipe.name %><% end %></b><br>
+            <h5><b><%= link_to recipe_path(recipe.id),class:"link" do %><%= recipe.name %><% end %></b></h5><br>
             <%= recipe.original_menu.name %>のアレンジレシピ
           </td>
         </tr>

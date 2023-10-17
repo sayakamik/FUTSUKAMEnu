@@ -8,20 +8,20 @@
 
     <div class="col-md-8 offset-md-1 ">
       <!--レシピ下書き一覧タイトル-->
-          <th><h2 class="title">レシピ下書き一覧</h2></th>
-          <td>(全<%= @recipes_count.count %>件)</td>
+          <h2 class="title">レシピ下書き一覧</h2>
+          <p>(全<%= @recipes_count.count %>件)</p>
       <!--おしまい-->
 
       <!--レシピ下書き一覧-->
       <% @recipes.each do |recipe| %>
         <div class="row">
-          <div class="col">
-            <table>
+          <div class="col py-1">
+            <table class="table table-hover">
               <tr>
                 <!--編集画面でのエラー（フォーム追加）エラーをなくすために'data-turbolinks': "false"を記載-->
-                <td><%= link_to edit_recipe_path(recipe.id), 'data-turbolinks': "false" do %><%= image_tag recipe.get_menu_image(150,150) %><% end %></td>
+                <td><%= link_to edit_recipe_path(recipe.id), 'data-turbolinks': "false" do %><%= image_tag recipe.get_menu_image(150,150), class: "rounded" %><% end %></td>
                 <td>
-                  <%= link_to edit_recipe_path(recipe.id), 'data-turbolinks': "false" do %><%= recipe.name %><% end %><br>
+                  <h5><b><%= link_to edit_recipe_path(recipe.id),class:"link", 'data-turbolinks': "false" do %><%= recipe.name %><% end %></b></h5><br>
                   <%= recipe.original_menu.name %>のアレンジレシピ
                 </td>
               </tr>
