@@ -1,21 +1,34 @@
+<style>
+  .table {
+    color:#3A5734;
+    border-color:#3A5734;
+  }
+  .table-user th {
+    width: 40%;
+  }
+  .table-user td {
+    width: 60%;
+  }
+</style>
+
 <div class="container p-2">
   <div class= "row">
     <!--会員情報-->
-    <div class= "col-md-3 mt-5">
+    <div class= "col-md-4 my-4">
         <h2 class="title"><b>会員情報</b></h2>
-        <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle", style: "width: 100px; height: 100px;" %>
-        <table class="table" >
+        <%= image_tag @user.get_profile_image(100,100), class: "rounded-circle my-3", style: "width: 100px; height: 100px;" %>
+        <table class="table table-user" >
           <tr><th>登録名</th><td><%= @user.name %></td></tr>
           <tr><th>メールアドレス</th><td><%= @user.email %></td></tr>
         </table>
 
-        <p><%= link_to "会員情報編集", edit_admin_user_path(@user.id), class:"btn btn-light" %></p>
+        <p><%= link_to "会員情報編集", edit_admin_user_path(@user.id), class:"btn btn-light custom-light" %></p>
     </div>
 
-    <div class="col-md-8 offset-md-1 ">
+    <div class="col-md-7 offset-md-1 my-4">
       <!--レシピ一覧-->
-          <th><h2 class="title"><b>投稿一覧</b></h2></th>
-          <td>(全<%= @recipes_count.count %>件)</td>
+          <h2 class="title mb-3"><b>投稿一覧</b></h2>
+          <p>(全<%= @recipes_count.count %>件)</p>
       <%= render "admin/recipes/index", recipes: @recipes, user: @user %>
     </div>
   </div>
