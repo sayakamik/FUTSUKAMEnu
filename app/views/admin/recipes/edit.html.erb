@@ -16,7 +16,7 @@
       <%= form_with model: @recipe,url:admin_recipe_path(@recipe), local:true do |f| %>
         <div class="form-group row">
           <div class="col-md-3">
-         　　<%= image_tag @recipe.get_menu_image(600, 400), class: "img-fluid" %>
+         　　<%= image_tag @recipe.get_menu_image(600, 400), class: "img-fluid rounded" %>
          　　 <%= f.file_field :menu_image, accept: 'image/*', size: 30 %>
           </div>
           <div class="col-md-9 col-sm-12">
@@ -32,9 +32,9 @@
 
             <!--タグ-->
             <div class="form-group">
-              <div class="cooking-title"><b>関連タグ</b></div>
+              <div class="cooking-title"><b>関連タグ(カンマ『,』で複数個登録できます)</b></div>
                 <section class="tag">
-                    <%= f.text_field :tag_name, value: @tag_list, placeholder: "タグ(カンマ『,』で複数個登録できます)", class: 'form-control book_tag_name' %>
+                    <%= f.text_field :tag_name, value: @tag_list, placeholder: "タグ", class: 'form-control recipe_tag_name' %>
                 </section>
             </div>
           </div>
@@ -57,7 +57,7 @@
             <% end %>
             <div id="ingredients"></div>
         　　<div>
-              <button type="button" id="add-ingredient" class="btn mb-4"  style="background-color: #ffe4e1;">材料を追加</button>
+              <button type="button" id="add-ingredient" class="btn btn-light custom-add">材料を追加</button>
             </div>
       　　  </section>
 
@@ -78,7 +78,7 @@
               <% end %>
               <div id="procedures"></div>
               <div>
-                 <button type="button" id="add-procedure" class="btn"  style="background-color: #ffe4e1;">作り方を追加</button>
+                 <button type="button" id="add-procedure" class="btn btn-light custom-add mb-4">作り方を追加</button>
               </div>
           </section>
 
@@ -110,11 +110,11 @@
 
       <div class="row mt-4 pb-5">
         <div class="form-inline mx-auto">
-          <%= f.submit "レシピを更新", :name => 'update_post', class:'btn btn-sm btn-warning text-light' %>
+          <%= f.submit "レシピを更新", :name => 'update_post', class: "btn btn-light custom-light" %>
         </div>
       </div>
-      <div class="mt-4 pb-3 text-center">
-        <u><%= link_to "レシピを削除", admin_recipe_path(@recipe.id), method: :delete, data: {confirm: "このレシピを削除しますか？"}, class:'text-danger' %></u>
+      <div class="mt-2 pb-3 text-center">
+        <u><%= link_to "レシピを削除", admin_recipe_path(@recipe.id), method: :delete, data: {confirm: "このレシピを削除しますか？"}, class:"btn btn-light custom-light-important" %></u>
       </div>
       <% end %>
     </div>
