@@ -5,27 +5,28 @@
     <%= form_with model: [recipe, post_comment],url: recipe_post_comments_path(recipe), method: :post, local: false do |f| %>
     <div style="display: flex; align-items: center;">
       <%= f.text_area :comment, rows: '1', placeholder: "コメントをここに" ,style: "width: 80%; border: 1px solid #ccc;"%>
-      <%= f.submit "送信", style: "margin-left: 10px;" %>
+      <%= f.submit "送信", style: "margin-left: 10px;",class: "btn btn-light custom-light" %>
     <% end %>
   <% end %>
 </div>
 
 <div class ="post_comment__list">
   <% recipe.post_comments.each do |post_comment| %>
-    <% if admin_signed_in? %>
-      <%= link_to admin_user_path(post_comment.user.id), remote: true do %><%= post_comment.user.name %><% end %>さん
-    <% else %>
-      <%= link_to user_path(post_comment.user.id), remote: true do %><%= post_comment.user.name %><% end %>さん
-    <% end %>
+    <div class="row my-3">
+      <% if admin_signed_in? %>
+        <%= link_to admin_user_path(post_comment.user.id),class: "link-highlight", remote: true do %><b><%= post_comment.user.name %></b><% end %>さん
+      <% else %>
+        <%= link_to user_path(post_comment.user.id),class: "link-highlight", remote: true do %><b><%= post_comment.user.name %></b><% end %>さん
+      <% end %>
 
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %>&emsp;<%= post_comment.comment %>
-    <!--もし自分のコメントの場合、もしくは自分のレシピへのコメントの場合、もしくは管理人の場合のみコメント削除ができるように設定-->
-    <% if admin_signed_in? %>
-      <%= link_to "削除",admin_recipe_comment_path(post_comment.recipe, post_comment), method: :delete, remote: true %>
-    <% elsif post_comment.user == current_user || post_comment.recipe.user == current_user %>
-      <%= link_to "削除", recipe_post_comment_path(post_comment.recipe, post_comment), method: :delete, remote: true %>
-    <% end %>
-
-    <br>
+      <%= post_comment.created_at.strftime('%Y/%m/%d') %>&emsp;<%= post_comment.comment %>
+      <!--もし自分のコメントの場合、もしくは自分のレシピへのコメントの場合、もしくは管理人の場合のみコメント削除ができるように設定-->
+      <% if admin_signed_in? %>
+        <%= link_to "削除",admin_recipe_comment_path(post_comment.recipe, post_comment), class: "link-highlight mx-3", method: :delete, remote: true %>
+      <% elsif post_comment.user == current_user || post_comment.recipe.user == current_user %>
+        <%= link_to "削除", recipe_post_comment_path(post_comment.recipe, post_comment), class: "link-highlight mx-3", method: :delete, remote: true %>
+      <% end %>
+      <br>
+    </div>
   <% end %>
 </div>

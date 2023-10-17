@@ -4,7 +4,7 @@
       <li>
         <%= procedure.direction %>&emsp;
         <% if procedure.image.attached? %>
-          <%= image_tag procedure.get_image(150, 150), class: "img-fluid" %>
+          <%= image_tag procedure.get_image(150, 150), class: "img-fluid rounded" %>
         <% end %>
       </li>
     </ul>

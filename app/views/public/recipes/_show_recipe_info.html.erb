@@ -7,13 +7,13 @@
       <th>made by</th>
       <!--管理側でのリンクとuser側でのリンクを分ける-->
       <% if admin_signed_in? %>
-        <td>&emsp;<%= link_to admin_user_path(recipe.user.id) do %>
+        <td>&emsp;<b><%= link_to admin_user_path(recipe.user.id),class: "link-highlight" do %>
           <%= recipe.user.name %>
-        <% end %></td>
+        <% end %></b></td>
       <% else %>
-        <td>&emsp;<%= link_to user_path(recipe.user.id) do %>
+        <td>&emsp;<b><%= link_to user_path(recipe.user.id),class: "link-highlight" do %>
           <%= recipe.user.name %>
-        <% end %></td>
+        <% end %></b></td>
       <% end %>
     </tr>
     <tr>
@@ -26,7 +26,7 @@
           <% if admin_signed_in? %>
            <div><i class="fa-sharp fa-solid fa-tag"></i><%= tag.tag_name %></div>
           <% else %>
-           <div><i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id) %></div>
+           <div><i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id),class: "link-highlight"  %></div>
           <% end %>
         <% end %>
       </td>
