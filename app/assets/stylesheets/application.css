@@ -20,16 +20,37 @@
  }
 
 header, main, footer {
-   font-family:"Lexend Deca",Arial,sans-serif;
- }
+  width: 100%;
+  font-family:"Lexend Deca",Arial,sans-serif;
+  color: #3A5734;
+}
+
+.btn-light.custom-light {
+  color: #3A5734; /* テキストの色を調整 */
+  font-family: 'Murecho', sans-serif;
+}
+
+.btn-light.custom-light:hover {
+  background-color: #f5f5dc; /* ホバー時の背景色を変更 */
+  border-color:#f5f5dc;
+  color: #3A5734; /* テキストの色を調整 */
+}
+
 .nav-item {
   font-family: 'Murecho', sans-serif;
-  color:#696969;
+  color:#3A5734;
 }
-.btn {
-  font-family: 'Murecho', sans-serif;
-}
+
 .title {
   font-family: 'Murecho', sans-serif;
-  color:#696969;
+  color:#3A5734;
+}
+
+.link {
+  color:#3A5734;
+}
+
+
+.field {
+  color:#3A5734;
 }

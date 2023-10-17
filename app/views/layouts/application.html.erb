@@ -20,49 +20,63 @@
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-              <a class="navbar-brand" href="/"><span>Logo</span></a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ml-auto">
-                  <% if admin_signed_in? %>
-                      <% if request.fullpath.include? "/admin" %> <!--admin側のheader-->
-                        <li class="nav-item"><%= link_to "会員一覧", admin_path, class: "btn btn-light" %></li>&nbsp;
-                        <li class="nav-item"><%= link_to "投稿一覧", admin_recipes_path, class: "btn btn-light"  %></li>&nbsp;
-                        <li class="nav-item"><%= link_to "コメント一覧", admin_comments_path, class: "btn btn-light"  %></li>&nbsp;
-                        <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-light"  %></li>
-                      <% else %> <!--user側のheader-->
-                      <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn btn-light"%></li>&nbsp;
-                      <li class="nav-item"><%= link_to "1日目メニュー一覧", original_menus_path, class: "btn btn-light"%></li>&nbsp;
-                      <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-light" %></li>
-                      <% end %>
-                    <% elsif user_signed_in? %>
-                      <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn btn-light"%></li>&nbsp;
-                      <li class="nav-item"><%= link_to "1日目メニュー一覧", original_menus_path, class: "btn btn-light"%></li>&nbsp;
-                      <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-light" %></li>
-                    <% else %>
-                      <li class="nav-item"><%= link_to "About", homes_about_path, class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "新規会員登録", new_user_registration_path, class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post ,class: "btn btn-light" %></li>&nbsp;
-                      <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: "btn btn-light" %></li>
-                    <% end %>
-                </ul>
-              </div>
-              <% if user_signed_in? %>
-                <p class= "title m-5">ようこそ、<%= current_user.name %> 様</p>
-                <!--レシピ記入時にフォーム追加でターボリンクス邪魔するので, 動かせないようにする'data-turbolinks': "false"-->
-                <%= link_to "レシピを書く", new_recipe_path , class: "btn btn-light", 'data-turbolinks': "false" %>
-                <%= render "layouts/search" %>
-              <% end %>
+          <a class="navbar-brand" href="/"><span><%= image_tag 'Logo1.jpg', size:'200x100' %></span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" style="background-color:#f5f5dc;">
+            <span class="navbar-toggler-icon" ></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+            <ul class="navbar-nav ml-auto">
+              <% if admin_signed_in? %>
+                  <% if request.fullpath.include? "/admin" %> <!--admin側のheader-->
+                    <li class="nav-item"><%= link_to "会員一覧", admin_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                    <li class="nav-item"><%= link_to "投稿一覧", admin_recipes_path, class: "btn btn-light custom-light"  %></li>&thinsp;
+                    <li class="nav-item"><%= link_to "コメント一覧", admin_comments_path, class: "btn btn-light custom-light"  %></li>&thinsp;
+                    <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-light custom-light"  %></li>
+                  <% else %> <!--user側のheader-->
+                  <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "1日目メニュー一覧", original_menus_path, class: "btn btn-light custom-light"%></li>&thinsp;
+                  <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-light custom-light" %></li>
+                  <% end %>
+                <% elsif user_signed_in? %>
+                  <li class="nav-item"><%= link_to "マイページ", mypage_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "レシピ一覧", recipes_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "お気に入り一覧", favorites_path, class: "btn btn-light custom-light"%></li>&thinsp;
+                  <li class="nav-item"><%= link_to "1日目メニュー一覧", original_menus_path, class: "btn btn-light custom-light"%></li>&thinsp;
+                  <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: :delete,class: "btn btn-light custom-light" %></li>
+                <% else %>
+                  <li class="nav-item"><%= link_to "About", homes_about_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "新規会員登録", new_user_registration_path, class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post ,class: "btn btn-light custom-light" %></li>&thinsp;
+                  <li class="nav-item"><%= link_to "ログイン", new_user_session_path, class: "btn btn-light custom-light" %></li>
+                <% end %>
+            </ul>
+          </div>
         </div>
       </nav>
+      <div class="container">
+        <div class="row p-3">
+          <% if user_signed_in? %>
+            <div class="col-md-3 col-12 text-center">
+              <p class="title my-2">ようこそ、<%= current_user.name %> 様</p>
+            </div>
+            <!--レシピ記入時にフォーム追加でターボリンクス邪魔するので, 動かせないようにする'data-turbolinks': "false"-->
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-4 col-12 ml-1 text-right">
+                  <%= link_to "レシピを書く", new_recipe_path ,class: "btn btn-light custom-light", 'data-turbolinks': "false" %>
+                </div>
+                <div class="col-md-7 col-12 text-right">
+                  <%= render "layouts/search" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </header>
     <main>
       <ul>
