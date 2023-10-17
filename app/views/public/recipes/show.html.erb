@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-11">
       <div class="row">
-        <h2 class="title"><strong>★<%= @recipe.name %>のレシピ★</strong></h2>
+        <h2 class="title"><strong<i class="fa-solid fa-star"></i><%= @recipe.name %>のレシピ<i class="fa-solid fa-star"></i></strong></h2>
         <!--自分のレシピの場合は編集ボタンを表示-->
         <div class="edit_form ml-3">
           <% if @recipe.user == current_user && %>
