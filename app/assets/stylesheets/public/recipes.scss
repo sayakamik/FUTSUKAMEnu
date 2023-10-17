@@ -5,7 +5,7 @@
 .cooking-title {
    width: 100%;
    background-color: #fffff0;
-   color:#696969;
+   color:#3A5734;
    margin: 20px 0px;
 }
 
@@ -16,7 +16,7 @@
   &__datas {
     display: flex;
     justify-content: space-between;
-    color:#696969;
+    color:#3A5734;
   }
 }
 
@@ -25,14 +25,14 @@
     display: flex;
     justify-content: space-between;
     padding: 0 100px;
-    color: #696969;
+    color: #3A5734;
     border-bottom: 1px solid #d3d3d3;
   }
 }
 
 .procedure {
   &__list {
-    color: #696969;
+    color: #3A5734;
     padding: 6px;
     border: 1px solid #ccc;
     list-style-position: inside;//リストを枠内に表示
@@ -40,16 +40,16 @@
   }
 
 .post_comment {
-  color: #696969;
+  color: #3A5734;
 
   &__list {
-    color: #696969;
+    color: #3A5734;
     margin: 10px 20px;
     }
 }
 
 .tag_index {
-  color: #696969;
+  color: #3A5734;
   margin: 10px 10px;
 }
 
@@ -61,3 +61,36 @@
   width: 70%;
 }
 
+.btn-light.custom-favorite {
+  color: #3A5734;
+  font-family: 'Murecho', sans-serif;
+}
+
+.btn-light.custom-favorite:hover {
+  background-color: #fff0f5;
+  border-color:#fff0f5;
+  color: #191970;
+}
+
+.btn-light.custom-add {
+  color: #3A5734;
+  background-color: #ffe4e1;
+  font-family: 'Murecho', sans-serif;
+}
+
+.btn-light.custom-add:hover {
+  background-color: #ffb6c1;
+  border-color:#ffb6c1;
+  color: #3A5734;
+}
+
+.btn-light.custom-lightblue {
+  color: #191970;
+  font-family: 'Murecho', sans-serif;
+}
+
+.btn-light.custom-lightblue:hover {
+  background-color: #e6e6fa;
+  border-color: #e6e6fa;
+  color: #191970;
+}

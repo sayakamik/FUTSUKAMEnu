@@ -63,7 +63,7 @@
             <% end %>
             <div id="ingredients"></div>
         　　<div>
-              <button type="button" id="add-ingredient" class="btn"  style="background-color: #ffe4e1;">材料を追加</button>
+              <button type="button" id="add-ingredient" class="btn btn-light custom-add">材料を追加</button>
             </div>
       　　  </section>
 
@@ -84,7 +84,7 @@
               <% end %>
               <div id="procedures"></div>
               <div>
-                 <button type="button" id="add-procedure" class="btn"  style="background-color: #ffe4e1;">作り方を追加</button>
+                 <button type="button" id="add-procedure" class="btn btn-light custom-add mb-4">作り方を追加</button>
               </div>
           </section>
 
@@ -116,8 +116,8 @@
 
       <div class="row mt-4 pb-5">
         <div class="form-inline mx-auto">
-            <%= f.submit 'レシピを公開', :name => 'post', class: 'mr-5 btn btn-sm btn-warning text-white' %>
-            <%= f.submit '下書きに保存', :name => 'draft', class: 'mr-5 btn btn-sm btn-outline-secondary' %>
+            <%= f.submit 'レシピを公開', :name => 'post', class: 'mr-5 btn btn-light custom-light' %>
+            <%= f.submit '下書きに保存', :name => 'draft', class: 'ml-5 btn btn-light custom-lightblue' %>
         </div>
       </div>
       <% end %>
