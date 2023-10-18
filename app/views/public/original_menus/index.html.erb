@@ -2,8 +2,16 @@
   <div class= "row">
     <div class="col-md-10 offset-md-1 ">
       <div class="row">
-        <h2 class="title mb-3"><strong>1日目メニュー一覧</strong></h2>
+        <h2 class="title m-3"><strong><%= link_to original_menus_path, class:"link" do %>1日目メニュー一覧<% end %></strong></h2>
       </div>
+
+      <div class="row m-4">
+        <%= form_with url: original_menus_path, method: :get do |f| %>
+          <%= f.text_field :keyword, placeholder: "1日目(アレンジ前)メニュー" %>
+          <%= f.submit "検索",class: "btn btn-light custom-light" %>
+        <% end %>
+      </div>
+
       <div class="row">
         <% @original_menus.each_slice(25) do |original_menus_batch| %>
           <div class="col original-menu-list">
