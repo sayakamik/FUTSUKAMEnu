@@ -2,7 +2,7 @@ class Admin::RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.where(is_draft: false)
-               .page(params[:page]).per(15)
+               .page(params[:page]).per(10)
                .order("recipes.created_at DESC")
     @recipes_count = @recipes.all
   end

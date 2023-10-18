@@ -60,3 +60,31 @@ header, main, footer {
   color:#3A5734;
 }
 
+.pagination{
+  width: fit-content;
+  margin: 25px auto;
+  font-size: 0.8rem;
+  line-height: 2rem;
+}
+
+.first a,
+.prev a,
+.page a,
+.next a,
+.last a{
+  color: #3A5734 !important;
+  text-decoration: none;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #3A5734;
+}
+
+.first a:hover,
+.prev a:hover,
+.page a:hover,
+.next a:hover,
+.last a:hover{
+  border: 1px solid #3A5734;
+  background-color: rgba(255, 99, 71, 0.5);
+  color: #3A5734;
+}

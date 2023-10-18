@@ -19,7 +19,9 @@
             <% end %>
           </div>
         <% end %>
-        <p><%= paginate @original_menus %></p>
+        <div class="d-flex justify-content-center mt-3 pagination">
+          <%= paginate @original_menus %>
+        </div>
       </div>
     </div>
   </div>
