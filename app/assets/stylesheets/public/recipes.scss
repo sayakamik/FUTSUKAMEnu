@@ -18,6 +18,12 @@
     display: flex;
     justify-content: space-between;
     color:#3A5734;
+    th {
+      width: 40%;
+    }
+    td {
+      width: 60%;
+    }
   }
 }
 

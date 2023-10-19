@@ -60,14 +60,13 @@ class Recipe < ApplicationRecord
     new_tags = tags - current_tags # 送信されてきたタグから、現在存在するタグを除く
     # 古いタグを消す
     old_tags.each do |old_name|
-     Tag.find_by(tag_name: old_name).destroy
+     self.tags.delete(Tag.find_by(tag_name: old_name)) #中間テーブル削除。パラメータがTag.
     end
     # 新しいタグを保存する
     new_tags.each do |new_name|
      tag = Tag.find_or_create_by(tag_name: new_name)
      self.tags << tag
     end
-
   end
 
   private

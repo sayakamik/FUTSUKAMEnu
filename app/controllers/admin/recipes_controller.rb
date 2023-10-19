@@ -46,7 +46,7 @@ class Admin::RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
-      procedures_attributes: [:id, :direction, :_destroy] ,
+      procedures_attributes: [:id, :direction, :image, :_destroy] ,
       original_menu_attributes: [:name]
       )
   end
