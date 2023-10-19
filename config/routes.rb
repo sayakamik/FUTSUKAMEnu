@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get 'recipes/draft_index' => 'recipes#draft_index'
     # タグの検索で使用する
     get "recipes/search_tag" => "recipes#search_tag"
+    delete 'recipes/destroy_all' => 'recipes#destroy_all'
     resources :recipes, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
       resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]

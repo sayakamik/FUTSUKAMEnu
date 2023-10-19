@@ -68,10 +68,6 @@ class Recipe < ApplicationRecord
      self.tags << tag
     end
 
-    def self.create_all_ranks
-      Recipe.find(Favorite.group(:recipe_id).order('count(recipe_id) desc').limit(3).pluck(:recipe_id))
-    end
-
   end
 
   private

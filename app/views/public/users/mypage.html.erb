@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-8 mb-4">
+    <div class="col-md-10 mb-4">
       <!-- マイページの上部（タイトル） -->
       <div class="row">
         <h2 class="title border-bottom text-center mb-3"><strong>マイページ</strong></h2>
@@ -31,11 +31,6 @@
         <%= link_to "下書き一覧", recipes_draft_index_path, class: "btn btn-light custom-light" %>
       </div>
     </div>
-
-    <section class= "col-md-4">
-      <!--お気に入りランキングrenderを記載する-->
-      <%= render 'public/favorites/rank', all_ranks: @all_ranks %>
-    </section>
 
   </div>
 </div>

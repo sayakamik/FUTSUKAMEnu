@@ -43,6 +43,7 @@ class Public::RecipesController < ApplicationController
        .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
+    @all_ranks = Recipe.create_all_ranks
     # 下書きでないレシピ一覧を最新から表示
     @recipes = Recipe.where(is_draft: false).order("recipes.created_at DESC")
     #クエリパラメータ(original_menu_id)をとりだす
@@ -124,13 +125,18 @@ class Public::RecipesController < ApplicationController
     @recipes = current_user.recipes.where(is_draft: true).order("recipes.created_at DESC")
     @recipes_count = @recipes.all
     @recipes = @recipes.all.page(params[:page]).per(10)
-
   end
 
   def destroy
     @recipe = Recipe.find(params[:id])
     @recipe.destroy
     redirect_to user_path(current_user.id), notice: "レシピを削除しました。"
+  end
+
+  def destroy_all
+    @recipe = Recipe.where(user_id: current_user)
+    @recipe.destroy_all
+    redirect_to user_path(current_user.id), notice: "レシピを全て削除しました。"
   end
 
   def search_tag
@@ -149,8 +155,8 @@ class Public::RecipesController < ApplicationController
     @recipes_count = @recipes.all
   end
 
-  def ranking
-    @all_ranks = Recipe.create_all_ranks
+  def Recipe.create_all_ranks
+    Recipe.find(Favorite.group(:recipe_id).order('count(recipe_id) desc').limit(3).pluck(:recipe_id))
   end
 
   def ensure_normal_user
@@ -172,7 +178,7 @@ class Public::RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
-      procedures_attributes: [:id, :direction, :_destroy] ,
+      procedures_attributes: [:id, :direction, :image, :_destroy] ,
       original_menu_attributes: [:name]
       ) # original_menu パラメータを許可
   end

@@ -4,7 +4,7 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
-    @all_ranks = Recipe.create_all_ranks
+
   end
 
   def show
@@ -21,6 +21,7 @@ class Public::UsersController < ApplicationController
     @recipes = @user.recipes.where(is_draft: false)
     @recipes_count = @recipes.all
     @recipes = @recipes.all.page(params[:page]).per(10)
+    @all_ranks = Recipe.create_all_ranks
   end
 
   def edit

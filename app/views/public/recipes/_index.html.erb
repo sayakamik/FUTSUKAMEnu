@@ -11,7 +11,7 @@
     <div class="col py-1">
       <table class="table table-hover">
         <tr>
-          <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150), class: "rounded" %><% end %></td>
+          <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,100), class: "rounded" %><% end %></td>
           <td>
             <h5><b><%= link_to recipe_path(recipe.id),class:"link" do %><%= recipe.name %><% end %></b></h5><br>
             <%= recipe.original_menu.name %>のアレンジレシピ
