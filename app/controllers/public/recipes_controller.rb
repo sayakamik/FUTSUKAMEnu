@@ -149,6 +149,10 @@ class Public::RecipesController < ApplicationController
     @recipes_count = @recipes.all
   end
 
+  def ranking
+    @all_ranks = Recipe.create_all_ranks
+  end
+
   def ensure_normal_user
     @user = current_user
     if @user.email == 'guest@example.com'

@@ -4,6 +4,7 @@ class Public::UsersController < ApplicationController
 
   def mypage
     @user = current_user
+    @all_ranks = Recipe.create_all_ranks
   end
 
   def show
@@ -56,6 +57,10 @@ class Public::UsersController < ApplicationController
     if @user.email == 'guest@example.com'
       redirect_to mypage_path, alert: 'ゲストユーザーの編集、削除はできません。'
     end
+  end
+
+  def Recipe.create_all_ranks
+    Recipe.find(Favorite.group(:recipe_id).order('count(recipe_id) desc').limit(3).pluck(:recipe_id))
   end
 
   private

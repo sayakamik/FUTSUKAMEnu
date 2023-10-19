@@ -1,6 +1,6 @@
 <div class="container mb-0">
   <div class= "row mb-0">
-    <div class= "col-md-3 mt-5">
+    <div class= "col-md-2 mt-5">
       <!--1日目メニュー一覧renderを記載する-->
       <%= render 'public/original_menus/list', original_menus: @original_menus %>
     </div>
@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <h2 class="title border-bottom text-center"><strong>新着レシピ</strong></h2>
+          <h2 class="title border-bottom text-center"><b>新着レシピ</b></h2>
         </div>
       </div>
       <div class="row">
@@ -43,6 +43,10 @@
       <div class="d-flex my-3 justify-content-end">
          <%= link_to "すべてのレシピを見る", recipes_path, class: "link" %>
        </div>
+    </div>
+    <div class= "col-md-2 mt-5">
+      <!--お気に入りランキングrenderを記載する-->
+      <%= render 'public/favorites/rank', all_ranks: @all_ranks %>
     </div>
   </div>
 </div>

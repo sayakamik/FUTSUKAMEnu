@@ -1,0 +1,9 @@
+<h2 class="title border-bottom text-center"><b>お気に入りランキング</b></h2>
+  <% all_ranks.each.with_index(1) do |recipe,i| %>
+    <div class="hover text-center">
+        <b style="color: #ff6347;">第<%= i %>位</b><br>
+        <%= link_to recipe_path(recipe), class:"link-highlight" do %><%= recipe.name %><% end %><br>
+        <%= link_to recipe_path(recipe) do %><%= image_tag recipe.get_menu_image(120,100), class: "image-fluid rounded" %><% end %><br>
+        ❤数：<%= recipe.favorites.count %><br>
+    </div>
+  <% end %>

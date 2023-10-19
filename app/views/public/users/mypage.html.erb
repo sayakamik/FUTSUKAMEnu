@@ -1,44 +1,41 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-11">
+
+    <div class="col-md-8 mb-4">
       <!-- マイページの上部（タイトル） -->
       <div class="row">
-        <h2 class="title mb-3"><strong>マイページ</strong></h2>
+        <h2 class="title border-bottom text-center mb-3"><strong>マイページ</strong></h2>
       </div>
       <div class="row">
-        <div class="col-md-2 my-3">
+        <div class="col-md-3 my-3 text-center">
           <span><%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle", style: "width: 100px; height: 100px;" %></span>
         </div>
-        <div class="col-md-10 my-3">
+        <div class="col-md-9 my-3">
           <table class="table table-bordered mypage-table">
             <tr><th>登録名</th><td><%= @user.name %></td></tr>
             <tr><th>メールアドレス</th><td><%= @user.email %></td></tr>
           </table>
         </div>
       </div>
+      <div class="row mb-3">
+        <% if @user.email == 'guest@example.com'%>
+          <p>ゲストユーザーはユーザー情報の編集ができません。</p>
+        <% else %>
+         <%= link_to "会員情報編集", users_information_edit_path, class: "btn btn-light custom-light" %>
+        <% end %>
+      </div>
+      <div class="row mb-3">
+        <%= link_to "投稿一覧", user_path(current_user.id), class: "btn btn-light custom-light" %>
+      </div>
+      <div class="row mb-3">
+        <%= link_to "下書き一覧", recipes_draft_index_path, class: "btn btn-light custom-light" %>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 mb-4">
-      <% if @user.email == 'guest@example.com'%>
-        <p>ゲストユーザーはユーザー情報の編集ができません。</p>
-      <% else %>
-       <%= link_to "会員情報編集", users_information_edit_path, class: "btn btn-light custom-light" %>
-      <% end %>
-    </div>
-  </div>
+    <section class= "col-md-4">
+      <!--お気に入りランキングrenderを記載する-->
+      <%= render 'public/favorites/rank', all_ranks: @all_ranks %>
+    </section>
 
-  <div class="row">
-    <div class="col-12 mb-4">
-      <%= link_to "投稿一覧", user_path(current_user.id), class: "btn btn-light custom-light" %>
-    </div>
   </div>
-
-  <div class="row">
-    <div class="col-12 mb-4">
-      <%= link_to "下書き一覧", recipes_draft_index_path, class: "btn btn-light custom-light" %>
-    </div>
-  </div>
-
 </div>
