@@ -67,14 +67,6 @@ ActiveRecord::Schema.define(version: 2023_10_06_093907) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "materials", force: :cascade do |t|
-    t.integer "recipe_id", null: false
-    t.string "content", null: false
-    t.string "quantity", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "original_menus", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
