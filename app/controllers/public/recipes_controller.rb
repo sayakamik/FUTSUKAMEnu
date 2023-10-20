@@ -114,8 +114,8 @@ class Public::RecipesController < ApplicationController
     end
   end
 
+  #下書き一覧
   def draft_index
-    #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false })
        .select('DISTINCT original_menus.*')
@@ -133,21 +133,23 @@ class Public::RecipesController < ApplicationController
     redirect_to user_path(current_user.id), notice: "レシピを削除しました。"
   end
 
+  #詳細ページで投稿レシピを全て削除
   def destroy_all
     @recipe = Recipe.where(user_id: current_user)
     @recipe.destroy_all
     redirect_to user_path(current_user.id), notice: "レシピを全て削除しました。"
   end
 
+  #タグ検索がめん
   def search_tag
-    #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false })
        .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
-    #検索結果画面でもタグ一覧表示
-    @tag_list = Tag.all
+    #検索結果画面でもタグを１０件表示（最新順）
+    @tag_list = Tag.limit(10).order("created_at DESC")
+    # @tag_list = Tag.all タグ全て表示にしていた
     #検索されたタグを受け取る
     @tag = Tag.find(params[:tag_id])
     #検索されたタグに紐づく投稿を表示
@@ -155,9 +157,29 @@ class Public::RecipesController < ApplicationController
     @recipes_count = @recipes.all
   end
 
+  #タグ一覧
+  def tag_index
+    @keyword = tag_search_params[:keyword]
+    if @keyword.present?
+    @tag_list = Tag.search(@keyword)
+                   .order("created_at DESC")
+                   .page(params[:page]).per(50)
+    else
+    @tag_list = Tag.all
+                  .order("created_at DESC")
+                  .page(params[:page]).per(50)
+    end
+  end
+
+  def tag_search_params
+    params.permit(:keyword)
+  end
+
   def Recipe.create_all_ranks
     Recipe.find(Favorite.group(:recipe_id).order('count(recipe_id) desc').limit(3).pluck(:recipe_id))
   end
+
+  private
 
   def ensure_normal_user
     @user = current_user
@@ -165,8 +187,6 @@ class Public::RecipesController < ApplicationController
       redirect_to root_path, alert: 'ゲストユーザーの新規投稿はできません。'
     end
   end
-
-  private
 
   def is_matching_login_customer
     @recipe = Recipe.find(params[:id])

@@ -1,0 +1,38 @@
+<div class="container p-2">
+  <div class= "row">
+    <!--タグー一覧（タグ検索機能-->
+    <div class="col-md-8 offset-md-1 ">
+      <h2 class="title"><b><%= link_to recipes_tag_index_path, class:"link" do %>タグ一覧<% end %></b></h2>
+      <p>(全<%= @tag_list.count %>件)</p>
+        <!--タグ検索機能-->
+        <div class="row m-4">
+          <%= form_with url: recipes_tag_index_path, method: :get do |f| %>
+            <%= f.text_field :keyword, placeholder: "タグ検索" %>
+            <%= f.submit "検索",class: "btn btn-light custom-light" %>
+          <% end %>
+        </div>
+
+        <div class="row">
+          <% if @keyword.present? %>
+            <h4><%= "【#{@keyword}】のタグ検索結果" %></h4>
+          <% end %>
+        </div>
+        <div class="row">
+        <% @tag_list.each_slice(25) do |tags_batch| %>
+          <div class="col original-menu-list">
+            <% tags_batch.each do |tag| %>
+              <ul>
+                <li>
+                  <i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id),class: "link"  %>
+                </li>
+              </ul>
+            <% end %>
+          </div>
+        <% end %>
+          <div class="d-flex justify-content-center mt-3 pagination">
+            <%= paginate @tag_list %>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

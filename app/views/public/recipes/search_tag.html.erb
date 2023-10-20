@@ -18,8 +18,8 @@
                 <%=link_to list.tag_name,recipes_search_tag_path(tag_id: list.id) %>
                 <%="(#{list.recipes.count})" %>
               <% end %>
-            </section>
           </div>
+          <%= link_to "タグ一覧画面", recipes_tag_index_path, class:"btn btn-light custom-light" %>
         </div>
         <section="tag_index">
            <%= render "public/recipes/index", recipes: @recipes %>
