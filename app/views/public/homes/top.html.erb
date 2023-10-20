@@ -31,10 +31,8 @@
           <div class="new_recipes_container">
            <% @recipes.each do |recipe| %>
             <div class="new_recipes">
-              <div class="hover">
                 <span><%= link_to recipe_path(recipe) do %><%= image_tag recipe.get_menu_image(150,100), class: "rounded" %><% end %></span><br>
                 <span><%= link_to recipe.name, recipe_path(recipe), class:"link" %></span><br>
-              </div>
             </div>
            <% end %>
           </div>

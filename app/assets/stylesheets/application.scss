@@ -104,3 +104,9 @@ body {
   border-color:#ffe4e1;
   color: #ff6347;
 }
+
+.rank:hover {
+  background-color: rgba(245, 245, 220, 0.7);
+  cursor: pointer; /* マウスカーソルをポインターに変更*/
+  border-radius: 10px;
+}
