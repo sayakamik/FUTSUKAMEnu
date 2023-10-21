@@ -11,10 +11,12 @@ class Recipe < ApplicationRecord
   accepts_nested_attributes_for :procedures, reject_if: :all_blank, allow_destroy: true
 
   has_many :recipe_tag_relations, dependent: :destroy
+  # has_and_belongs_to_many :tags, join_table: :recipe_tag_relations
   has_many :tags, through: :recipe_tag_relations
 
   belongs_to :original_menu #belongs_to で自動的にバリデーション。optional:trueでバリデーションなしも可能。
   attribute :original_menu_name
+  attribute :tag_name
 
   before_validation :original_menu_create_check
 

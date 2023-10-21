@@ -15,23 +15,22 @@ class Public::RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
     tag_list = params[:recipe][:tag_name].split(',')
-    #if params[:post]で公開/非公開（下書き）の分岐を記述。[:post]はname属性の値（任意でOK）
-    #投稿ボタンを押下した場合
+    # tag_name パラメータを使用してタグを取得または作成
+    tags = tag_list.map { |tag_name| Tag.find_or_create_by(tag_name: tag_name.strip) }
+    @recipe.tags = tags
+
+    # 以下は既存のコード
     if params[:post]
-      #(context: :publicize)「バリデーションをある状況では実行して、ある状況では実行しない」
       if @recipe.save(context: :publicize)
-        @recipe.save_tags(tag_list)
-        redirect_to recipe_path(@recipe), notice: "レシピを投稿しました。"
+        redirect_to recipe_path(@recipe), notice: "レシピを投稿しました."
       else
-        render :new, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        render :new, alert: "投稿に失敗しました.お手数ですが、入力内容をご確認のうえ再度お試しください."
       end
-    # 下書きボタンを押下した場合
     else
       if @recipe.update(is_draft: true)
-        @recipe.save_tags(tag_list)
-        redirect_to recipes_draft_index_path, notice: "レシピを下書き保存しました。"
+        redirect_to recipes_draft_index_path, notice: "レシピを下書き保存しました."
       else
-        render :new, alert: "投稿に失敗しました。お手数ですが、入力内容をご確認のうえ再度お試しください"
+        render :new, alert: "投稿に失敗しました.お手数ですが、入力内容をご確認のうえ再度お試しください."
       end
     end
   end
@@ -198,12 +197,13 @@ class Public::RecipesController < ApplicationController
   end
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
+    params.require(:recipe).permit(
+      :name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id, :tag_name,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
       procedures_attributes: [:id, :direction, :image, :_destroy] ,
-      original_menu_attributes: [:name],
-      tag_names: []
-      ) # original_menu パラメータを許可
+      original_menu_attributes: [:name]
+      
+    )
   end
 
   # def tag_params # tagに関するストロングパラメータ
