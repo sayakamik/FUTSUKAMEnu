@@ -142,6 +142,7 @@ class Public::RecipesController < ApplicationController
 
   #タグ検索がめん
   def search_tag
+    @keyword = tag_search_params[:keyword]
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false })
        .select('DISTINCT original_menus.*')
@@ -160,6 +161,7 @@ class Public::RecipesController < ApplicationController
   #タグ一覧
   def tag_index
     @keyword = tag_search_params[:keyword]
+    #
     if @keyword.present?
     @tag_list = Tag.search(@keyword)
                    .order("created_at DESC")
@@ -199,13 +201,14 @@ class Public::RecipesController < ApplicationController
     params.require(:recipe).permit(:name, :description, :is_draft, :menu_image, :original_menu_name, :original_menu_id,
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
       procedures_attributes: [:id, :direction, :image, :_destroy] ,
-      original_menu_attributes: [:name]
+      original_menu_attributes: [:name],
+      tag_names: []
       ) # original_menu パラメータを許可
   end
 
-  def tag_params # tagに関するストロングパラメータ
-      params.require(:recipe).permit(:tag_name)
-  end
+  # def tag_params # tagに関するストロングパラメータ
+  #     params.require(:recipe).permit(:tag_name)
+  # end
 
 
 
