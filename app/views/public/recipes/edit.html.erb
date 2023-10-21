@@ -50,7 +50,6 @@
                 <%= render 'ingredient_field', f: ingredient_field %>
               <% end %>
             </div>
-            <!--隠し要素テンプレート終わり-->
             <!--すでにデータベースに保存されているか、または新しくユーザーが追加した「材料」に関する情報を表示するためのフォーム-->
             <%= f.fields_for :ingredients do |ingredient_field| %>
               <%= render 'ingredient_field', f: ingredient_field %>
@@ -71,7 +70,6 @@
                   <%= render 'procedure_field', f: procedure_field %>
                 <% end %>
               </div>
-              <!--隠し要素テンプレート終わり-->
               <!--すでにデータベースに存在するか、または新しく追加された「作り方」ステップを表示するフォーム-->
               <%= f.fields_for :procedures do |procedure_field| %>
                 <%= render 'procedure_field', f: procedure_field %>

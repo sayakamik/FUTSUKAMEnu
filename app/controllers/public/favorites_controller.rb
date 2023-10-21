@@ -6,9 +6,10 @@ class Public::FavoritesController < ApplicationController
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
+       .select('DISTINCT original_menus.*') #重複削除
        .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
        .limit(10)                          # 上位10件を取得
-       .uniq                              #重複削除
+
     # 下書きでないレシピ一覧表示
     @user = current_user
     @favorites = Favorite.where(user_id: @user.id).all

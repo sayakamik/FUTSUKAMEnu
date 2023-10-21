@@ -1,13 +1,13 @@
 <div class="container p-2">
   <div class= "row">
-    <!--タグー一覧（タグ検索機能-->
+    <!--タグ一覧-->
     <div class="col-md-8 offset-md-1 ">
       <h2 class="title"><b><%= link_to recipes_tag_index_path, class:"link" do %>タグ一覧<% end %></b></h2>
       <p>(全<%= @tag_list.count %>件)</p>
         <!--タグ検索機能-->
         <div class="row m-4">
           <%= form_with url: recipes_tag_index_path, method: :get do |f| %>
-            <%= f.text_field :keyword, placeholder: "タグ検索" %>
+            <%= f.text_field :keyword, placeholder: "タグを検索" %>
             <%= f.submit "検索",class: "btn btn-light custom-light" %>
           <% end %>
         </div>
@@ -23,7 +23,8 @@
             <% tags_batch.each do |tag| %>
               <ul>
                 <li>
-                  <i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id),class: "link"  %>
+                  <i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id),class: "link" %>
+                  <%="(#{tag.recipes.count})" %>
                 </li>
               </ul>
             <% end %>

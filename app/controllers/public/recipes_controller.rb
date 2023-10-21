@@ -18,7 +18,6 @@ class Public::RecipesController < ApplicationController
     # tag_name パラメータを使用してタグを取得または作成
     tags = tag_list.map { |tag_name| Tag.find_or_create_by(tag_name: tag_name.strip) }
     @recipe.tags = tags
-
     # 以下は既存のコード
     if params[:post]
       if @recipe.save(context: :publicize)
@@ -50,10 +49,13 @@ class Public::RecipesController < ApplicationController
       #original_menu_idが同じものを全てとりだす
       @recipes_count = @recipes.where(original_menu_id: @original_menu_id)
       @recipes = @recipes.where(original_menu_id: @original_menu_id).page(params[:page]).per(10)
-    #なければ全てとりだす
+    #検索
     elsif recipe_name = params[:recipe_name]
-      @recipes_count = @recipes.where("name LIKE ?","%"+ recipe_name + "%")
-      @recipes = @recipes.where("name LIKE ?","%"+ recipe_name + "%").page(params[:page]).per(10)
+      #OR検索+曖昧検索
+      @recipes = Recipe.joins(:tags).where("recipes.name LIKE ? OR tags.tag_name LIKE ?", "%#{params[:recipe_name]}%", "%#{params[:recipe_name]}%").distinct.page(params[:page]).per(10)
+      #uniqでrails=>rubyに変換
+      @recipes_count = @recipes.all
+    #なければ全て取り出す
     else
       @recipes_count = @recipes.all
       @recipes = @recipes.all.page(params[:page]).per(10)
@@ -78,7 +80,6 @@ class Public::RecipesController < ApplicationController
   def update
     @recipe = Recipe.find(params[:id])
     tag_list = params[:recipe][:tag_name].split(',')
-    # @recipe.update_tags(input_tags) # udpate_tagsはtopic.rbに記述している
     # ①下書きレシピの更新（公開）の場合
     if params[:publicize_draft]
       # レシピ公開時にバリデーションを実施、下書きはバリデーション必要なく
@@ -120,7 +121,6 @@ class Public::RecipesController < ApplicationController
        .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
-    # 下書き(is_draft: true)レシピ一覧表示
     @recipes = current_user.recipes.where(is_draft: true).order("recipes.created_at DESC")
     @recipes_count = @recipes.all
     @recipes = @recipes.all.page(params[:page]).per(10)
@@ -139,7 +139,7 @@ class Public::RecipesController < ApplicationController
     redirect_to user_path(current_user.id), notice: "レシピを全て削除しました。"
   end
 
-  #タグ検索がめん
+  #タグ検索結果
   def search_tag
     @keyword = tag_search_params[:keyword]
     @original_menus = OriginalMenu.joins(:recipes)
@@ -147,9 +147,8 @@ class Public::RecipesController < ApplicationController
        .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
-    #検索結果画面でもタグを１０件表示（最新順）
+
     @tag_list = Tag.limit(10).order("created_at DESC")
-    # @tag_list = Tag.all タグ全て表示にしていた
     #検索されたタグを受け取る
     @tag = Tag.find(params[:tag_id])
     #検索されたタグに紐づく投稿を表示
@@ -160,7 +159,6 @@ class Public::RecipesController < ApplicationController
   #タグ一覧
   def tag_index
     @keyword = tag_search_params[:keyword]
-    #
     if @keyword.present?
     @tag_list = Tag.search(@keyword)
                    .order("created_at DESC")
@@ -202,14 +200,7 @@ class Public::RecipesController < ApplicationController
       ingredients_attributes: [:id, :content, :quantity, :_destroy],
       procedures_attributes: [:id, :direction, :image, :_destroy] ,
       original_menu_attributes: [:name]
-      
+
     )
   end
-
-  # def tag_params # tagに関するストロングパラメータ
-  #     params.require(:recipe).permit(:tag_name)
-  # end
-
-
-
 end
