@@ -1,6 +1,6 @@
 class Public::RecipesController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_normal_user, only: [:new, :create, :edit, :update, :destroy]
+  # before_action :ensure_normal_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :is_matching_login_customer, only: [:edit, :update, :destroy]
 
   def new
@@ -8,6 +8,7 @@ class Public::RecipesController < ApplicationController
     @recipe.ingredients.build # 画面で使うための空の食材オブジェクト
     @recipe.procedures.build # 画面で使うための空のレシピ手順オブジェクト
     @original_menus = OriginalMenu.all
+    #original_menusデータを配列にしてjsonに変換
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
   end
 
@@ -180,12 +181,12 @@ class Public::RecipesController < ApplicationController
 
   private
 
-  def ensure_normal_user
-    @user = current_user
-    if @user.email == 'guest@example.com'
-      redirect_to root_path, alert: 'ゲストユーザーの新規投稿はできません。'
-    end
-  end
+  # def ensure_normal_user
+  #   @user = current_user
+  #   if @user.email == 'guest@example.com'
+  #     redirect_to root_path, alert: 'ゲストユーザーの新規投稿はできません。'
+  #   end
+  # end
 
   def is_matching_login_customer
     @recipe = Recipe.find(params[:id])

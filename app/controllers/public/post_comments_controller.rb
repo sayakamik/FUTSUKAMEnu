@@ -1,6 +1,6 @@
 class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_normal_user, only: [:create]
+  # before_action :ensure_normal_user, only: [:create]
 
   def index
   end
@@ -12,7 +12,6 @@ class Public::PostCommentsController < ApplicationController
     @post_comment.user_id = current_user.id
     @post_comment.save
     # app/views/post_comments/create.js.erbを参照する
-    # redirect_to recipe_path(params[:recipe_id])
   end
 
   def destroy
@@ -21,15 +20,15 @@ class Public::PostCommentsController < ApplicationController
     post_comment = @recipe.post_comments.find(params[:id])
     post_comment.destroy
     # app/views/post_comments/destroy.js.erbを参照する
-
   end
 
-  def ensure_normal_user
-    @user = current_user
-    if @user.email == 'guest@example.com'
-      redirect_to root_path, alert: 'ゲストユーザーのコメント投稿はできません。'
-    end
-  end
+
+  # def ensure_normal_user
+  #   @user = current_user
+  #   if @user.email == 'guest@example.com'
+  #     redirect_to root_path, alert: 'ゲストユーザーのコメント投稿はできません。'
+  #   end
+  # end
 
   private
 

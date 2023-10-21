@@ -36,6 +36,48 @@
                   } %>
             <div id="originalMenuList"></div>
             <%= f.hidden_field :original_menu_id, id: "originalMenuId", value: @recipe.original_menu_id %>
+           <!--1日目メニュー登録について-->
+            <script>
+              document.addEventListener('turbolinks:load', function() {
+                //きっかけがkeyup（指を離した）時に,以降コードを実行(すべての情報がe（引数）に入る
+                $("#originalMenuField").on("keyup", (e) => {
+                  // 変更できない変数:const JSON.perseでHTML文字情報をJSコードに変換(""がタグコードになったりするため)
+                  // .target:HTML部分を取得 dataset:dataタグ json:dataタグの右側（任意で命名）
+                  const data = JSON.parse(e.target.dataset.json)
+                  // HTMLの値（文字情報）を取得
+                  const target = e.target.value
+                  // 上記の情報で、条件が当てはまるものを選択(ruby:select)して表示
+                  const result = data.filter((o) =>
+                    o.name.includes(target) && target.length > 0
+                  )
+                  // $はjqueryのオブジェクト
+                  const originalMenuList = $("#originalMenuList")
+                  // 下層のタグを消す（JSは元の状態を記憶しておらず、引っ張った情報は自動で消えないため中の要素だけ空にする）
+                  originalMenuList.empty()
+                  // 配列に対しruby:eachで引数o
+                  result.forEach((o) => {
+                    // データを下に追加する``で改行、埋め込みが使用可能
+                    const appendData = originalMenuList.append(`
+                     <div class="badge badge-secondary" data-id=${o.id}>${o.name}</div>
+                    `)
+                    // JSは上書き更新できないため、過去の同じタグのeventをOFFにする（今回の場合は上記の）
+                    appendData.off();
+                    // appendDataにclickイベント追加
+                    appendData.on("click", (e) => {
+                      // タグ内の文字を取得
+                      const name = e.target.innerHTML
+                      // データからidを取得
+                      const id = e.target.dataset.id
+                      // 候補から選ばれた名前、idをフォームに入れる（idはhiddenfield)
+                      $("#originalMenuField").val(name)
+                      $("#originalMenuId").val(id)
+                      // 選んだら必要ないので削除
+                      originalMenuList.empty()
+                    })
+                  })
+                })
+              });
+            </script>
 
             <!--タグ-->
             <div class="form-group">
@@ -125,30 +167,3 @@
   </div>
 </div>
 
-<!--1日目レシピ本当はJS本体に記載して、編集画面とかに効かせたほうが良い。-->
-<script>
-  document.addEventListener('turbolinks:load', function() {
-    $("#originalMenuField").on("keyup", (e) => {
-      const data = JSON.parse(e.target.dataset.json)
-      const target = e.target.value
-      const result = data.filter((o) =>
-        o.name.includes(target) && target.length > 0
-      )
-      const originalMenuList = $("#originalMenuList")
-      originalMenuList.empty()
-      result.forEach((o) => {
-        const appendData = originalMenuList.append(`
-         <div class="badge badge-secondary" data-id=${o.id}>${o.name}</div>
-        `)
-        appendData.off();
-        appendData.on("click", (e) => {
-          const name = e.target.innerHTML
-          const id = e.target.dataset.id
-          $("#originalMenuField").val(name)
-          $("#originalMenuId").val(id)
-          originalMenuList.empty()
-        })
-      })
-    })
-  });
-</script>

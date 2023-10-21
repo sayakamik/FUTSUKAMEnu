@@ -3,9 +3,7 @@ class Recipe < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :ingredients, dependent: :destroy
-  # accepts_nested_attributes_forで子カラムを一緒に保存できるようになる。
-  # reject_if: :all_blankは、不要な空レコードの生成を防ぐ
-  # allow_destroy: trueは、関連する子レコードを簡単に削除
+  # reject_if: :all_blankは、不要な空レコードの生成を防ぐ。allow_destroy: trueは、関連する子レコードを簡単に削除
   accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   has_many :procedures, dependent: :destroy
   accepts_nested_attributes_for :procedures, reject_if: :all_blank, allow_destroy: true
@@ -72,7 +70,7 @@ class Recipe < ApplicationRecord
 
   private
 
-  #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認するため。
+  #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認、重複を避ける。
   def original_menu_create_check
     if original_menu_id.blank? && original_menu_name.present?
       original_menu = OriginalMenu.find_or_create_by(name: original_menu_name)
