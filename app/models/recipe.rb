@@ -77,5 +77,4 @@ class Recipe < ApplicationRecord
       self.original_menu_id = original_menu.id
     end
   end
-
 end

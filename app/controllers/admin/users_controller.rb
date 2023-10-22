@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  before_action :ensure_guest_user, only: [:edit, :update]
+
   def show
     @user = User.find(params[:id])
     @recipes = @user.recipes.where(is_draft: false).page(params[:page]).per(10)
@@ -20,6 +22,13 @@ class Admin::UsersController < ApplicationController
   end
 
   private
+
+  def ensure_guest_user
+    @user= User.find(params[:id])
+    if @user.email == 'guest@example.com'
+      redirect_to admin_user_path(@user.id), alert: 'ゲストユーザの編集はできません。'
+    end
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :is_deleted, :encrypted_password, :profile_image)
