@@ -13,8 +13,8 @@ user_data = [
   { email: "yae@example.com", name: "Yae", password: "yaechan", image: "sample-user1.jpg" },
   { email: "aki@example.com", name: "Aki", password: "akichan", image: "sample-user2.jpg" },
   { email: "natsu@example.com", name: "Natsu", password: "natsuchan", image: "sample-user3.jpg" },
-  { email: "fuyu@example.com", name: "Fuyu", password: "fuyuchan", image: "sample-user4.jpg" },
-  { email: "take@example.com", name: "Take", password: "takechan", image: "sample-user5.jpg" }
+  { email: "fuyu@example.com", name: "Fuyu", password: "fuyuchan"},
+  { email: "take@example.com", name: "Take", password: "takechan"}
 ]
 
 user_data.each do |data|
@@ -191,7 +191,7 @@ Recipe.find_or_create_by!(name: "焼きそば") do |recipe|
   recipe.original_menu_id = 5
 end
 
-[1, 3, 6].each do |tag_id|
+[1, 3, 7].each do |tag_id|
   RecipeTagRelation.find_or_create_by!(recipe_id: 5, tag_id: tag_id)
 end
 
