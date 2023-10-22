@@ -11,30 +11,34 @@
           <%= f.submit "検索",class: "btn btn-light custom-light" %>
         <% end %>
       </div>
-      
+
       <div class="row">
           <% if @keyword.present? %>
             <h4><%= "【#{@keyword}】の検索結果" %></h4>
           <% end %>
       </div>
       <div class="row">
-        <% @original_menus.each_slice(25) do |original_menus_batch| %>
-          <div class="col original-menu-list">
-            <% original_menus_batch.each do |original_menu| %>
-              <ul>
-                <!--クエリパラメータで1日目メニューidを指定-->
-                <li>
-                  <%= link_to recipes_path(original_menu_id: (original_menu.id)), class:"link" do %>
-                    <%= original_menu.name %>
-                  <% end %>
-                </li>
-              </ul>
-            <% end %>
+        <% if @original_menus.any? %>
+          <% @original_menus.each_slice(25) do |original_menus_batch| %>
+            <div class="col original-menu-list">
+              <% original_menus_batch.each do |original_menu| %>
+                <ul>
+                  <!--クエリパラメータで1日目メニューidを指定-->
+                  <li>
+                    <%= link_to recipes_path(original_menu_id: (original_menu.id)), class:"link" do %>
+                      <%= original_menu.name %>
+                    <% end %>
+                  </li>
+                </ul>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="d-flex justify-content-center mt-3 pagination">
+            <%= paginate @original_menus %>
           </div>
+        <% else %>
+          <p>指定の検索値を含む1日目メニューが見つかりませんでした</p>
         <% end %>
-        <div class="d-flex justify-content-center mt-3 pagination">
-          <%= paginate @original_menus %>
-        </div>
       </div>
     </div>
   </div>

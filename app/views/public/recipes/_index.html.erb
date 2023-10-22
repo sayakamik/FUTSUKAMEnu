@@ -6,21 +6,25 @@
 </style>
 
 <!--レシピ一覧-->
-<% recipes.each do |recipe| %>
-  <div class="row">
-    <div class="col py-1">
-      <table class="table table-hover">
-        <tr>
-          <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150), class: "rounded my-auto" %><% end %></td>
-          <td><h5><b><%= link_to recipe_path(recipe.id),class:"link" do %><%= recipe.name %><% end %></b></h5><br>
-            <%= recipe.original_menu.name %>のアレンジレシピ<br>
-            ❤<%= recipe.favorites.count %><br>
-            投稿者：<%= link_to user_path(recipe.user.id),class: "link" do %><b><%= recipe.user.name %></b><% end %>
-          </td>
-        </tr>
-      </table>
+<% if recipes.any? %>
+  <% recipes.each do |recipe| %>
+    <div class="row">
+      <div class="col py-1">
+        <table class="table table-hover">
+          <tr>
+            <td><%= link_to recipe_path(recipe.id) do %><%= image_tag recipe.get_menu_image(150,150), class: "rounded my-auto" %><% end %></td>
+            <td><h5><b><%= link_to recipe_path(recipe.id),class:"link" do %><%= recipe.name %><% end %></b></h5><br>
+              <%= recipe.original_menu.name %>のアレンジレシピ<br>
+              ❤<%= recipe.favorites.count %><br>
+              投稿者：<%= link_to user_path(recipe.user.id),class: "link" do %><b><%= recipe.user.name %></b><% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
+  <% end %>
+<% else %>
+  <p>指定の検索値ではレシピが見つかりませんでした。</p>
 <% end %>
 <!--おしまい-->
 

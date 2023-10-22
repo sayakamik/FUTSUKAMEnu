@@ -18,21 +18,25 @@
           <% end %>
         </div>
         <div class="row">
-        <% @tag_list.each_slice(25) do |tags_batch| %>
-          <div class="col original-menu-list">
-            <% tags_batch.each do |tag| %>
-              <ul>
-                <li>
-                  <i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id),class: "link" %>
-                  <%="(#{tag.recipes.count})" %>
-                </li>
-              </ul>
+          <% if @tag_list.any? %>
+            <% @tag_list.each_slice(25) do |tags_batch| %>
+              <div class="col original-menu-list">
+                <% tags_batch.each do |tag| %>
+                  <ul>
+                    <li>
+                      <i class="fa-sharp fa-solid fa-tag"></i><%=link_to tag.tag_name, recipes_search_tag_path(tag_id: tag.id),class: "link" %>
+                      <%="(#{tag.recipes.count})" %>
+                    </li>
+                  </ul>
+                <% end %>
+              </div>
             <% end %>
-          </div>
-        <% end %>
-          <div class="d-flex justify-content-center mt-3 pagination">
-            <%= paginate @tag_list %>
-          </div>
+              <div class="d-flex justify-content-center mt-3 pagination">
+                <%= paginate @tag_list %>
+              </div>
+          <% else %>
+            <p>申し訳ありません。タグが見つかりませんでした。</p>
+          <% end %>
         </div>
     </div>
   </div>
