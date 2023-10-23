@@ -184,7 +184,7 @@ end
 
 #焼きそば
 Recipe.find_or_create_by!(name: "焼きそば") do |recipe|
-  recipe.menu_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/シチュー.jpg"), filename:"シチュー.jpg")
+  recipe.menu_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/やきそば.jpg"), filename:"やきそば.jpg")
   recipe.name = "焼きそば"
   recipe.description = "野菜炒めのアレンジレシピです"
   recipe.user_id = 3
