@@ -32,7 +32,7 @@
 
             <!--タグ-->
             <div class="form-group">
-              <div class="cooking-title"><b>関連タグ</b></div>
+              <div class="cooking-title"><b>関連タグ(カンマ『,』で複数個登録できます)</b></div>
                 <section class="tag">
                     <%= f.text_field :tag_name, value: @tag_list, placeholder: "タグ", class: 'form-control recipe_tag_name' %>
                 </section>
@@ -61,7 +61,7 @@
       　　  </section>
 
         <!--手順フォーム（Javascript)-->
-        <div class="cooking-title"><b>作り方（必須）</b></div>
+        <div class="cooking-title"><b>作り方（必須）＊写真は必須ではありません。</b></div>
           <section class="procedure">
             　<!--作り方フォームの隠し要素テンプレート-->
               <div id="procedure-fields-template" style="display: none;">
