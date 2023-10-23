@@ -26,7 +26,7 @@ user_data.each do |data|
 end
 
 #1日目メニューoriginal_menu
-original_menu_names = ["肉じゃが", "豚キムチ", "ポテトサラダ", "ポトフ", "肉野菜炒め"]
+original_menu_names = ["肉じゃが", "豚キムチ", "ポテトサラダ", "ポトフ", "肉野菜炒め", "ひじきの煮物"]
 
 original_menu_names.each do |menu_name|
   OriginalMenu.find_or_create_by!(name: menu_name) do |original_menu|
@@ -34,7 +34,7 @@ original_menu_names.each do |menu_name|
 end
 
 #タグtag
-tag_names = ["簡単", "ご飯もの", "野菜", "おかず", "サラダ", "揚げ物", "麺類"]
+tag_names = ["簡単", "ご飯もの", "野菜", "おかず", "サラダ", "揚げ物", "麺類", "卵", "お弁当"]
 
 tag_names.each do |tag_name|
   Tag.find_or_create_by!(tag_name: tag_name)
@@ -205,6 +205,43 @@ procedures_data = [
   { direction: "肉野菜炒めをフライパンで火を通す。", recipe_id: 5},
   { direction: "肉野菜炒めが入ったフライパンの中に中華麺を入れて麺をほぐし、塩胡椒で下味をつけて炒める。", recipe_id: 5},
   { direction: "ソースを入れて全体に絡ますように炒め、味を整えたら完成です。", recipe_id: 5}
+]
+
+ingredients_data.each do |data|
+  ingredient = Ingredient.find_by(data.slice(:recipe_id, :content))
+  Ingredient.create!(data) unless ingredient
+end
+
+procedures_data.each do |data|
+  procedure = Procedure.find_by(data.slice(:recipe_id, :direction))
+  Procedure.create!(data) unless procedure
+end
+
+#ひじき入り卵焼き
+Recipe.find_or_create_by!(name: "ひじき入り卵焼き") do |recipe|
+  recipe.menu_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/卵焼き.jpg"), filename:"卵焼き.jpg")
+  recipe.name = "ひじき入り卵焼き"
+  recipe.description = "ひじきの煮物からのアレンジレシピ。お弁当にもおすすめです！"
+  recipe.user_id = 4
+  recipe.original_menu_id = 6
+end
+
+[1, 4, 8, 9].each do |tag_id|
+  RecipeTagRelation.find_or_create_by!(recipe_id: 6, tag_id: tag_id)
+end
+
+ingredients_data = [
+  { content: "ひじき", recipe_id: 6, quantity: "100g（お玉に１杯）" },
+  { content: "卵", recipe_id: 6, quantity: "2個" },
+  { content: "味付けが必要な場合白だし", recipe_id: 6, quantity: "小さじ1" },
+  { content: "油", recipe_id: 6, quantity: "適量" }
+]
+procedures_data = [
+  { direction: "卵を溶いてひじきとよく混ぜ合わせます。味付けは白だし(煮汁)を加えますが、ひじきが濃いめの味つけの場合は必要なし。 ", recipe_id: 6},
+  { direction: "油を引いたフライパンを熱し、卵液をお玉で１杯入れ、火が通り過ぎないうちにフライ返しで奥から手前に折りたたんでいく。 ", recipe_id: 6 },
+  { direction: "端までできたら卵をフライパンの奥に置き、再度卵を入れ、奥の卵焼きから手前に折りたたむ作業を卵液がなくなるまで繰り返す。",image: ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/卵過程.jpg"), filename: "卵過程.jpg"), recipe_id: 6},
+  { direction: "最後まで焼けたら形を整えて火を止め、まな板に移動させる。（予熱での火の通り過ぎを防ぐため） ", recipe_id: 6},
+  { direction: "粗熱が取れ、好きなサイズに切ったら完成！", recipe_id: 6}
 ]
 
 ingredients_data.each do |data|
