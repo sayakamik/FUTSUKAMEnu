@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :recipes, dependent: :destroy
 
+  validates :name, presence: true
+
   #ゲストユーザーログイン用
   def self.guest
     find_or_create_by!(email: 'guest@example.com', name: 'guest') do |user|
