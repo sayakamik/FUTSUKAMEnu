@@ -18,7 +18,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     # 下書きでないレシピ一覧表示
     @recipes = @user.recipes.where(is_draft: false)
-    @recipes_count = @recipes.all
+    @recipes_count = @recipes.count
     @recipes = @recipes.all.page(params[:page]).per(10)
     @all_ranks = Recipe.create_all_ranks
   end

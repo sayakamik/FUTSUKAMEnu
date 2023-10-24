@@ -288,3 +288,31 @@ procedures_data.each do |data|
   procedure = Procedure.find_by(data.slice(:recipe_id, :direction))
   Procedure.create!(data) unless procedure
 end
+
+#コメント
+comments_data = [
+  { user_id: 1, recipe_id: 3, comment: "とっても美味しかったです！" },
+  { user_id: 1, recipe_id: 6, comment: "簡単美味しい１品でした！" },
+  { user_id: 3, recipe_id: 3, comment: "家族みんな大好きなコロッケです。" },
+  { user_id: 2, recipe_id: 2, comment: "目玉焼きが最高でした！" },
+  { user_id: 5, recipe_id: 2, comment: "ハマってしまいました。。！" },
+  { user_id: 2, recipe_id: 6, comment: "お弁当に入れると子供も喜んでいました。" },
+  { user_id: 3, recipe_id: 4, comment: "寒い時期にポトフ→シチューは最高です！" },
+  { user_id: 3, recipe_id: 7, comment: "簡単で美味しかったです。" },
+  { user_id: 4, recipe_id: 3, comment: "チーズが最高です★" },
+  { user_id: 4, recipe_id: 1, comment: "一瞬でカレーが作れて最高です" },
+  { user_id: 5, recipe_id: 5, comment: "簡単にメインができて最高です" },
+  { user_id: 5, recipe_id: 3, comment: "アイデアにびっくりしましたが美味しかったです。" },
+  { user_id: 1, recipe_id: 5, comment: "ささっとできました！" },
+  { user_id: 2, recipe_id: 1, comment: "忙しい週は肉じゃが、カレーで2日分メニューが決まりました！" },
+  { user_id: 4, recipe_id: 4, comment: "簡単で最高でした" },
+  { user_id: 1, recipe_id: 7, comment: "美味しかったです。" }
+]
+
+comments_data.each do |comment_data|
+  PostComment.find_or_create_by!(
+    user_id: comment_data[:user_id],
+    recipe_id: comment_data[:recipe_id],
+    comment: comment_data[:comment]
+  )
+end

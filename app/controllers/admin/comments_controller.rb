@@ -3,7 +3,7 @@ class Admin::CommentsController < ApplicationController
     @comments = PostComment.all.page(params[:page])
                 .per(15)
                 .order("post_comments.created_at DESC")
-    @comments_count = @comments.all
+    @comments_count = PostComment
   end
 
   def destroy

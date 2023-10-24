@@ -16,7 +16,7 @@ class Public::FavoritesController < ApplicationController
     @recipe_ids = @favorites.pluck(:recipe_id) # お気に入りレシピのIDを取得
     # レシピを取得
     @recipes = Recipe.where(id: @recipe_ids, is_draft: false).page(params[:page]).per(10)
-    @recipes_count = @recipes.all
+    @recipes_count = Recipe.where(id: @recipe_ids, is_draft: false).count
   end
 
   def create

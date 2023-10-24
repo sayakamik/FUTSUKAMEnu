@@ -33,7 +33,7 @@
     <div class="col-md-8  my-4">
       <!--レシピ一覧-->
           <h2 class="title mb-3"><b>投稿一覧</b></h2>
-          <p>(全<%= @recipes_count.count %>件)</p>
+          <p>(全<%= @recipes_count %>件)</p>
       <%= render "admin/recipes/index", recipes: @recipes, user: @user %>
     </div>
   </div>

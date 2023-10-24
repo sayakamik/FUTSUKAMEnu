@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @recipes = @user.recipes.where(is_draft: false).page(params[:page]).per(10)
-    @recipes_count = @recipes.all
+    @recipes_count = @user.recipes.where(is_draft: false).count
   end
 
   def edit

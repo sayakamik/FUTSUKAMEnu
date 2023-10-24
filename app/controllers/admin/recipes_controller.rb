@@ -4,7 +4,7 @@ class Admin::RecipesController < ApplicationController
     @recipes = Recipe.where(is_draft: false)
                .page(params[:page]).per(10)
                .order("recipes.created_at DESC")
-    @recipes_count = @recipes.all
+    @recipes_count = Recipe.where(is_draft: false).count
   end
 
   def show

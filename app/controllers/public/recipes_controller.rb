@@ -49,17 +49,17 @@ class Public::RecipesController < ApplicationController
     #クエリパラメータ(original_menu_id)をとりだす
     if @original_menu_id = params[:original_menu_id]
       #original_menu_idが同じものを全てとりだす
-      @recipes_count = @recipes.where(original_menu_id: @original_menu_id)
+      @recipes_count = @recipes.where(original_menu_id: @original_menu_id).count
       @recipes = @recipes.where(original_menu_id: @original_menu_id).page(params[:page]).per(10)
     #検索
     elsif recipe_name = params[:recipe_name]
       #OR検索+曖昧検索
       @recipes = Recipe.joins(:tags).where("recipes.name LIKE ? OR tags.tag_name LIKE ?", "%#{params[:recipe_name]}%", "%#{params[:recipe_name]}%").distinct.page(params[:page]).per(10)
       #uniqでrails=>rubyに変換
-      @recipes_count = @recipes.all
+      @recipes_count = Recipe.joins(:tags).where("recipes.name LIKE ? OR tags.tag_name LIKE ?", "%#{params[:recipe_name]}%", "%#{params[:recipe_name]}%").distinct.count
     #なければ全て取り出す
     else
-      @recipes_count = @recipes.all
+      @recipes_count = @recipes.count
       @recipes = @recipes.all.page(params[:page]).per(10)
     end
   end
@@ -124,7 +124,7 @@ class Public::RecipesController < ApplicationController
        .order("recipes.created_at DESC")
        .limit(10)
     @recipes = current_user.recipes.where(is_draft: true).order("recipes.created_at DESC")
-    @recipes_count = @recipes.all
+    @recipes_count = @recipes.count
     @recipes = @recipes.all.page(params[:page]).per(10)
   end
 
@@ -155,7 +155,7 @@ class Public::RecipesController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     #検索されたタグに紐づく投稿を表示
     @recipes = @tag.recipes.page(params[:page]).per(10).order("recipes.created_at DESC")
-    @recipes_count = @recipes.all
+    @recipes_count = @tag.recipes.count
   end
 
   #タグ一覧

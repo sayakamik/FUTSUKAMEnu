@@ -9,7 +9,7 @@
     <div class="col-md-8 offset-md-1 ">
       <!--レシピ一覧タイトル-->
           <h2 class ="my-2"><i class="fa-solid fa-utensils"></i>&ensp;<%= @user.name %>'s kitchen&ensp;<i class="fa-solid fa-utensils"></i></h2>
-          <p>(全<%= @recipes_count.count %>件)</p>
+          <p>(全<%= @recipes_count %>件)</p>
 
       <!--自分のページの場合のみ全ての投稿を削除するボタン-->
           <% if @user == current_user %>
