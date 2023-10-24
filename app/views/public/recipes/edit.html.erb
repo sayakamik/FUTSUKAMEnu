@@ -10,7 +10,7 @@
         </ul>
       <% end %>
       <div class="row">
-        <h2 class="title"><strong>レシピ編集</strong></h2>
+        <h2 class="title"><b>レシピ編集</b></h2>
       </div>
 
       <%= form_with model: @recipe, local:true do |f| %>
@@ -19,8 +19,8 @@
            　<%= image_tag @recipe.get_menu_image(600, 400), class: "img-fluid rounded" %>
          　　 <%= f.file_field :menu_image, accept: 'image/*', size: 30 %>
           </div>
-          <div class="col-md-9 col-sm-12">
 
+          <div class="col-md-9 col-sm-12">
             <!--レシピ名、説明文-->
             <div class="cooking-title"><b>レシピについて</b></div>
               <%= f.text_field :name, autofocus: true, placeholder: "メニュー名(50文字以内)" , class: "form-control" %>&ensp;
@@ -40,6 +40,9 @@
           </div>
         </div>
 
+        <!--材料フォーム、手順フォーム（Javascript)-->
+        <%#= render 'ingredient_procedure', f: ingredient_field, f: procedure_field %>
+
         <!--材料フォーム（Javascript)-->
         <div class="cooking-title"><b>材料</b></div>
           <section class="ingredient-form">
@@ -50,6 +53,7 @@
                 <%= render 'ingredient_field', f: ingredient_field %>
               <% end %>
             </div>
+            <!--隠し要素テンプレート終わり-->
             <!--すでにデータベースに保存されているか、または新しくユーザーが追加した「材料」に関する情報を表示するためのフォーム-->
             <%= f.fields_for :ingredients do |ingredient_field| %>
               <%= render 'ingredient_field', f: ingredient_field %>

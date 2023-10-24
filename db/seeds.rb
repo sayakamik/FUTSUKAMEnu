@@ -92,13 +92,13 @@ ingredients_data = [
   { content: "ご飯（できれば冷ご飯）", recipe_id: 2, quantity: "適量" },
   { content: "ごま油", recipe_id: 2, quantity: "適量" },
   { content: "卵", recipe_id: 2, quantity: "1個/1人" },
-  { content: "青ネギ", recipe_id: 2, quantity: "適量" }
+  { content: "刻んだ海苔もしくは青ネギ", recipe_id: 2, quantity: "適量" }
 ]
 procedures_data = [
   { direction: "余った豚キムチを料理バサミで細かくする（包丁でも問題なし）", recipe_id: 2},
   { direction: "フライパンにごま油を入れ、水分が入らないように豚キムチを入れ、炒める。＊水分が入っても炒めて水分を切れば問題ないです。", recipe_id: 2 },
   { direction: "フライパンに冷やご飯を追加し、キムチとご飯を均等に混ぜて炒める。", recipe_id: 2},
-  { direction: "目玉焼きを作り、キムチ炒飯の上に目玉焼きと青ネギを刻んでのせれば完成！", recipe_id: 2}
+  { direction: "目玉焼きを作り、キムチ炒飯の上に目玉焼きと刻んだ海苔/青ネギを刻んでのせれば完成！", recipe_id: 2}
 ]
 
 ingredients_data.each do |data|

@@ -19,13 +19,14 @@ class Public::RecipesController < ApplicationController
     # tag_name パラメータを使用してタグを取得または作成
     tags = tag_list.map { |tag_name| Tag.find_or_create_by(tag_name: tag_name.strip) }
     @recipe.tags = tags
-    # 以下は既存のコード
+    # 投稿ボタンを押下した場合
     if params[:post]
       if @recipe.save(context: :publicize)
         redirect_to recipe_path(@recipe), notice: "レシピを投稿しました."
       else
         render :new, alert: "投稿に失敗しました.お手数ですが、入力内容をご確認のうえ再度お試しください."
       end
+    # 下書きボタンを押下した場合
     else
       if @recipe.update(is_draft: true)
         redirect_to recipes_draft_index_path, notice: "レシピを下書き保存しました."
