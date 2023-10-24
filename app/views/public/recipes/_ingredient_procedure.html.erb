@@ -1,17 +1,19 @@
+<!--エラーが起きた時分かりやすいようにf.をs.に変更。render元はk.s.-->
+
 <!--材料フォーム（Javascript)-->
 <div class="cooking-title"><b>材料</b></div>
   <section class="ingredient-form">
     <!-- 材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
     <div id="ingredient-fields-template" style="display: none;">
       <!-- 新しいIngredientオブジェクトを作成, 新たに追加されるフォームに一意なインデックスを付与 -->
-      <%= f.fields_for :ingredients, Ingredient.new, child_index: "new_ingredient" do |ingredient_field| %>
-        <%= render 'ingredient_field', f: ingredient_field %>
+      <%= s.fields_for :ingredients, Ingredient.new, child_index: "new_ingredient" do |ingredient_field| %>
+        <%= render 'public/recipes/ingredient_field', j: ingredient_field %>
       <% end %>
     </div>
     <!--隠し要素テンプレート終わり-->
     <!--すでにデータベースに保存されているか、または新しくユーザーが追加した「材料」に関する情報を表示するためのフォーム-->
-    <%= f.fields_for :ingredients do |ingredient_field| %>
-      <%= render 'ingredient_field', f: ingredient_field %>
+    <%= s.fields_for :ingredients do |ingredient_field| %>
+      <%= render 'public/recipes/ingredient_field', j: ingredient_field %>
     <% end %>
     <div id="ingredients"></div>
   　　<div>
@@ -25,20 +27,20 @@
     　<!--作り方フォームの隠し要素テンプレート-->
       <div id="procedure-fields-template" style="display: none;">
         <!--新しいRecipeStepオブジェクトを作成-->
-        <%= f.fields_for :procedures, Procedure.new, child_index: "new_procedure" do |procedure_field| %>
-          <%= render 'procedure_field', f: procedure_field %>
+        <%= s.fields_for :procedures, Procedure.new, child_index: "new_procedure" do |procedure_field| %>
+          <%= render 'public/recipes/procedure_field', k: procedure_field %>
         <% end %>
       </div>
       <!--すでにデータベースに存在するか、または新しく追加された「作り方」ステップを表示するフォーム-->
-      <%= f.fields_for :procedures do |procedure_field| %>
-        <%= render 'procedure_field', f: procedure_field %>
+      <%= s.fields_for :procedures do |procedure_field| %>
+        <%= render 'public/recipes/procedure_field', k: procedure_field %>
       <% end %>
       <div id="procedures"></div>
         <div>
            <button type="button" id="add-procedure" class="btn btn-light custom-add mb-4">作り方を追加</button>
         </div>
   </section>
-  
+
 <!--材料、手順のJavascript-->
 <script>
      // DOMContentLoaded文書のロード、DOMが完全に読み込まれた後に以下のコードが実行される

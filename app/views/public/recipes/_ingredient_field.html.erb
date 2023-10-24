@@ -1,14 +1,16 @@
+<!--エラーが起きた時に分かりやすいようにf.をj.に変更-->
+
 <div class="ingredient-fields row align-items-center">
   <!--編集の際データベースからも削除できるように-->
-    <%= f.hidden_field :_destroy %>
+    <%= j.hidden_field :_destroy %>
   <div class="col">
     <div class="form-group">
-      <%= f.text_field :content, placeholder: "材料名(必須)", class: 'form-control light-placeholder' %>
+      <%= j.text_field :content, placeholder: "材料名(必須)", class: 'form-control light-placeholder' %>
     </div>
   </div>
   <div class="col">
     <div class="form-group">
-      <%= f.text_field :quantity, placeholder: "分量(必須)", class: "form-control light-placeholder" %>
+      <%= j.text_field :quantity, placeholder: "分量(必須)", class: "form-control light-placeholder" %>
     </div>
   </div>
   <div class="col-auto">
