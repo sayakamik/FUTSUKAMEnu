@@ -56,12 +56,14 @@ end
 ingredients_data = [
   { content: "余った肉じゃが", recipe_id: 1, quantity: "必要な分" },
   { content: "水", recipe_id: 1, quantity: "適量" },
-  { content: "カレールー", recipe_id: 1, quantity: "適量" }
+  { content: "カレールー", recipe_id: 1, quantity: "適量" },
+  { content: "アレンジでグリーンピースやコーン", recipe_id: 1, quantity: "適量" }
 ]
 procedures_data = [
   { direction: "余った肉じゃがと水を鍋に入れ、中火で温める", recipe_id: 1},
   { direction: "温まったら火を止め、カレールーを入れて溶かす", recipe_id: 1 },
-  { direction: "濃さは水とカレールーで調整し、とろみがつくまで弱火で５分ほど煮込んだら完成！", recipe_id: 1}
+  { direction: "濃さは水とカレールーで調整し、とろみがつくまで弱火で５分ほど煮込んだら完成！", recipe_id: 1},
+  { direction: "アレンジで、グリーンピースやコーンを入れても美味しいです！", recipe_id: 1}
 ]
 
 ingredients_data.each do |data|
@@ -277,6 +279,43 @@ ingredients_data = [
 procedures_data = [
   { direction: "豆腐をキッチンペーパーで包み、レンジで２分ほどチンをし水分を切る。  ", recipe_id: 7},
   { direction: "豆腐とひじきを容器に入れ、豆腐を潰すように混ぜ、その中にすり白胡麻、塩、マヨネーズを加え混ぜたら完成！ ", recipe_id: 7 }
+]
+
+ingredients_data.each do |data|
+  ingredient = Ingredient.find_by(data.slice(:recipe_id, :content))
+  Ingredient.create!(data) unless ingredient
+end
+
+procedures_data.each do |data|
+  procedure = Procedure.find_by(data.slice(:recipe_id, :direction))
+  Procedure.create!(data) unless procedure
+end
+
+#豚キムチ焼きそば
+Recipe.find_or_create_by!(name: "豚キムチ焼きそば") do |recipe|
+  recipe.menu_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/豚キムチ焼きそば.jpg"), filename:"豚キムチ焼きそば.jpg")
+  recipe.name = "豚キムチ焼きそば"
+  recipe.description = "豚キムチのアレンジレシピ！"
+  recipe.user_id = 4
+  recipe.original_menu_id = 2
+end
+
+[1, 7].each do |tag_id|
+  RecipeTagRelation.find_or_create_by!(recipe_id: 8, tag_id: tag_id)
+end
+
+ingredients_data = [
+  { content: "余った豚キムチ", recipe_id: 8, quantity: "余った分" },
+  { content: "焼きそば用中華麺", recipe_id: 8, quantity: "必要な分" },
+  { content: "塩胡椒", recipe_id: 8, quantity: "適量" },
+  { content: "鶏ガラスープの素", recipe_id: 8, quantity: "少々" },
+  { content: "あれば温泉卵", recipe_id: 8, quantity: "1個/1人" },
+  { content: "青ネギ", recipe_id: 8, quantity: "適量" }
+]
+procedures_data = [
+  { direction: "余った豚キムチと、中華麺をフライパンに入れ、ほぐして全体が混ざるように炒める。", recipe_id: 8},
+  { direction: "味付けに塩胡椒を少々、鶏ガラスープの素を少しずつ入れて味を整える。", recipe_id: 8 },
+  { direction: "お皿に盛り付け、仕上げに温泉卵と青ねぎを振りかけるとより美味しくなります！ ", recipe_id: 8 }
 ]
 
 ingredients_data.each do |data|
