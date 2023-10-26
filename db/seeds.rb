@@ -355,3 +355,16 @@ comments_data.each do |comment_data|
     comment: comment_data[:comment]
   )
 end
+
+#いいねをランダムに！
+users = User.all
+recipes = Recipe.where(is_draft: false)
+users.each do |user|
+  favorite_recipes = recipes.sample(rand(1..4))
+  favorite_recipes.each do |recipe|
+    Favorite.find_or_create_by!(
+      user_id: user.id,
+      recipe_id: recipe.id
+    )
+  end
+end

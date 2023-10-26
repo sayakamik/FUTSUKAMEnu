@@ -48,7 +48,8 @@ class Recipe < ApplicationRecord
       '下書き'
     end
   end
-
+  
+  #お気に入り
   def favorited_by?(user)
     user.present? && favorites.exists?(user_id: user.id)
   end
@@ -70,7 +71,7 @@ class Recipe < ApplicationRecord
 
   private
 
-  #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認、重複を避ける。
+  #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認、重複を避けて保存。
   def original_menu_create_check
     if original_menu_id.blank? && original_menu_name.present?
       original_menu = OriginalMenu.find_or_create_by(name: original_menu_name)
