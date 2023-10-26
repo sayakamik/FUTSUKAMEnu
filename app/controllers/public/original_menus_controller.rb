@@ -13,7 +13,7 @@ class Public::OriginalMenusController < ApplicationController
       @original_menus = OriginalMenu.joins(:recipes)
         .where(recipes: { is_draft: false })
         .order("original_menus.created_at DESC")
-        .select('DISTINCT original_menus.*') #重複を避ける.uniqはここでは使えなかった。
+        .select('DISTINCT original_menus.*') #重複を避ける
         .page(params[:page]).per(50)
     end
   end

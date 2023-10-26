@@ -34,7 +34,7 @@ original_menu_names.each do |menu_name|
 end
 
 #タグtag
-tag_names = ["簡単", "ご飯もの", "野菜", "おかず", "サラダ", "揚げ物", "麺類", "卵", "お弁当"]
+tag_names = ["簡単", "ご飯もの", "野菜", "おかず", "サラダ", "揚げ物", "麺類", "卵", "お弁当","キムチ"]
 
 tag_names.each do |tag_name|
   Tag.find_or_create_by!(tag_name: tag_name)
@@ -85,7 +85,7 @@ Recipe.find_or_create_by!(name: "キムチチャーハン") do |recipe|
   recipe.original_menu_id = 2
 end
 
-[1, 2].each do |tag_id|
+[1, 2, 10].each do |tag_id|
   RecipeTagRelation.find_or_create_by!(recipe_id: 2, tag_id: tag_id)
 end
 
@@ -300,7 +300,7 @@ Recipe.find_or_create_by!(name: "豚キムチ焼きそば") do |recipe|
   recipe.original_menu_id = 2
 end
 
-[1, 7].each do |tag_id|
+[1, 7, 10].each do |tag_id|
   RecipeTagRelation.find_or_create_by!(recipe_id: 8, tag_id: tag_id)
 end
 

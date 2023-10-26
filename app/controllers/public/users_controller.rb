@@ -9,10 +9,10 @@ class Public::UsersController < ApplicationController
   def show
     #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
-       .where(recipes: { is_draft: false }) # 公開されたレシピのみを選択
+       .where(recipes: { is_draft: false })
        .select('DISTINCT original_menus.*')
-       .order("recipes.created_at DESC")    # レシピの作成日時で降順にソート
-       .limit(10)                          # 上位10件を取得
+       .order("recipes.created_at DESC")
+       .limit(10)
        .page(params[:page]).per(10)
 
     @user = User.find(params[:id])
