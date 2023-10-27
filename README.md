@@ -18,23 +18,32 @@
 * 毎日忙しい中食事を準備されていて、あらかじめ2日分の料理を考えておきたい人
 ​
 ### 主な利用シーン
-<!--どのような時に使うのかの状況を記載すること-->
 * 昨日のご飯が余って今日も同じメニューになりそうだが、味を変えたい。というような時
 * 今日のご飯何にしよう。ついでに明日のレシピも考えよう。というような時
 
+### 会員ページのログイン方法
+* ゲストユーザーログインが可能です。
+
+### 管理者ページのログイン方法（admin/sign_in)
+* URLの.comの後に /admin/sign_in を入力してください。
+* 管理者ページのログインに必要なメールアドレス及びパスワードは下記の通りです。
+
+ メールアドレス：futsuka@menu
+
+ パスワード: futsukameadmin
+
 ## 設計書
-* 要件定義書：https://docs.google.com/document/d/1-_EPjN-IOxGTdKFi9-D_HK1LKfSoOdDcDWuGsGCnJ8U/edit?usp=sharing
-* ワイヤーフレーム：https://drive.google.com/file/d/1sUmk4OCPQjU4cHEhy3tKMyblOzl9ecyD/view?usp=sharing
-* ER図：https://drive.google.com/file/d/1TG745kw90msh60-hgDyvXB9OAuLAXxUV/view?usp=sharing
-* 画面遷移図：https://drive.google.com/file/d/1Y1oWpzeXobHYL8PfZdkzcjw3JlMVQF82/view?usp=sharing
-* テーブル定義書：https://docs.google.com/spreadsheets/d/1ruHm1lddbIN0O5xQyrNysMcnXbQXZiz7/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true
-* アプリケーション詳細設計：https://docs.google.com/spreadsheets/d/1jHHFEwJCaq_SjTFFvWPImOL_TEt4E4PwHooO7aVoYng/edit?usp=sharing
-* WBS:https://docs.google.com/spreadsheets/d/1aieHMrEDtihKsZx7V4HqSna12v9cAca_cdJQM7I-zeQ/edit?usp=sharing
-* 実装機能リスト：https://docs.google.com/spreadsheets/d/1s01GS7An68ec_ctYBz_LQbZma9_U3X4QLY4Yt4tUx8I/edit?usp=sharing
-* テスト仕様書：https://docs.google.com/spreadsheets/d/1IIrgy6DPMi2hxzJx_YiQ9b-LcIdrrzqv/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true
+* [実装機能リスト](https://docs.google.com/spreadsheets/d/1s01GS7An68ec_ctYBz_LQbZma9_U3X4QLY4Yt4tUx8I/edit?usp=sharing)
+* [ワイヤーフレーム](https://drive.google.com/file/d/1sUmk4OCPQjU4cHEhy3tKMyblOzl9ecyD/view?usp=sharing)
+* [ER図](https://drive.google.com/file/d/1TG745kw90msh60-hgDyvXB9OAuLAXxUV/view?usp=sharing)
+* [画面遷移図](https://drive.google.com/file/d/1Y1oWpzeXobHYL8PfZdkzcjw3JlMVQF82/view?usp=sharing)
+* [テーブル定義書](https://docs.google.com/spreadsheets/d/1ruHm1lddbIN0O5xQyrNysMcnXbQXZiz7/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true)
+* [アプリケーション詳細設計](https://docs.google.com/spreadsheets/d/1jHHFEwJCaq_SjTFFvWPImOL_TEt4E4PwHooO7aVoYng/edit?usp=sharing)
+* [WBS](https://docs.google.com/spreadsheets/d/1aieHMrEDtihKsZx7V4HqSna12v9cAca_cdJQM7I-zeQ/edit?usp=sharing)
+* [テスト仕様書](https://docs.google.com/spreadsheets/d/1IIrgy6DPMi2hxzJx_YiQ9b-LcIdrrzqv/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true)
 
 ## 開発環境
-- OS：Linux(CentOS)
+- OS：macOS Sonoma 14.0（23A344）
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
