@@ -23,8 +23,16 @@
 * 今日のご飯何にしよう。ついでに明日のレシピも考えよう。というような時
 
 ## 設計書
-<!--テーマを設定・提出する時点では不要です-->
-​後ほど作成予定
+* 要件定義書：https://docs.google.com/document/d/1-_EPjN-IOxGTdKFi9-D_HK1LKfSoOdDcDWuGsGCnJ8U/edit?usp=sharing
+* ワイヤーフレーム：https://drive.google.com/file/d/1sUmk4OCPQjU4cHEhy3tKMyblOzl9ecyD/view?usp=sharing
+* ER図：https://drive.google.com/file/d/1TG745kw90msh60-hgDyvXB9OAuLAXxUV/view?usp=sharing
+* 画面遷移図：https://drive.google.com/file/d/1Y1oWpzeXobHYL8PfZdkzcjw3JlMVQF82/view?usp=sharing
+* テーブル定義書：https://docs.google.com/spreadsheets/d/1ruHm1lddbIN0O5xQyrNysMcnXbQXZiz7/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true
+* アプリケーション詳細設計：https://docs.google.com/spreadsheets/d/1jHHFEwJCaq_SjTFFvWPImOL_TEt4E4PwHooO7aVoYng/edit?usp=sharing
+* WBS:https://docs.google.com/spreadsheets/d/1aieHMrEDtihKsZx7V4HqSna12v9cAca_cdJQM7I-zeQ/edit?usp=sharing
+* 実装機能リスト：https://docs.google.com/spreadsheets/d/1s01GS7An68ec_ctYBz_LQbZma9_U3X4QLY4Yt4tUx8I/edit?usp=sharing
+* テスト仕様書：https://docs.google.com/spreadsheets/d/1IIrgy6DPMi2hxzJx_YiQ9b-LcIdrrzqv/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true
+
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
@@ -33,4 +41,5 @@
 - IDE：Cloud9
 ​
 ## 使用素材
- 後ほど作成予定
+* Canva: 無料ロゴ作成ツール
+* https://free-materials.com/tag/%E3%82%B7%E3%83%81%E3%83%A5%E3%83%BC/
