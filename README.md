@@ -1,6 +1,7 @@
 # FUTSUKAMEnu
 <!--ここにアプリ名を入力-->
-​
+​![ウェブサイトデザイン](app/assets/images/website.png)
+
 ## サイト概要
 ### サイトテーマ
 <!--何を『目的』とし、どのような『分類』なのかを簡潔に書く-->
@@ -43,7 +44,7 @@
 * [テスト仕様書](https://docs.google.com/spreadsheets/d/1IIrgy6DPMi2hxzJx_YiQ9b-LcIdrrzqv/edit?usp=sharing&ouid=113077300798200338603&rtpof=true&sd=true)
 
 ## 開発環境
-- OS：macOS Sonoma 14.0（23A344）
+- OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
 - フレームワーク：Ruby on Rails
 - JSライブラリ：jQuery
