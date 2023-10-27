@@ -48,7 +48,7 @@ class Recipe < ApplicationRecord
       '下書き'
     end
   end
-  
+
   #お気に入り
   def favorited_by?(user)
     user.present? && favorites.exists?(user_id: user.id)
