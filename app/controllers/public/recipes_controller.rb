@@ -21,6 +21,7 @@ class Public::RecipesController < ApplicationController
     @recipe.tags = tags
     # 投稿ボタンを押下した場合
     if params[:post]
+      #バリデーションをある状況では実行して、ある状況では実行しないcontext::
       if @recipe.save(context: :publicize)
         redirect_to recipe_path(@recipe), notice: "レシピを投稿しました."
       else
@@ -37,14 +38,12 @@ class Public::RecipesController < ApplicationController
   end
 
   def index
-    #1日目メニュー一覧表示
     @original_menus = OriginalMenu.joins(:recipes)
        .where(recipes: { is_draft: false })
        .select('DISTINCT original_menus.*')
        .order("recipes.created_at DESC")
        .limit(10)
     @all_ranks = Recipe.create_all_ranks
-    # 下書きでないレシピ一覧を最新から表示
     @recipes = Recipe.where(is_draft: false).order("recipes.created_at DESC")
     #クエリパラメータ(original_menu_id)をとりだす
     if @original_menu_id = params[:original_menu_id]
@@ -53,7 +52,7 @@ class Public::RecipesController < ApplicationController
       @recipes = @recipes.where(original_menu_id: @original_menu_id).page(params[:page]).per(10)
     #検索
     elsif recipe_name = params[:recipe_name]
-      #OR検索+曖昧検索
+      #OR検索+曖昧検索（タグ＆レシピ名から検索）
       @recipes = Recipe.joins(:tags).where("recipes.name LIKE ? OR tags.tag_name LIKE ?", "%#{params[:recipe_name]}%", "%#{params[:recipe_name]}%").distinct.page(params[:page]).per(10)
       #uniqでrails=>rubyに変換
       @recipes_count = Recipe.joins(:tags).where("recipes.name LIKE ? OR tags.tag_name LIKE ?", "%#{params[:recipe_name]}%", "%#{params[:recipe_name]}%").distinct.count
