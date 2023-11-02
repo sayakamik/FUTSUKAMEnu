@@ -1,14 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-11">
-      <% if @recipe.errors.any? %>
-        <%= @recipe.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @recipe.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
+      <%= render 'layouts/errors', obj: @recipe %>
+
       <div class="row">
         <h2 class="title"><b>レシピ編集</b></h2>
       </div>
