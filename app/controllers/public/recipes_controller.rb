@@ -72,14 +72,12 @@ class Public::RecipesController < ApplicationController
   end
 
   def edit
-    @recipe = Recipe.find(params[:id])
     @original_menus = OriginalMenu.all
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
     @tag_list = @recipe.tags.pluck(:tag_name).join(',')
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
     tag_list = params[:recipe][:tag_name].split(',')
     # ①下書きレシピの更新（公開）の場合
     if params[:publicize_draft]
@@ -128,7 +126,6 @@ class Public::RecipesController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
     @recipe.destroy
     redirect_to user_path(current_user.id), notice: "レシピを削除しました。"
   end
