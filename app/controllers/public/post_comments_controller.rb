@@ -12,7 +12,10 @@ class Public::PostCommentsController < ApplicationController
     @post_comment = PostComment.new(post_comment_params)
     @post_comment.recipe_id = @recipe.id
     @post_comment.user_id = current_user.id
-    @post_comment.save
+    unless @post_comment.save
+      #comments/error.js.erbを呼び出し
+      render 'error'
+    end
     # app/views/post_comments/create.js.erbを参照する
   end
 
