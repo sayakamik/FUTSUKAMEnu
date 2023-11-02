@@ -1,6 +1,9 @@
 class Public::FavoritesController < ApplicationController
   before_action :authenticate_user!
   # before_action :ensure_normal_user, only: [:create]
+  before_action :set_recipe, only: [:create, :destroy]
+  #検証ツール編集し複数回お気に入り登録を防ぐため
+  before_action :check_favorite, only: [:create]
 
   def index
     #1日目メニュー一覧表示
@@ -20,24 +23,34 @@ class Public::FavoritesController < ApplicationController
   end
 
   def create
-    @recipe = Recipe.find(params[:recipe_id])
     favorite = @recipe.favorites.new(user_id: current_user.id)
     favorite.save
     # app/views/public/favorites/create.js.erbを参照する
   end
 
   def destroy
-    @recipe = Recipe.find(params[:recipe_id])
     favorite = @recipe.favorites.find_by(user_id: current_user.id)
     favorite.destroy
     # app/views/public/favorites/destroy.js.erbを参照する
   end
 
+  private
   # def ensure_normal_user
   #   @user = current_user
   #   if @user.email == 'guest@example.com'
   #     redirect_to root_path, alert: 'ゲストユーザーのお気に入り登録はできません。'
   #   end
   # end
+
+  def set_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+  end
+
+  def check_favorite
+    if current_user.favorites.exists?(recipe_id: @recipe.id)
+      flash[:notice] = "すでにお気に入り登録済みです"
+      redirect_to recipe_path(@recipe)
+    end
+  end
 
 end
