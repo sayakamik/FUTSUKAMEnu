@@ -1,6 +1,8 @@
 class Public::PostCommentsController < ApplicationController
   before_action :authenticate_user!
   # before_action :ensure_normal_user, only: [:create]
+  #検証ツールからのリンク書き換え、コメント削除を防ぐため
+  before_action :is_matching_login_customer, only: [:destroy]
 
   def index
   end
@@ -31,6 +33,14 @@ class Public::PostCommentsController < ApplicationController
   # end
 
   private
+
+  def is_matching_login_customer
+    @recipe = Recipe.where(is_draft: false).find(params[:recipe_id])
+    @post_comment = PostComment.find(params[:id])
+    unless @post_comment.user.id == current_user.id || @post_comment.recipe.user.id == current_user.id
+      redirect_to root_path
+    end
+  end
 
   def post_comment_params
     params.require(:post_comment).permit(:comment)
