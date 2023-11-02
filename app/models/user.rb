@@ -36,5 +36,9 @@ class User < ApplicationRecord
       '退会'
     end
   end
+  #管理者側で退会させた場合、会員側でログイン済みでも機能を使えなくする
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
 
 end
