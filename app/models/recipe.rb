@@ -40,6 +40,7 @@ class Recipe < ApplicationRecord
       menu_image.variant(resize_to_limit: [width, height]).processed
   end
 
+
   #レシピ公開・下書き時のステータス処理
   def is_draft_text
     if self.is_draft == false
@@ -58,20 +59,26 @@ class Recipe < ApplicationRecord
     current_tags = self.tags.pluck(:tag_name) unless self.tags.nil? # タグが存在していれば、タグの名前を配列として全て取得
     old_tags = current_tags - tags # 現在取得したタグから、送られてきたタグを除く
     new_tags = tags - current_tags # 送信されてきたタグから、現在存在するタグを除く
+
     # 古いタグを消す
     old_tags.each do |old_name|
      self.tags.delete(Tag.find_by(tag_name: old_name)) #中間テーブル削除。パラメータがTag.
     end
-    # 新しいタグを保存する
+    # 新しいタグを整形して保存する{空白文字を半角スペースに置換し、前後の半角スペースを削除}
+    new_tags = new_tags.map { |tag_name| tag_name.gsub(/[[:space:]]/, ' ').strip }.reject(&:empty?)
     new_tags.each do |new_name|
-     tag = Tag.find_or_create_by(tag_name: new_name)
-     self.tags << tag
+      tag = Tag.find_by(tag_name: new_name)
+      if tag.nil?
+        # タグが存在しない場合、新しいタグを作成
+        tag = Tag.create(tag_name: new_name)
+      end
+      self.tags << tag
     end
   end
 
   private
 
-  #1日目レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認、重複を避けて保存。
+  #レシピ投稿時のscriptではチェックできない部分を、バリデーション前に確認、重複を避けて保存。
   def original_menu_create_check
     if original_menu_id.blank? && original_menu_name.present?
       original_menu = OriginalMenu.find_or_create_by(name: original_menu_name)

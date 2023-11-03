@@ -16,8 +16,8 @@ class Public::RecipesController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id
     tag_list = params[:recipe][:tag_name].split(',')
-    # tag_name パラメータを使用してタグを取得または作成
-    tags = tag_list.map { |tag_name| Tag.find_or_create_by(tag_name: tag_name.strip) }
+    # tag_name パラメータを使用してタグを取得または作成（空白文字は半角スペースに変更し、前後の半角スペースを削除）
+    tags = tag_list.map { |tag_name| Tag.find_or_create_by(tag_name: tag_name.to_s.gsub(/[[:space:]]/, ' ').strip) }
     @recipe.tags = tags
     # 投稿ボタンを押下した場合
     if params[:post]
