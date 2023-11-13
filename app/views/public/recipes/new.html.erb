@@ -10,8 +10,8 @@
       <%= form_with model: @recipe, local:true do |f| %>
         <div class="form-group row">
           <div class="col-md-3">
-         　　 <%= image_tag 'no_image.jpg', alt: 'Image', class: "img-fluid", width: 300, height: 'auto' %>
-         　　 <%= f.file_field :menu_image, accept: 'image/*', size: 30 %>
+            <%= image_tag 'no_image.jpg', alt: 'Image', class: "img-fluid", width: 300, height: 'auto' %>
+            <%= f.file_field :menu_image, accept: 'image/*', size: 30 %>
           </div>
 
           <div class="col-md-9 col-sm-12">

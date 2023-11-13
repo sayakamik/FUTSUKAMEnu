@@ -3,7 +3,7 @@
 <!--材料フォーム（Javascript)-->
 <div class="cooking-title"><b>材料</b></div>
   <section class="ingredient-form">
-    <!-- 材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
+    <!-- JS用材料、分量フォームの隠し要素テンプレート、display: noneを指定しているため表示はされない -->
     <div id="ingredient-fields-template" style="display: none;">
       <!-- 新しいIngredientオブジェクトを作成, 新たに追加されるフォームに一意なインデックスを付与 -->
       <%= s.fields_for :ingredients, Ingredient.new, child_index: "new_ingredient" do |ingredient_field| %>
@@ -16,15 +16,15 @@
       <%= render 'public/recipes/ingredient_field', j: ingredient_field %>
     <% end %>
     <div id="ingredients"></div>
-  　　<div>
+      <div>
         <button type="button" id="add-ingredient" class="btn btn-light custom-add">材料を追加</button>
       </div>
-　</section>
+  </section>
 
 <!--手順フォーム（Javascript)-->
 <div class="cooking-title"><b>作り方（必須）＊写真は必須ではありません。</div>
   <section class="procedure">
-    　<!--作り方フォームの隠し要素テンプレート-->
+      <!--作り方フォームの隠し要素テンプレート-->
       <div id="procedure-fields-template" style="display: none;">
         <!--新しいRecipeStepオブジェクトを作成-->
         <%= s.fields_for :procedures, Procedure.new, child_index: "new_procedure" do |procedure_field| %>
@@ -52,7 +52,7 @@
         var uniqueId = new Date().getTime();
         // replace: テンプレート内のプレースホルダーを一意なIDで置き換え
         content = content.replace(/new_ingredient/g, uniqueId);
-        // 新しい材料フォームをDOMに追加
+        // 新しい材料フォームをingrediantsというIDを持つ要素の最後に(DOMに)追加
         document.getElementById("ingredients").insertAdjacentHTML('beforeend', content);
       });
     });
