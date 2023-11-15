@@ -2,7 +2,7 @@ class Public::RecipesController < ApplicationController
   before_action :authenticate_user!
   # before_action :ensure_normal_user, only: [:new, :create, :edit, :update, :destroy]
   before_action :is_matching_login_customer, only: [:edit, :update, :destroy]
-
+  
   def new
     @recipe = Recipe.new
     @recipe.ingredients.build # 画面で使うための空の食材オブジェクト
@@ -11,7 +11,7 @@ class Public::RecipesController < ApplicationController
     #original_menusデータを配列にしてjsonに変換
     @original_menus_json = @original_menus.map{|o| { id: o.id, name: o.name } }.to_json
   end
-
+  
   def create
     @recipe = Recipe.new(recipe_params)
     @recipe.user_id = current_user.id

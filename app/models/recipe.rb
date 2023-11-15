@@ -3,7 +3,7 @@ class Recipe < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :ingredients, dependent: :destroy
-  # reject_if: :all_blankは、不要な空レコードの生成を防ぐ。allow_destroy: trueは、関連する子レコードを簡単に削除
+  # 子モデルを直接操作するため。reject_if: :all_blankは、不要な空レコードの生成を防ぐ。allow_destroy: trueは、関連する子レコードを簡単に削除
   accepts_nested_attributes_for :ingredients, reject_if: :all_blank, allow_destroy: true
   has_many :procedures, dependent: :destroy
   accepts_nested_attributes_for :procedures, reject_if: :all_blank, allow_destroy: true
@@ -12,8 +12,8 @@ class Recipe < ApplicationRecord
   has_many :tags, through: :recipe_tag_relations
 
   belongs_to :original_menu #belongs_to で自動的にバリデーション。optional:trueでバリデーションなしも可能。
-  attribute :original_menu_name
-  attribute :tag_name #モデルにカラムとしてないものを属性として仮想的に定義してrecipeから取れるように
+  attribute :original_menu_name #モデルにカラムとしてないものを属性として仮想的に定義してrecipeから取れるように。
+  attribute :tag_name #モデルにカラムとしてないものを属性として仮想的に定義してrecipeから取れるように。
 
   before_validation :original_menu_create_check
 
